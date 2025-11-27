@@ -82,6 +82,18 @@
             background: #cbd5e1;
             border-radius: 4px;
         }
+        
+        /* Link Styling in Details */
+        .details-link {
+            color: #00A3E0;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .details-link:hover {
+            color: #0F4C81;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -305,7 +317,7 @@
                             <h3 class="text-lg font-bold text-gray-800">The Westin Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4">950 Dixon Road, Toronto, ON M9W 5N4</p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/WestinTorontoAirport" target="_blank" class="details-link">950 Dixon Road, Toronto</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -330,7 +342,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Airbnb: Pietermaai</h3>
                             <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 1</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4">"Spacious & Fabulous Apt", Willemstad</p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/PietermaaiDistrict" target="_blank" class="details-link">"Spacious & Fabulous Apt", Willemstad</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Zeitraum</span>
@@ -355,7 +367,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Airbnb: Grote Berg</h3>
                             <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 2</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4">Villa in Grote Berg, Curacao</p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/GroteBergCuracao" target="_blank" class="details-link">Villa in Grote Berg, Curacao</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Zeitraum</span>
@@ -378,7 +390,7 @@
                     <div class="absolute top-0 right-0 bg-gyg text-white text-xs px-2 py-1 rounded-bl">Ausflug</div>
                     <div class="p-5">
                         <h3 class="text-lg font-bold text-gray-800 mb-1">Klein Curacao Katamaran</h3>
-                        <p class="text-sm text-gray-500 mb-4">Treffpunkt: Brakkeput Ariba 62, Willemstad</p>
+                        <p class="text-sm text-gray-500 mb-4">Treffpunkt: <a href="https://goo.gl/maps/BrakkeputAriba62" target="_blank" class="details-link">Brakkeput Ariba 62, Willemstad</a></p>
                         <div class="bg-orange-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Datum & Zeit</span>
@@ -404,7 +416,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Delta Hotels Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4">655 Dixon Road, Toronto, ON M9W 1J3</p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/DeltaTorontoAirport" target="_blank" class="details-link">655 Dixon Road, Toronto</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -430,15 +442,18 @@
             <div class="flex flex-col md:flex-row justify-between items-center border-b pb-4">
                 <div>
                     <h2 class="text-3xl font-bold font-display text-gray-800">Detaillierter Reiseplan</h2>
-                    <p class="text-gray-500 mt-1">Wähle eine Phase, um die Details zu sehen.</p>
+                    <p class="text-gray-500 mt-1">Filtere nach Aktivität oder Phase.</p>
                 </div>
                 
                 <!-- Filters -->
-                <div class="mt-4 md:mt-0 flex space-x-2 bg-gray-100 p-1 rounded-lg">
-                    <button onclick="filterItinerary('all')" id="btn-all" class="filter-btn px-4 py-2 rounded-md text-sm font-medium bg-white text-curacao shadow-sm transition">Alle</button>
-                    <button onclick="filterItinerary('city')" id="btn-city" class="filter-btn px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition">Woche 1: Stadt</button>
-                    <button onclick="filterItinerary('beach')" id="btn-beach" class="filter-btn px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition">Woche 2: Strand</button>
-                    <button onclick="filterItinerary('toronto')" id="btn-toronto" class="filter-btn px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition">Toronto</button>
+                <div class="mt-4 md:mt-0 flex flex-wrap gap-2 justify-end">
+                    <button onclick="filterItinerary('all')" id="btn-all" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-curacao text-white shadow-sm transition">Alle</button>
+                    <button onclick="filterItinerary('beach')" id="btn-beach" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">🏖️ Strand & Relax</button>
+                    <button onclick="filterItinerary('city')" id="btn-city" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-sunset hover:text-sunset transition">🏙️ Stadt & Kultur</button>
+                    <button onclick="filterItinerary('nature')" id="btn-nature" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-palm hover:text-palm transition">🦎 Natur</button>
+                    <div class="w-full md:w-auto md:border-l md:pl-2 flex gap-2">
+                         <button onclick="filterItinerary('toronto')" id="btn-toronto" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:bg-gray-50 transition">🍁 Toronto</button>
+                    </div>
                 </div>
             </div>
 
@@ -469,15 +484,15 @@
                         </div>
                         <ul class="space-y-4">
                             <li class="border-b pb-2">
-                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="font-bold text-curacao hover:underline">Plasa Bieu (Markthalle)</a>
+                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="details-link">Plasa Bieu (Markthalle)</a>
                                 <p class="text-sm text-gray-600">Mittagessen wie die Locals. Probier "Karni Stoba".</p>
                             </li>
                             <li class="border-b pb-2">
-                                <a href="https://goo.gl/maps/KomedorKrioyo" target="_blank" class="font-bold text-curacao hover:underline">Komedor Krioyo</a>
+                                <a href="https://goo.gl/maps/KomedorKrioyo" target="_blank" class="details-link">Komedor Krioyo</a>
                                 <p class="text-sm text-gray-600">Landhaus-Flair, riesige Portionen. Perfekt auf dem Weg nach Westpunt.</p>
                             </li>
                             <li>
-                                <a href="https://goo.gl/maps/Jaanchies" target="_blank" class="font-bold text-curacao hover:underline">Jaanchie’s</a>
+                                <a href="https://goo.gl/maps/Jaanchies" target="_blank" class="details-link">Jaanchie’s</a>
                                 <p class="text-sm text-gray-600">Kult-Status in Westpunt. Mutige essen Leguan-Suppe.</p>
                             </li>
                         </ul>
@@ -496,15 +511,15 @@
                         </div>
                         <ul class="space-y-4">
                             <li class="border-b pb-2">
-                                <a href="https://www.facebook.com/piscaderanoreservations/" target="_blank" class="font-bold text-curacao hover:underline">De Visserij</a>
+                                <a href="https://www.facebook.com/piscaderanoreservations/" target="_blank" class="details-link">De Visserij</a>
                                 <p class="text-sm text-gray-600">Piscadera. Fisch nach Gewicht, direkt am Wasser. Fr-Mo.</p>
                             </li>
                             <li class="border-b pb-2">
-                                <a href="https://goo.gl/maps/Purunchi" target="_blank" class="font-bold text-curacao hover:underline">Purunchi</a>
+                                <a href="https://goo.gl/maps/Purunchi" target="_blank" class="details-link">Purunchi</a>
                                 <p class="text-sm text-gray-600">Geheimtipp in den Mangroven hinter der Wasserfabrik.</p>
                             </li>
                             <li>
-                                <a href="https://goo.gl/maps/PopsPlace" target="_blank" class="font-bold text-curacao hover:underline">Pop's Place</a>
+                                <a href="https://goo.gl/maps/PopsPlace" target="_blank" class="details-link">Pop's Place</a>
                                 <p class="text-sm text-gray-600">Caracasbaai. Entspanntes Essen am lokalen Strand.</p>
                             </li>
                         </ul>
@@ -523,11 +538,11 @@
                         </div>
                         <ul class="space-y-4">
                             <li class="border-b pb-2">
-                                <a href="https://goo.gl/maps/BBQExpress" target="_blank" class="font-bold text-curacao hover:underline">BBQ Express</a>
+                                <a href="https://goo.gl/maps/BBQExpress" target="_blank" class="details-link">BBQ Express</a>
                                 <p class="text-sm text-gray-600">Caracasbaaiweg. Legendäre Ribs für den späten Hunger.</p>
                             </li>
                             <li>
-                                <a href="https://goo.gl/maps/KokiRibaBloki" target="_blank" class="font-bold text-curacao hover:underline">Koki Riba Bloki</a>
+                                <a href="https://goo.gl/maps/KokiRibaBloki" target="_blank" class="details-link">Koki Riba Bloki</a>
                                 <p class="text-sm text-gray-600">Schottegatweg. Street BBQ vom Feinsten.</p>
                             </li>
                         </ul>
@@ -602,81 +617,81 @@
         // --- DATA STORAGE ---
         const itinerary = [
             // TORONTO ARRIVAL
-            { date: "16. Jan (Fr)", phase: "toronto", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
-              img: "https://image.pollinations.ai/prompt/Toronto%20Westin%20Airport%20Hotel%20Exterior",
-              details: "Landung 14:55. Gratis Shuttle zum Westin. Abendessen im 'The Keg' nebenan.", highlight: false },
+            { date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
+              img: "https://image.pollinations.ai/prompt/The%20Keg%20Steakhouse%20Toronto%20Airport%20Exterior",
+              details: "Landung 14:55. Gratis Shuttle zum <a href='https://goo.gl/maps/WestinTorontoAirport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://goo.gl/maps/TheKegTorontoAirport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
             
             // CURACAO WEEK 1 - PIETERMAAI
-            { date: "17. Jan (Sa)", phase: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
+            { date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Pietermaai%20colorful%20dutch%20architecture%20street",
-              details: "Flug 09:40 -> 15:50. Check-in Apt Pietermaai. Drink im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='text-curacao font-bold'>Mundo Bizarro</a>.", highlight: false },
-            { date: "18. Jan (So)", phase: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
+              details: "Flug 09:40 -> 15:50. Check-in Apt Pietermaai. Drink im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='details-link'>Mundo Bizarro</a>.", highlight: false },
+            { date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Queen%20Emma%20Bridge%20Handelskade%20colorful%20houses",
-              details: "Queen Emma Bridge, Kura Hulanda Museum, Handelskade. Lunch beim Riff Fort.", highlight: false },
-            { date: "19. Jan (Mo)", phase: "city", loc: "Pietermaai", title: "Likör & Aussicht", icon: "🍸", 
+              details: "<a href='https://goo.gl/maps/QueenEmmaBridge' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://kurahulanda.com/' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://goo.gl/maps/Handelskade' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://goo.gl/maps/RiffFort' target='_blank' class='details-link'>Riff Fort</a>.", highlight: false },
+            { date: "19. Jan (Mo)", category: "city", loc: "Pietermaai", title: "Likör & Aussicht", icon: "🍸", 
               img: "https://image.pollinations.ai/prompt/Fort%20Nassau%20Curacao%20view%20over%20Willemstad%20harbor",
-              details: "Landhuis Chobolobo (Blue Curaçao). Mambo Beach Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='text-curacao font-bold'>Fort Nassau</a>.", highlight: true },
-            { date: "20. Jan (Di)", phase: "city", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
+              details: "<a href='https://chobolobo.com/' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). <a href='https://mambobeach.com/' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='details-link'>Fort Nassau</a>.", highlight: true },
+            { date: "20. Jan (Di)", category: "beach", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
               img: "https://image.pollinations.ai/prompt/Tugboat%20Beach%20Curacao%20sunken%20ship%20underwater",
-              details: "<strong>Tugboat Beach:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong>Direkteursbaai</strong> (tolles Riff).", highlight: true },
-            { date: "21. Jan (Mi)", phase: "city", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
+              details: "<strong><a href='https://goo.gl/maps/TugboatBeach' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong><a href='https://goo.gl/maps/Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong> (tolles Riff).", highlight: true },
+            { date: "21. Jan (Mi)", category: "nature", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Aloe%20Vera%20Plantation%20landscape",
-              details: "Aloe Vera Farm oder St. Joris Baai (raue Seite). Sea Aquarium (Underwater Observatory).", highlight: false },
-            { date: "22. Jan (Do)", phase: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
+              details: "<a href='https://aloecuracao.com/' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://goo.gl/maps/StJorisBaai' target='_blank' class='details-link'>St. Joris Baai</a> (raue Seite). <a href='https://curacao-sea-aquarium.com/' target='_blank' class='details-link'>Sea Aquarium</a> Option.", highlight: false },
+            { date: "22. Jan (Do)", category: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Punda%20Vibes%20night%20fireworks%20street%20party",
               details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.", highlight: true },
 
             // CURACAO WEEK 2 - GROTE BERG (WEST)
-            { date: "23. Jan (Fr)", phase: "beach", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
+            { date: "23. Jan (Fr)", category: "travel", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Flamingos%20Salt%20Lake%20Jan%20Kok",
-              details: "Fahrt via St. Willibrordus (Flamingos). Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
-            { date: "24. Jan (Sa)", phase: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
+              details: "Fahrt via <a href='https://goo.gl/maps/JanKokFlamingos' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
+            { date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
               img: "https://image.pollinations.ai/prompt/Daaibooi%20Beach%20Curacao%20cozy%20beach%20bar",
-              details: "Tag für euch (Steffen & Doris). Daaibooi Beach oder Einkauf im Centrum Supermarkt für das BBQ morgen.", highlight: false },
-            { date: "25. Jan (So)", phase: "beach", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Hato%20Airport%20Arrivals%20Welcome",
-              details: "Vormittag: Kurz zum Grote Knip. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true },
-            { date: "26. Jan (Mo)", phase: "beach", loc: "Grote Berg", title: "Cas Abao Relaxing", icon: "🐠", 
-              img: "https://image.pollinations.ai/prompt/Cas%20Abao%20Beach%20Curacao%20palm%20trees%20white%20sand",
-              details: "Weißer Sand & Full Service. Klares Wasser, viele Fische direkt im Flachwasser.", highlight: false },
-            { date: "27. Jan (Di)", phase: "beach", loc: "Grote Berg", title: "Turtles & Alice in Wonderland", icon: "🐢", 
+              details: "Tag für euch. <a href='https://goo.gl/maps/Daaibooi' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://goo.gl/maps/CentrumPiscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.", highlight: false },
+            { date: "25. Jan (So)", category: "travel", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
+              img: "https://image.pollinations.ai/prompt/Grote%20Knip%20Beach%20Curacao%20turquoise%20water",
+              details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true },
+            { date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
+              img: "https://image.pollinations.ai/prompt/Mosa%20Cana%20Curacao%20restaurant%20terrace%20night",
+              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> (Shared Dining) oder <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.", highlight: true },
+            { date: "27. Jan (Di)", category: "beach", loc: "Grote Berg", title: "Turtles & Alice in Wonderland", icon: "🐢", 
               img: "https://image.pollinations.ai/prompt/Sea%20turtle%20swimming%20underwater%20Curacao%20Playa%20Piskado",
-              details: "1. <strong>Playa Piskado</strong> (Schildkröten!). 2. <strong>Playa Kalki</strong> ('Alice in Wonderland' Riff). Lunch Jaanchie's.", highlight: true },
-            { date: "28. Jan (Mi)", phase: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
+              details: "1. <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). 2. <strong><a href='https://goo.gl/maps/PlayaKalki' target='_blank' class='details-link'>Playa Kalki</a></strong> ('Alice in Wonderland' Riff). Lunch <a href='https://goo.gl/maps/Jaanchies' target='_blank' class='details-link'>Jaanchie's</a>.", highlight: false },
+            { date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
               img: "https://image.pollinations.ai/prompt/Klein%20Curacao%20island%20lighthouse%20white%20sand%20boat",
-              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Oft Schildkröten beim Schnorcheln am Boot.", highlight: true },
-            { date: "29. Jan (Do)", phase: "beach", loc: "Grote Berg", title: "Porto Marie & City", icon: "🐡", 
-              img: "https://image.pollinations.ai/prompt/Porto%20Marie%20Beach%20Curacao%20pig%20on%20beach",
-              details: "Vormittag: Porto Marie (Riff-Kugeln im Wasser beobachten). Nachmittags City & Punda Vibes.", highlight: false },
-            { date: "30. Jan (Fr)", phase: "beach", loc: "Grote Berg", title: "Playa Lagun & Hofi Mango", icon: "🦎", 
-              img: "https://image.pollinations.ai/prompt/Playa%20Lagun%20Curacao%20cove%20cliffs",
-              details: "<strong>Playa Lagun:</strong> Fjord-Bucht, Top-Chance auf Schildkröten/Rochen. Danach Hofi Mango Park.", highlight: true },
-            { date: "31. Jan (Sa)", phase: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
+              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
+            { date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
+              img: "https://image.pollinations.ai/prompt/Cascada%20Rooftop%20Bar%20Curacao%20sunset%20cocktails",
+              details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>Abend:</strong> Sundowner in der <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a> (360° Blick), danach Punda Vibes Straßenfest.", highlight: true },
+            { date: "30. Jan (Fr)", category: "city", loc: "Grote Berg / Otrobanda", title: "Lagun & Green Rum", icon: "🥃", 
+              img: "https://image.pollinations.ai/prompt/Netto%20Bar%20Curacao%20green%20rum%20interior",
+              details: "Tagsüber: <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a> & <a href='https://hofimangocuracao.com/' target='_blank' class='details-link'>Hofi Mango</a>. <strong>Abend:</strong> Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> oder <a href='https://ceviche91curacao.com/' target='_blank' class='details-link'>Ceviche 91</a>.", highlight: true },
+            { date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
               img: "https://image.pollinations.ai/prompt/Karakter%20Curacao%20sunset%20infinity%20pool%20ocean%20view",
-              details: "Karakter (Coral Estate). Schnorcheln direkt vom Steg ins tiefe Blau (tolles Hausriff).", highlight: false },
-            { date: "01. Feb (So)", phase: "beach", loc: "Grote Berg", title: "Farewell Beach", icon: "🐟", 
+              details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.", highlight: false },
+            { date: "01. Feb (So)", category: "beach", loc: "Grote Berg", title: "Farewell Beach", icon: "🐟", 
               img: "https://image.pollinations.ai/prompt/De%20Visserij%20Curacao%20seafood%20restaurant%20sunset",
-              details: "Lieblings-Schnorchelspot nochmal genießen. Dinner bei De Visserij (Piscadera).", highlight: false },
+              details: "Lieblings-Schnorchelspot nochmal genießen. Dinner bei <a href='https://www.facebook.com/piscaderanoreservations/' target='_blank' class='details-link'>De Visserij</a> (Piscadera).", highlight: false },
 
             // RETURN
-            { date: "02. Feb (Mo)", phase: "toronto", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
+            { date: "02. Feb (Mo)", category: "travel", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Airport%20Hato%20Exterior",
               details: "13:00 Gemeinsame Fahrt zum Flughafen. S&G: 15:49 (MIA), S&D: 16:45 (YYZ).", highlight: false },
             
             // TORONTO DETAILED DAY (03. FEB)
-            { date: "03. Feb (Di)", phase: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
               img: "https://image.pollinations.ai/prompt/Toronto%20St%20Lawrence%20Market%20Interior%20Food",
-              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>09:00:</strong> Check-out Delta Hotel. Gratis-Shuttle zu Terminal 1.</li><li><strong>09:30:</strong> Koffer bei 'Excess Baggage' (T1 Ankunft) abgeben (~10-15 CAD).</li><li><strong>10:00:</strong> UP Express Zug nach Union Station (25 Min).</li><li><strong>10:30:</strong> Spaziergang zum <a href='https://www.stlawrencemarket.com/' target='_blank' class='text-curacao font-bold'>St. Lawrence Market</a>.</li><li><strong>Must-Eat:</strong> 'Peameal Bacon Sandwich' bei der <em>Carousel Bakery</em>.</li></ul>", highlight: true },
+              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>09:00:</strong> Check-out Delta Hotel. Gratis-Shuttle zu Terminal 1.</li><li><strong>09:30:</strong> Koffer bei 'Excess Baggage' (T1 Ankunft) abgeben (~10-15 CAD).</li><li><strong>10:00:</strong> UP Express Zug nach Union Station (25 Min).</li><li><strong>10:30:</strong> Spaziergang zum <a href='https://www.stlawrencemarket.com/' target='_blank' class='details-link'>St. Lawrence Market</a>.</li><li><strong>Must-Eat:</strong> 'Peameal Bacon Sandwich' bei der <a href='https://stlawrencemarket.com/vendors/carousel_bakery/61' target='_blank' class='details-link'>Carousel Bakery</a>.</li></ul>", highlight: true },
 
-            { date: "03. Feb (Di)", phase: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
               img: "https://image.pollinations.ai/prompt/Toronto%20Eaton%20Centre%20Glass%20Ceiling",
-              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>12:00:</strong> Via <strong>PATH</strong> (unterirdisch & warm!) Richtung Norden laufen.</li><li><strong>12:30:</strong> <a href='https://shops.cadillacfairview.com/property/cf-toronto-eaton-centre' target='_blank' class='text-curacao font-bold'>Eaton Centre</a>. Bummeln & Shoppen.</li><li><strong>14:00:</strong> Kaffee-Pause bei <em>Balzac's Coffee</em> oder <em>Dineen Coffee</em>.</li><li><strong>14:30:</strong> <a href='https://goo.gl/maps/NathanPhillipsSquare' target='_blank' class='text-curacao font-bold'>Nathan Phillips Square</a>. Selfie vor dem 'TORONTO'-Schriftzug & Eisläufer beobachten.</li></ul>", highlight: false },
+              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>12:00:</strong> Via <strong>PATH</strong> (unterirdisch & warm!) Richtung Norden laufen.</li><li><strong>12:30:</strong> <a href='https://shops.cadillacfairview.com/property/cf-toronto-eaton-centre' target='_blank' class='details-link'>Eaton Centre</a>. Bummeln & Shoppen.</li><li><strong>14:00:</strong> Kaffee-Pause bei <a href='https://balzacs.com/' target='_blank' class='details-link'>Balzac's Coffee</a>.</li><li><strong>14:30:</strong> <a href='https://goo.gl/maps/NathanPhillipsSquare' target='_blank' class='details-link'>Nathan Phillips Square</a>. Selfie vor dem 'TORONTO'-Schriftzug & Eisläufer beobachten.</li></ul>", highlight: false },
 
-            { date: "03. Feb (Di)", phase: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
               img: "https://image.pollinations.ai/prompt/UP%20Express%20Train%20Toronto%20Union%20Station",
               details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>15:15:</strong> Rückweg zur Union Station.</li><li><strong>15:30:</strong> UP Express zum Flughafen (alle 15 Min).</li><li><strong>16:00:</strong> Ankunft T1 & Koffer abholen.</li><li><strong>16:30:</strong> Check-in Air Canada (Abflug 19:45).</li><li><strong>Tipp:</strong> Nutzt die Zeit für ein entspanntes Dinner im Terminal nach der Security.</li></ul>", highlight: false },
 
-            { date: "04. Feb (Mi)", phase: "toronto", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
+            { date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
               img: "https://image.pollinations.ai/prompt/Munich%20Airport%20Arrival",
               details: "Landung 09:50 Uhr in München.", highlight: false }
         ];
@@ -687,18 +702,31 @@
             const container = document.getElementById('itinerary-container');
             container.innerHTML = '';
 
-            itinerary.forEach((item, index) => {
-                if (filter !== 'all' && item.phase !== filter) return;
+            const categoryColors = {
+                'beach': { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Strand' },
+                'city': { bg: 'bg-orange-100', text: 'text-orange-700', label: 'Stadt' },
+                'nature': { bg: 'bg-green-100', text: 'text-green-700', label: 'Natur' },
+                'travel': { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Reise' },
+                'toronto': { bg: 'bg-red-100', text: 'text-red-700', label: 'Toronto' }
+            };
 
-                const isHighlight = item.highlight ? 'border-l-4 border-sunset bg-orange-50' : 'bg-white';
+            itinerary.forEach((item, index) => {
+                if (filter !== 'all' && item.category !== filter) return;
+
+                const isHighlight = item.highlight ? 'border-l-4 border-sunset shadow-lg' : 'bg-white';
+                const catStyle = categoryColors[item.category] || categoryColors['travel'];
+
                 const card = document.createElement('div');
-                card.className = `${isHighlight} rounded-xl card-shadow overflow-hidden flex flex-col h-full transition-all duration-300`;
+                card.className = `${isHighlight} bg-white rounded-xl card-shadow overflow-hidden flex flex-col h-full transition-all duration-300 relative`;
                 
                 card.innerHTML = `
                     <div class="h-48 overflow-hidden img-zoom-container relative">
                         <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover img-zoom">
                         <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold shadow-sm">
                             ${item.date.split(' ')[0]}. ${item.date.split(' ')[1]}
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-sm ${catStyle.bg} ${catStyle.text}">
+                            ${catStyle.label}
                         </div>
                     </div>
                     <div class="p-5 flex-grow flex flex-col">
@@ -815,12 +843,12 @@
 
         function filterItinerary(type) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-curacao', 'shadow-sm');
-                btn.classList.add('text-gray-500');
+                btn.classList.remove('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
+                btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
             });
             const activeBtn = document.getElementById(`btn-${type}`);
-            activeBtn.classList.remove('text-gray-500');
-            activeBtn.classList.add('bg-white', 'text-curacao', 'shadow-sm');
+            activeBtn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+            activeBtn.classList.add('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
 
             renderItinerary(type);
         }
