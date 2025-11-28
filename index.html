@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curacao & Toronto 2026 - Finale Version</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        curacao: '#00A3E0',
+                        sand: '#F4EBD0',
+                        sunset: '#FF7F50',
+                        ocean: '#0F4C81',
+                        palm: '#4A7c59',
+                        aircanada: '#E31837',
+                        american: '#0078D2',
+                        booking: '#003580',
+                        airbnb: '#FF5A5F',
+                        gyg: '#FF5533'
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card-shadow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 300px;
+        }
+        /* Image Hover Zoom */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.5s ease;
+        }
+        .card-shadow:hover .img-zoom {
+            transform: scale(1.05);
+        }
+        
+        /* Custom Scrollbar */
+        .itinerary-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .itinerary-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .itinerary-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        /* Link Styling in Details */
+        .details-link {
+            color: #00A3E0;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .details-link:hover {
+            color: #0F4C81;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold font-display text-curacao">🌴 Curacao '26</span>
+                </div>
+                <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar">
+                    <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Dashboard</button>
+                    <button onclick="scrollToSection('flights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Flüge</button>
+                    <button onclick="scrollToSection('bookings')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap shadow-sm">Buchungen</button>
+                    <button onclick="scrollToSection('itinerary')" class="text-white bg-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Plan</button>
+                    <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food & Drinks</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Intro -->
+        <section class="text-center space-y-4">
+            <h1 class="text-4xl md:text-5xl font-bold font-display text-gray-800">Journey To Curaçao</h1>
+            <p class="text-xl text-gray-500 font-light">16. Januar – 04. Februar 2026</p>
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-orange-100 text-sunset font-semibold text-sm">
+                <span class="mr-2">🎉</span> Mit Sarah & Gabriel ab 25. Jan
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="bg-white rounded-2xl p-6 card-shadow border-t-4 border-curacao">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold font-display text-gray-800 mb-2">Reise-Übersicht</h2>
+                <p class="text-gray-600">Visuelle Darstellung der Aufenthaltsorte und Reisephasen.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Timeline Chart -->
+                <div class="w-full">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Zeitplan & Orte</h3>
+                    <div class="chart-container h-64 mx-auto">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Activity Mix Chart -->
+                <div class="w-full">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Aktivitäts-Mix</h3>
+                    <div class="chart-container h-64 mx-auto" style="max-width: 400px;">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FLIGHT TICKETS SECTION -->
+        <section id="flights" class="bg-slate-100 rounded-3xl p-6 md:p-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b-2 border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-bold font-display text-gray-800">Flugtickets</h2>
+                    <p class="text-gray-500 mt-1">Air Canada (S&D) & American Airlines (S&G)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Ticket 1: MUC -> YYZ -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition hover:scale-[1.01]">
+                    <div class="bg-aircanada text-white p-4 flex justify-between items-center">
+                        <div class="font-bold text-lg">S&D: MUC ➔ YYZ</div>
+                        <div class="text-sm bg-white/20 px-2 py-1 rounded">16. Jan</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">MUC</div>
+                                <div class="text-sm text-gray-500">11:50</div>
+                            </div>
+                            <div class="flex-grow px-4 text-center">
+                                <div class="text-xs text-gray-400">AC 837</div>
+                                <div class="border-t-2 border-dashed border-gray-300 relative top-[-8px]"></div>
+                                <div class="text-xs text-gray-500">9h 05m</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">YYZ</div>
+                                <div class="text-sm text-gray-500">14:55</div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-xs text-center font-mono text-gray-500">Ref: BF99RJ</div>
+                        <div class="mt-2 text-xs text-center text-gray-500">
+                            <span class="font-semibold">Check-in:</span> ab 15. Jan 11:50 Uhr (Online)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket 2: YYZ -> CUR -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition hover:scale-[1.01]">
+                    <div class="bg-aircanada text-white p-4 flex justify-between items-center">
+                        <div class="font-bold text-lg">S&D: YYZ ➔ CUR</div>
+                        <div class="text-sm bg-white/20 px-2 py-1 rounded">17. Jan</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">YYZ</div>
+                                <div class="text-sm text-gray-500">09:40</div>
+                            </div>
+                            <div class="flex-grow px-4 text-center">
+                                <div class="text-xs text-gray-400">AC 1864</div>
+                                <div class="border-t-2 border-dashed border-gray-300 relative top-[-8px]"></div>
+                                <div class="text-xs text-gray-500">5h 10m</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">CUR</div>
+                                <div class="text-sm text-gray-500">15:50</div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded text-xs text-center font-mono text-gray-500">Ref: BF99RJ</div>
+                    </div>
+                </div>
+
+                <!-- Ticket 3: GUESTS ARRIVAL -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition hover:scale-[1.01] border-2 border-american">
+                    <div class="bg-american text-white p-4 flex justify-between items-center">
+                        <div class="font-bold text-lg">S&G: LAS ➔ CUR (via CLT)</div>
+                        <div class="text-sm bg-white/20 px-2 py-1 rounded">24./25. Jan</div>
+                    </div>
+                    <div class="p-5 space-y-4">
+                        <!-- Leg 1 -->
+                        <div class="flex justify-between items-center text-sm border-b pb-2 border-gray-100">
+                            <div>
+                                <span class="font-bold text-gray-700">LAS</span> 23:49
+                                <span class="text-gray-400 mx-1">➔</span>
+                                <span class="font-bold text-gray-700">CLT</span> 06:48 <span class="text-xs text-gray-400">(+1)</span>
+                            </div>
+                            <div class="text-american font-mono text-xs">AA 1323</div>
+                        </div>
+                        <!-- Leg 2 -->
+                        <div class="flex justify-between items-center">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">CLT</div>
+                                <div class="text-sm text-gray-500">08:46</div>
+                            </div>
+                            <div class="flex-grow px-4 text-center">
+                                <div class="text-xs text-gray-400">AA 3053</div>
+                                <div class="border-t-2 border-dashed border-american relative top-[-8px]"></div>
+                                <div class="text-xs font-bold text-american">Ankunft</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-gray-800">CUR</div>
+                                <div class="text-sm text-gray-500 font-bold text-red-600">14:05</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <div class="bg-blue-50 p-2 rounded text-xs text-blue-800 font-bold flex-grow mr-2 text-center">
+                                🚗 Abholung durch Steffen & Doris
+                            </div>
+                            <div class="text-xs font-mono text-gray-400 border border-gray-200 px-2 py-1 rounded">
+                                Ref: ???
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket 4: JOINT DEPARTURE -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition hover:scale-[1.01] border-2 border-gray-300">
+                    <div class="bg-gray-800 text-white p-4 flex justify-between items-center">
+                        <div class="font-bold text-lg">Gemeinsame Rückreise</div>
+                        <div class="text-sm bg-white/20 px-2 py-1 rounded">02. Feb (Mo)</div>
+                    </div>
+                    <div class="p-5 grid grid-cols-1 gap-4">
+                        <!-- S&G -->
+                        <div class="flex justify-between items-center border-b pb-2 border-gray-100">
+                            <div class="text-left">
+                                <span class="block text-xs text-gray-400">Sarah & Gabriel (AA 312)</span>
+                                <span class="font-bold text-gray-800">Abflug 15:49</span>
+                                <span class="text-xs text-gray-500 block">➔ MIA (Ankunft 18:10)</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-bold text-american">Nach MIA</span>
+                                <span class="block text-xs font-mono text-gray-400 mt-1">Ref: ???</span>
+                            </div>
+                        </div>
+                        <!-- S&D -->
+                        <div class="flex justify-between items-center">
+                            <div class="text-left">
+                                <span class="block text-xs text-gray-400">Steffen & Doris (AC 1865)</span>
+                                <span class="font-bold text-gray-800">Abflug 16:45</span>
+                                <span class="text-xs text-gray-500 block">➔ YYZ (Ankunft 21:05)</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-bold text-aircanada">Nach YYZ</span>
+                                <span class="block text-xs font-mono text-gray-500 mt-1">Ref: BF99RJ</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-2 rounded text-xs text-center text-green-800 font-bold">
+                            ✅ Gemeinsame Fahrt zum Flughafen: ca. 13:00 Uhr
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOKINGS SECTION -->
+        <section id="bookings" class="space-y-6">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold font-display text-gray-800 mb-2">Meine Buchungen</h2>
+                <p class="text-gray-600">Unterkünfte & Ausflüge im Überblick.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Toronto Hotel Hinflug -->
+                <div class="bg-white rounded-xl card-shadow border-l-4 border-booking overflow-hidden">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">The Westin Toronto Airport</h3>
+                            <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/WestinTorontoAirport" target="_blank" class="details-link">950 Dixon Road, Toronto, ON</a></p>
+                        <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="block text-gray-400 text-xs">Check-in</span>
+                                <span class="font-semibold">Fr, 16. Jan ab 15:00</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-400 text-xs">Check-out</span>
+                                <span class="font-semibold">Sa, 17. Jan bis 12:00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center border-t pt-3">
+                            <span class="text-xs text-gray-400">Bestätigungsnummer</span>
+                            <span class="font-mono font-bold text-lg text-booking">74353292</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curacao Airbnb 1: Pietermaai -->
+                <div class="bg-white rounded-xl card-shadow border-l-4 border-airbnb overflow-hidden">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Airbnb: Pietermaai</h3>
+                            <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 1</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/PietermaaiDistrict" target="_blank" class="details-link">"Spacious & Fabulous Apt", Willemstad</a></p>
+                        <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="block text-gray-400 text-xs">Zeitraum</span>
+                                <span class="font-semibold">17. Jan - 23. Jan</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-400 text-xs">Gäste</span>
+                                <span class="font-semibold">Steffen & Doris</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center border-t pt-3">
+                            <span class="text-xs text-gray-400">Reservierungscode</span>
+                            <span class="font-mono font-bold text-lg text-airbnb">HMPE5HRBKK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curacao Airbnb 2: Grote Berg -->
+                <div class="bg-white rounded-xl card-shadow border-l-4 border-airbnb overflow-hidden">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Airbnb: Grote Berg</h3>
+                            <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 2</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/GroteBergCuracao" target="_blank" class="details-link">Villa in Grote Berg, Curacao</a></p>
+                        <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="block text-gray-400 text-xs">Zeitraum</span>
+                                <span class="font-semibold">23. Jan - 02. Feb</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-400 text-xs">Gäste</span>
+                                <span class="font-semibold">S&D + S&G</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center border-t pt-3">
+                            <span class="text-xs text-gray-400">Reservierungscode</span>
+                            <span class="font-mono font-bold text-lg text-airbnb">HMPE5HRBKK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Klein Curacao Tour -->
+                <div class="bg-white rounded-xl card-shadow border-l-4 border-gyg overflow-hidden relative">
+                    <div class="absolute top-0 right-0 bg-gyg text-white text-xs px-2 py-1 rounded-bl">Ausflug</div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1">Klein Curacao Katamaran</h3>
+                        <p class="text-sm text-gray-500 mb-4">Treffpunkt: <a href="https://goo.gl/maps/BrakkeputAriba62" target="_blank" class="details-link">Brakkeput Ariba 62, Willemstad</a></p>
+                        <div class="bg-orange-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="block text-gray-400 text-xs">Datum & Zeit</span>
+                                <span class="font-bold text-gray-800">Mi, 28. Jan • 08:00</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-400 text-xs">PIN Code</span>
+                                <span class="font-mono font-bold text-gyg">rBnr32fF</span>
+                            </div>
+                        </div>
+                        <div class="text-xs text-red-600 font-bold mb-3 text-center">⚠️ Abfahrt Grote Berg: 06:15 Uhr</div>
+                        <div class="flex justify-between items-center border-t pt-3">
+                            <span class="text-xs text-gray-400">Buchungsreferenz</span>
+                            <span class="font-mono font-bold text-lg text-gray-800">GYGMX4XGM2B7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toronto Hotel Rückflug -->
+                <div class="bg-white rounded-xl card-shadow border-l-4 border-booking overflow-hidden">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-800">Delta Hotels Toronto Airport</h3>
+                            <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/DeltaTorontoAirport" target="_blank" class="details-link">655 Dixon Road, Toronto, ON</a></p>
+                        <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="block text-gray-400 text-xs">Check-in</span>
+                                <span class="font-semibold">Mo, 02. Feb ab 15:00</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-400 text-xs">Check-out</span>
+                                <span class="font-semibold">Di, 03. Feb bis 12:00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center border-t pt-3">
+                            <span class="text-xs text-gray-400">Bestätigungsnummer</span>
+                            <span class="font-mono font-bold text-lg text-booking">91113949</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Itinerary Section -->
+        <section id="itinerary" class="space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b pb-4">
+                <div>
+                    <h2 class="text-3xl font-bold font-display text-gray-800">Detaillierter Reiseplan</h2>
+                    <p class="text-gray-500 mt-1">Filtere nach Aktivität oder Phase.</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="mt-4 md:mt-0 flex flex-wrap gap-2 justify-end">
+                    <button onclick="filterItinerary('all')" id="btn-all" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-curacao text-white shadow-sm transition">Alle</button>
+                    <button onclick="filterItinerary('beach')" id="btn-beach" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">🏖️ Strand & Relax</button>
+                    <button onclick="filterItinerary('city')" id="btn-city" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-sunset hover:text-sunset transition">🏙️ Stadt & Kultur</button>
+                    <button onclick="filterItinerary('nature')" id="btn-nature" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-palm hover:text-palm transition">🦎 Natur</button>
+                    <div class="w-full md:w-auto md:border-l md:pl-2 flex gap-2">
+                         <button onclick="filterItinerary('toronto')" id="btn-toronto" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:bg-gray-50 transition">🍁 Toronto</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Itinerary List -->
+            <div id="itinerary-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Content injected by JS -->
+            </div>
+        </section>
+
+        <!-- Culinary Guide Section -->
+        <section id="culinary" class="bg-sand/30 rounded-3xl p-8">
+            <div class="text-center mb-10">
+                <span class="text-4xl">🍽️</span>
+                <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Kulinarischer Guide</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Authentische Küche, frischer Fisch, coole Drinks und die besten Snacks der Insel. Keine Touristenfallen.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Krioyo -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img src="https://image.pollinations.ai/prompt/Curacao%20local%20food%20market%20Plasa%20Bieu%20stew" alt="Krioyo Food" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🥘</span>
+                            <h3 class="text-lg font-bold text-gray-800">Krioyo (Local)</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="details-link">Plasa Bieu</a>
+                                <p class="text-xs text-gray-500">Markthalle (nur Mittags). Must-Eat: "Karni Stoba".</p>
+                            </li>
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://goo.gl/maps/KomedorKrioyo" target="_blank" class="details-link">Komedor Krioyo</a>
+                                <p class="text-xs text-gray-500">Landhaus-Flair, riesige Portionen.</p>
+                            </li>
+                            <li>
+                                <a href="https://goo.gl/maps/Jaanchies" target="_blank" class="details-link">Jaanchie’s</a>
+                                <p class="text-xs text-gray-500">Kult in Westpunt. Mutige essen Leguan.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Fisch -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img src="https://image.pollinations.ai/prompt/Fresh%20fish%20Curacao%20seaside%20restaurant%20rustic" alt="Fresh Fish" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🐟</span>
+                            <h3 class="text-lg font-bold text-gray-800">Frischer Fisch</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://www.facebook.com/piscaderanoreservations/" target="_blank" class="details-link">De Visserij</a>
+                                <p class="text-xs text-gray-500">Fisch nach Gewicht, direkt am Wasser. Fr-Mo.</p>
+                            </li>
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://goo.gl/maps/Purunchi" target="_blank" class="details-link">Purunchi</a>
+                                <p class="text-xs text-gray-500">Geheimtipp in den Mangroven.</p>
+                            </li>
+                            <li>
+                                <a href="https://goo.gl/maps/PopsPlace" target="_blank" class="details-link">Pop's Place</a>
+                                <p class="text-xs text-gray-500">Locals-Treff an der Caracasbaai.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bars & Nightlife -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img src="https://image.pollinations.ai/prompt/Cocktail%20Bar%20Curacao%20Pietermaai%20night%20drinks" alt="Cocktails" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🍹</span>
+                            <h3 class="text-lg font-bold text-gray-800">Bars & Drinks</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://www.facebook.com/LukesCocktailbar/" target="_blank" class="details-link">Luke's Cocktailbar</a>
+                                <p class="text-xs text-gray-500">Beste Craft Cocktails der Insel. Hipster-Vibe.</p>
+                            </li>
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://cascadacuracao.com/" target="_blank" class="details-link">Cascada Rooftop</a>
+                                <p class="text-xs text-gray-500">360° Blick über die Stadt. Perfekt für Sunset.</p>
+                            </li>
+                            <li>
+                                <a href="https://www.curacao.com/de/activity/netto-bar" target="_blank" class="details-link">Netto Bar</a>
+                                <p class="text-xs text-gray-500">Die älteste Bar. Heimat des grünen Rums.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Snacks -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img src="https://image.pollinations.ai/prompt/Curacao%20food%20truck%20BBQ%20ribs%20night" alt="Food Truck" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🍢</span>
+                            <h3 class="text-lg font-bold text-gray-800">Truk'i Pan (Snacks)</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://goo.gl/maps/BBQExpress" target="_blank" class="details-link">BBQ Express</a>
+                                <p class="text-xs text-gray-500">Caracasbaaiweg. Legendäre Ribs (abends).</p>
+                            </li>
+                            <li>
+                                <a href="https://goo.gl/maps/KokiRibaBloki" target="_blank" class="details-link">Koki Riba Bloki</a>
+                                <p class="text-xs text-gray-500">Schottegatweg. Street BBQ vom Feinsten.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logistics & Tips Section -->
+        <section id="logistics" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Transport Info -->
+            <div class="bg-white p-6 rounded-2xl card-shadow border-l-4 border-gray-800">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">🚗 Transport & Mietwagen</h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h4 class="font-bold text-sm text-gray-700">🚫 Kein Uber auf Curacao</h4>
+                        <p class="text-sm text-gray-600">Nutze die App <strong>"Click"</strong> oder vereinbare Festpreise.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h4 class="font-bold text-sm text-gray-700">🚕 Taxi Preise (Richtwerte)</h4>
+                        <ul class="text-sm text-gray-600 list-disc ml-4">
+                            <li>Flughafen ➔ Pietermaai: ~$50 USD</li>
+                            <li>Flughafen ➔ Grote Berg: ~$40 USD</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                        <h4 class="font-bold text-sm text-blue-800">💡 Mietwagen Tipp</h4>
+                        <p class="text-sm text-blue-700">Bucht das Auto durchgehend (Woche 2 ohne Auto ist unmöglich). Kleiner SUV empfohlen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Do's and Don'ts -->
+            <div class="bg-white p-6 rounded-2xl card-shadow border-l-4 border-green-500">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">✅ Do's & ❌ Don'ts</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <h4 class="text-green-600 font-bold border-b pb-1">✅ Unbedingt</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>💧 Leitungswasser trinken (Top!)</li>
+                            <li>🗺️ Offline Karten nutzen</li>
+                            <li>🧴 Reef-Safe Sonnencreme</li>
+                            <li>👋 "Bon Dia" sagen</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-red-500 font-bold border-b pb-1">❌ Vermeiden</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>🚗 <strong>Wertsachen im Auto lassen</strong></li>
+                            <li>🐢 Schildkröten anfassen</li>
+                            <li>🌳 Manzanilla-Bäume (Giftig!)</li>
+                            <li>😤 Hektik verbreiten</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-light">Reiseplaner Curacao 2026 für Steffen & Doris</p>
+            <p class="text-sm text-gray-400 mt-2">Erstellt basierend auf euren Dokumenten und E-Mails.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATA STORAGE ---
+        const itinerary = [
+            // TORONTO ARRIVAL
+            { date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
+              img: "https://image.pollinations.ai/prompt/The%20Keg%20Steakhouse%20Toronto%20Airport%20Exterior",
+              details: "Landung 14:55. Gratis Shuttle zum <a href='https://goo.gl/maps/WestinTorontoAirport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://goo.gl/maps/TheKegTorontoAirport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
+            
+            // CURACAO WEEK 1 - PIETERMAAI
+            { date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Pietermaai%20colorful%20dutch%20architecture%20street",
+              details: "Flug 09:40 -> 15:50. Check-in Apt Pietermaai. Drink im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='details-link'>Mundo Bizarro</a>.", highlight: false },
+            { date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Queen%20Emma%20Bridge%20Handelskade%20colorful%20houses",
+              details: "<a href='https://goo.gl/maps/QueenEmmaBridge' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://kurahulanda.com/' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://goo.gl/maps/Handelskade' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://goo.gl/maps/RiffFort' target='_blank' class='details-link'>Riff Fort</a>.", highlight: false },
+            { date: "19. Jan (Mo)", category: "city", loc: "Pietermaai", title: "Likör & Aussicht", icon: "🍸", 
+              img: "https://image.pollinations.ai/prompt/Fort%20Nassau%20Curacao%20view%20over%20Willemstad%20harbor",
+              details: "<a href='https://chobolobo.com/' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). <a href='https://mambobeach.com/' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='details-link'>Fort Nassau</a>.", highlight: true },
+            { date: "20. Jan (Di)", category: "beach", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
+              img: "https://image.pollinations.ai/prompt/Tugboat%20Beach%20Curacao%20sunken%20ship%20underwater",
+              details: "<strong><a href='https://goo.gl/maps/TugboatBeach' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong><a href='https://goo.gl/maps/Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong> (tolles Riff).", highlight: true },
+            { date: "21. Jan (Mi)", category: "nature", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Aloe%20Vera%20Plantation%20landscape",
+              details: "<a href='https://aloecuracao.com/' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://goo.gl/maps/StJorisBaai' target='_blank' class='details-link'>St. Joris Baai</a> (raue Seite). <a href='https://curacao-sea-aquarium.com/' target='_blank' class='details-link'>Sea Aquarium</a> Option.", highlight: false },
+            { date: "22. Jan (Do)", category: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Punda%20Vibes%20night%20fireworks%20street%20party",
+              details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.", highlight: true },
+
+            // CURACAO WEEK 2 - GROTE BERG (WEST)
+            { date: "23. Jan (Fr)", category: "travel", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Flamingos%20Salt%20Lake%20Jan%20Kok",
+              details: "Fahrt via <a href='https://goo.gl/maps/JanKokFlamingos' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
+            { date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
+              img: "https://image.pollinations.ai/prompt/Daaibooi%20Beach%20Curacao%20cozy%20beach%20bar",
+              details: "Tag für euch. <a href='https://goo.gl/maps/Daaibooi' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://goo.gl/maps/CentrumPiscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.", highlight: false },
+            { date: "25. Jan (So)", category: "travel", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
+              img: "https://image.pollinations.ai/prompt/Grote%20Knip%20Beach%20Curacao%20turquoise%20water",
+              details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true },
+            { date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
+              img: "https://image.pollinations.ai/prompt/Mosa%20Cana%20Curacao%20restaurant%20terrace%20night",
+              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.", highlight: true },
+            { date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles, Wellen & Sunset", icon: "🌊", 
+              img: "https://image.pollinations.ai/prompt/Shete%20Boka%20National%20Park%20waves%20crashing%20curacao",
+              details: "Vormittag: <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.shetebokapark.org/' target='_blank' class='details-link'>Shete Boka Park</a></strong>. Sunset-Drink: <strong><a href='https://goo.gl/maps/BlueViewSunset' target='_blank' class='details-link'>Blue View Terrace</a></strong>.", highlight: true },
+            { date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
+              img: "https://image.pollinations.ai/prompt/Klein%20Curacao%20island%20lighthouse%20white%20sand%20boat",
+              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
+            { date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
+              img: "https://image.pollinations.ai/prompt/Cascada%20Rooftop%20Bar%20Curacao%20sunset%20cocktails",
+              details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>Abend:</strong> Sundowner in der <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a> (360° Blick), danach Punda Vibes Straßenfest.", highlight: true },
+            { date: "30. Jan (Fr)", category: "nature", loc: "Grote Berg / Otrobanda", title: "Views & Green Rum", icon: "🥃", 
+              img: "https://image.pollinations.ai/prompt/Santa%20Martha%20Bay%20View%20Curacao%20panorama",
+              details: "Stopp: <strong><a href='https://goo.gl/maps/SantaMarthaView' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).", highlight: true },
+            { date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
+              img: "https://image.pollinations.ai/prompt/Karakter%20Curacao%20sunset%20infinity%20pool%20ocean%20view",
+              details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.", highlight: false },
+            { date: "01. Feb (So)", category: "beach", loc: "Grote Berg", title: "Farewell Beach", icon: "🐟", 
+              img: "https://image.pollinations.ai/prompt/De%20Visserij%20Curacao%20seafood%20restaurant%20sunset",
+              details: "Lieblings-Schnorchelspot nochmal genießen. Dinner bei <a href='https://www.facebook.com/piscaderanoreservations/' target='_blank' class='details-link'>De Visserij</a> (Piscadera).", highlight: false },
+
+            // RETURN
+            { date: "02. Feb (Mo)", category: "travel", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
+              img: "https://image.pollinations.ai/prompt/Curacao%20Airport%20Hato%20Exterior",
+              details: "13:00 Gemeinsame Fahrt zum Flughafen. S&G: 15:49 (MIA), S&D: 16:45 (YYZ).", highlight: false },
+            
+            // TORONTO DETAILED DAY (03. FEB)
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
+              img: "https://image.pollinations.ai/prompt/Toronto%20St%20Lawrence%20Market%20Interior%20Food",
+              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>09:00:</strong> Check-out Delta Hotel. Gratis-Shuttle zu Terminal 1.</li><li><strong>09:30:</strong> Koffer bei 'Excess Baggage' (T1 Ankunft) abgeben (~10-15 CAD).</li><li><strong>10:00:</strong> UP Express Zug nach Union Station (25 Min).</li><li><strong>10:30:</strong> Spaziergang zum <a href='https://www.stlawrencemarket.com/' target='_blank' class='details-link'>St. Lawrence Market</a>.</li><li><strong>Must-Eat:</strong> 'Peameal Bacon Sandwich' bei der <a href='https://stlawrencemarket.com/vendors/carousel_bakery/61' target='_blank' class='details-link'>Carousel Bakery</a>.</li></ul>", highlight: true },
+
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
+              img: "https://image.pollinations.ai/prompt/Toronto%20Eaton%20Centre%20Glass%20Ceiling",
+              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>12:00:</strong> Via <strong>PATH</strong> (unterirdisch & warm!) Richtung Norden laufen.</li><li><strong>12:30:</strong> <a href='https://shops.cadillacfairview.com/property/cf-toronto-eaton-centre' target='_blank' class='details-link'>Eaton Centre</a>. Bummeln & Shoppen.</li><li><strong>14:00:</strong> Kaffee-Pause bei <a href='https://balzacs.com/' target='_blank' class='details-link'>Balzac's Coffee</a>.</li><li><strong>14:30:</strong> <a href='https://goo.gl/maps/NathanPhillipsSquare' target='_blank' class='details-link'>Nathan Phillips Square</a>. Selfie vor dem 'TORONTO'-Schriftzug & Eisläufer beobachten.</li></ul>", highlight: false },
+
+            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
+              img: "https://image.pollinations.ai/prompt/UP%20Express%20Train%20Toronto%20Union%20Station",
+              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>15:15:</strong> Rückweg zur Union Station.</li><li><strong>15:30:</strong> UP Express zum Flughafen (alle 15 Min).</li><li><strong>16:00:</strong> Ankunft T1 & Koffer abholen.</li><li><strong>16:30:</strong> Check-in Air Canada (Abflug 19:45).</li><li><strong>Tipp:</strong> Nutzt die Zeit für ein entspanntes Dinner im Terminal nach der Security.</li></ul>", highlight: false },
+
+            { date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
+              img: "https://image.pollinations.ai/prompt/Munich%20Airport%20Arrival",
+              details: "Landung 09:50 Uhr in München.", highlight: false }
+        ];
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderItinerary(filter = 'all') {
+            const container = document.getElementById('itinerary-container');
+            container.innerHTML = '';
+
+            const categoryColors = {
+                'beach': { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Strand' },
+                'city': { bg: 'bg-orange-100', text: 'text-orange-700', label: 'Stadt' },
+                'nature': { bg: 'bg-green-100', text: 'text-green-700', label: 'Natur' },
+                'travel': { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Reise' },
+                'toronto': { bg: 'bg-red-100', text: 'text-red-700', label: 'Toronto' }
+            };
+
+            itinerary.forEach((item, index) => {
+                if (filter !== 'all' && item.category !== filter) return;
+
+                const isHighlight = item.highlight ? 'border-l-4 border-sunset shadow-lg' : 'bg-white';
+                const catStyle = categoryColors[item.category] || categoryColors['travel'];
+
+                const card = document.createElement('div');
+                card.className = `${isHighlight} bg-white rounded-xl card-shadow overflow-hidden flex flex-col h-full transition-all duration-300 relative`;
+                
+                card.innerHTML = `
+                    <div class="h-48 overflow-hidden img-zoom-container relative">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover img-zoom">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold shadow-sm">
+                            ${item.date.split(' ')[0]}. ${item.date.split(' ')[1]}
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-sm ${catStyle.bg} ${catStyle.text}">
+                            ${catStyle.label}
+                        </div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800 leading-tight">${item.title}</h3>
+                                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-500 mt-1 inline-block">${item.loc}</span>
+                            </div>
+                            <span class="text-2xl">${item.icon}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">${item.details}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- CHARTS ---
+
+        function initCharts() {
+            // 1. Timeline Chart (Gantt Style)
+            const ctxTimeline = document.getElementById('timelineChart').getContext('2d');
+            
+            new Chart(ctxTimeline, {
+                type: 'bar',
+                data: {
+                    labels: ['Steffen & Doris', 'Sarah & Gabriel'],
+                    datasets: [
+                        {
+                            label: 'Toronto',
+                            data: [
+                                {x: [0, 1], y: 'Steffen & Doris'}, // Initial Stop
+                                {x: [17, 19], y: 'Steffen & Doris'} // Return Stop
+                            ],
+                            backgroundColor: '#0F4C81', // Ocean Blue
+                            borderRadius: 4,
+                            barPercentage: 0.5
+                        },
+                        {
+                            label: 'Curacao (Pietermaai)',
+                            data: [
+                                {x: [1, 7], y: 'Steffen & Doris'}
+                            ],
+                            backgroundColor: '#FF7F50', // Sunset Orange
+                            borderRadius: 4,
+                            barPercentage: 0.5
+                        },
+                        {
+                            label: 'Curacao (Grote Berg)',
+                            data: [
+                                {x: [7, 17], y: 'Steffen & Doris'},
+                                {x: [9, 17], y: 'Sarah & Gabriel'} // Adjusted for 25th Arrival
+                            ],
+                            backgroundColor: '#00A3E0', // Curacao Blue
+                            borderRadius: 4,
+                            barPercentage: 0.5
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            display: true,
+                            min: 0,
+                            max: 19,
+                            ticks: {
+                                callback: function(value) {
+                                    if(value % 2 === 0) return (value/2 < 8 ? (16 + value) + '. Jan' : (value - 15) + '. Feb');
+                                    return '';
+                                }
+                            }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // 2. Activity Mix Chart
+            const ctxActivity = document.getElementById('activityChart').getContext('2d');
+            new Chart(ctxActivity, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Strand & Relax', 'Kultur & Stadt', 'Natur & Aktiv', 'Reise/Transfer'],
+                    datasets: [{
+                        data: [45, 25, 20, 10], // Estimated percentages
+                        backgroundColor: [
+                            '#00A3E0', // Beach
+                            '#FF7F50', // Culture
+                            '#4A7c59', // Nature
+                            '#94a3b8'  // Travel
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' }
+                    }
+                }
+            });
+        }
+
+        // --- NAVIGATION & INTERACTION ---
+
+        function filterItinerary(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
+                btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
+            });
+            const activeBtn = document.getElementById(`btn-${type}`);
+            activeBtn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+            activeBtn.classList.add('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
+
+            renderItinerary(type);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderItinerary('all');
+            initCharts();
+        });
+
+    </script>
+</body>
+</html>
