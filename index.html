@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curacao & Toronto 2026 - Reiseplaner</title>
+    <title>Curacao & Toronto 2026 - Finale Version</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -110,7 +110,7 @@
                     <button onclick="scrollToSection('flights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Flüge</button>
                     <button onclick="scrollToSection('bookings')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap shadow-sm">Buchungen</button>
                     <button onclick="scrollToSection('itinerary')" class="text-white bg-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Plan</button>
-                    <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food</button>
+                    <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food & Drinks</button>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
 
         <!-- Intro -->
         <section class="text-center space-y-4">
-            <h1 class="text-4xl md:text-5xl font-bold font-display text-gray-800">Journey to Curaçao</h1>
+            <h1 class="text-4xl md:text-5xl font-bold font-display text-gray-800">Journey To Curaçao</h1>
             <p class="text-xl text-gray-500 font-light">16. Januar – 04. Februar 2026</p>
             <div class="inline-flex items-center px-4 py-2 rounded-full bg-orange-100 text-sunset font-semibold text-sm">
                 <span class="mr-2">🎉</span> Mit Sarah & Gabriel ab 25. Jan
@@ -317,7 +317,7 @@
                             <h3 class="text-lg font-bold text-gray-800">The Westin Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/WestinTorontoAirport" target="_blank" class="details-link">950 Dixon Road, Toronto</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/WestinTorontoAirport" target="_blank" class="details-link">950 Dixon Road, Toronto, ON</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -416,7 +416,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Delta Hotels Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/DeltaTorontoAirport" target="_blank" class="details-link">655 Dixon Road, Toronto</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/DeltaTorontoAirport" target="_blank" class="details-link">655 Dixon Road, Toronto, ON</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -468,32 +468,32 @@
             <div class="text-center mb-10">
                 <span class="text-4xl">🍽️</span>
                 <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Kulinarischer Guide</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Authentische Küche, frischer Fisch und die besten Snacks der Insel. Keine Touristenfallen.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Authentische Küche, frischer Fisch, coole Drinks und die besten Snacks der Insel. Keine Touristenfallen.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Krioyo -->
                 <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-40 bg-gray-200 img-zoom-container">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
                         <img src="https://image.pollinations.ai/prompt/Curacao%20local%20food%20market%20Plasa%20Bieu%20stew" alt="Krioyo Food" class="w-full h-full object-cover img-zoom">
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-2xl mr-3">🥘</span>
-                            <h3 class="text-xl font-bold text-gray-800">Echt Curacao (Krioyo)</h3>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🥘</span>
+                            <h3 class="text-lg font-bold text-gray-800">Krioyo (Local)</h3>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="border-b pb-2">
-                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="details-link">Plasa Bieu (Markthalle)</a>
-                                <p class="text-sm text-gray-600">Mittagessen wie die Locals. Probier "Karni Stoba".</p>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="details-link">Plasa Bieu</a>
+                                <p class="text-xs text-gray-500">Markthalle (nur Mittags). Must-Eat: "Karni Stoba".</p>
                             </li>
-                            <li class="border-b pb-2">
+                            <li class="border-b border-gray-100 pb-2">
                                 <a href="https://goo.gl/maps/KomedorKrioyo" target="_blank" class="details-link">Komedor Krioyo</a>
-                                <p class="text-sm text-gray-600">Landhaus-Flair, riesige Portionen. Perfekt auf dem Weg nach Westpunt.</p>
+                                <p class="text-xs text-gray-500">Landhaus-Flair, riesige Portionen.</p>
                             </li>
                             <li>
                                 <a href="https://goo.gl/maps/Jaanchies" target="_blank" class="details-link">Jaanchie’s</a>
-                                <p class="text-sm text-gray-600">Kult-Status in Westpunt. Mutige essen Leguan-Suppe.</p>
+                                <p class="text-xs text-gray-500">Kult in Westpunt. Mutige essen Leguan.</p>
                             </li>
                         </ul>
                     </div>
@@ -501,26 +501,53 @@
 
                 <!-- Fisch -->
                 <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-40 bg-gray-200 img-zoom-container">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
                         <img src="https://image.pollinations.ai/prompt/Fresh%20fish%20Curacao%20seaside%20restaurant%20rustic" alt="Fresh Fish" class="w-full h-full object-cover img-zoom">
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-2xl mr-3">🐟</span>
-                            <h3 class="text-xl font-bold text-gray-800">Frischer Fisch</h3>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🐟</span>
+                            <h3 class="text-lg font-bold text-gray-800">Frischer Fisch</h3>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="border-b pb-2">
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
                                 <a href="https://www.facebook.com/piscaderanoreservations/" target="_blank" class="details-link">De Visserij</a>
-                                <p class="text-sm text-gray-600">Piscadera. Fisch nach Gewicht, direkt am Wasser. Fr-Mo.</p>
+                                <p class="text-xs text-gray-500">Fisch nach Gewicht, direkt am Wasser. Fr-Mo.</p>
                             </li>
-                            <li class="border-b pb-2">
+                            <li class="border-b border-gray-100 pb-2">
                                 <a href="https://goo.gl/maps/Purunchi" target="_blank" class="details-link">Purunchi</a>
-                                <p class="text-sm text-gray-600">Geheimtipp in den Mangroven hinter der Wasserfabrik.</p>
+                                <p class="text-xs text-gray-500">Geheimtipp in den Mangroven.</p>
                             </li>
                             <li>
                                 <a href="https://goo.gl/maps/PopsPlace" target="_blank" class="details-link">Pop's Place</a>
-                                <p class="text-sm text-gray-600">Caracasbaai. Entspanntes Essen am lokalen Strand.</p>
+                                <p class="text-xs text-gray-500">Locals-Treff an der Caracasbaai.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bars & Nightlife -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img src="https://image.pollinations.ai/prompt/Cocktail%20Bar%20Curacao%20Pietermaai%20night%20drinks" alt="Cocktails" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🍹</span>
+                            <h3 class="text-lg font-bold text-gray-800">Bars & Drinks</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://www.facebook.com/LukesCocktailbar/" target="_blank" class="details-link">Luke's Cocktailbar</a>
+                                <p class="text-xs text-gray-500">Beste Craft Cocktails der Insel. Hipster-Vibe.</p>
+                            </li>
+                            <li class="border-b border-gray-100 pb-2">
+                                <a href="https://cascadacuracao.com/" target="_blank" class="details-link">Cascada Rooftop</a>
+                                <p class="text-xs text-gray-500">360° Blick über die Stadt. Perfekt für Sunset.</p>
+                            </li>
+                            <li>
+                                <a href="https://www.curacao.com/de/activity/netto-bar" target="_blank" class="details-link">Netto Bar</a>
+                                <p class="text-xs text-gray-500">Die älteste Bar. Heimat des grünen Rums.</p>
                             </li>
                         </ul>
                     </div>
@@ -528,22 +555,22 @@
 
                 <!-- Snacks -->
                 <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-40 bg-gray-200 img-zoom-container">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
                         <img src="https://image.pollinations.ai/prompt/Curacao%20food%20truck%20BBQ%20ribs%20night" alt="Food Truck" class="w-full h-full object-cover img-zoom">
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-2xl mr-3">🍢</span>
-                            <h3 class="text-xl font-bold text-gray-800">Truk'i Pan (Snacks)</h3>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">🍢</span>
+                            <h3 class="text-lg font-bold text-gray-800">Truk'i Pan (Snacks)</h3>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="border-b pb-2">
+                        <ul class="space-y-3 text-sm">
+                            <li class="border-b border-gray-100 pb-2">
                                 <a href="https://goo.gl/maps/BBQExpress" target="_blank" class="details-link">BBQ Express</a>
-                                <p class="text-sm text-gray-600">Caracasbaaiweg. Legendäre Ribs für den späten Hunger.</p>
+                                <p class="text-xs text-gray-500">Caracasbaaiweg. Legendäre Ribs (abends).</p>
                             </li>
                             <li>
                                 <a href="https://goo.gl/maps/KokiRibaBloki" target="_blank" class="details-link">Koki Riba Bloki</a>
-                                <p class="text-sm text-gray-600">Schottegatweg. Street BBQ vom Feinsten.</p>
+                                <p class="text-xs text-gray-500">Schottegatweg. Street BBQ vom Feinsten.</p>
                             </li>
                         </ul>
                     </div>
@@ -653,19 +680,19 @@
               details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true },
             { date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
               img: "https://image.pollinations.ai/prompt/Mosa%20Cana%20Curacao%20restaurant%20terrace%20night",
-              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> (Shared Dining) oder <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.", highlight: true },
-            { date: "27. Jan (Di)", category: "beach", loc: "Grote Berg", title: "Turtles & Alice in Wonderland", icon: "🐢", 
-              img: "https://image.pollinations.ai/prompt/Sea%20turtle%20swimming%20underwater%20Curacao%20Playa%20Piskado",
-              details: "1. <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). 2. <strong><a href='https://goo.gl/maps/PlayaKalki' target='_blank' class='details-link'>Playa Kalki</a></strong> ('Alice in Wonderland' Riff). Lunch <a href='https://goo.gl/maps/Jaanchies' target='_blank' class='details-link'>Jaanchie's</a>.", highlight: false },
+              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.", highlight: true },
+            { date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles, Wellen & Sunset", icon: "🌊", 
+              img: "https://image.pollinations.ai/prompt/Shete%20Boka%20National%20Park%20waves%20crashing%20curacao",
+              details: "Vormittag: <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.shetebokapark.org/' target='_blank' class='details-link'>Shete Boka Park</a></strong>. Sunset-Drink: <strong><a href='https://goo.gl/maps/BlueViewSunset' target='_blank' class='details-link'>Blue View Terrace</a></strong>.", highlight: true },
             { date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
               img: "https://image.pollinations.ai/prompt/Klein%20Curacao%20island%20lighthouse%20white%20sand%20boat",
               details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
             { date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
               img: "https://image.pollinations.ai/prompt/Cascada%20Rooftop%20Bar%20Curacao%20sunset%20cocktails",
               details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>Abend:</strong> Sundowner in der <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a> (360° Blick), danach Punda Vibes Straßenfest.", highlight: true },
-            { date: "30. Jan (Fr)", category: "city", loc: "Grote Berg / Otrobanda", title: "Lagun & Green Rum", icon: "🥃", 
-              img: "https://image.pollinations.ai/prompt/Netto%20Bar%20Curacao%20green%20rum%20interior",
-              details: "Tagsüber: <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a> & <a href='https://hofimangocuracao.com/' target='_blank' class='details-link'>Hofi Mango</a>. <strong>Abend:</strong> Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> oder <a href='https://ceviche91curacao.com/' target='_blank' class='details-link'>Ceviche 91</a>.", highlight: true },
+            { date: "30. Jan (Fr)", category: "nature", loc: "Grote Berg / Otrobanda", title: "Views & Green Rum", icon: "🥃", 
+              img: "https://image.pollinations.ai/prompt/Santa%20Martha%20Bay%20View%20Curacao%20panorama",
+              details: "Stopp: <strong><a href='https://goo.gl/maps/SantaMarthaView' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).", highlight: true },
             { date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
               img: "https://image.pollinations.ai/prompt/Karakter%20Curacao%20sunset%20infinity%20pool%20ocean%20view",
               details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.", highlight: false },
