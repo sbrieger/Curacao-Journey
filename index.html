@@ -442,18 +442,15 @@
             <div class="flex flex-col md:flex-row justify-between items-center border-b pb-4">
                 <div>
                     <h2 class="text-3xl font-bold font-display text-gray-800">Detaillierter Reiseplan</h2>
-                    <p class="text-gray-500 mt-1">Filtere nach Aktivität oder Phase.</p>
+                    <p class="text-gray-500 mt-1">Gliedere die Ansicht nach Standort & Phase.</p>
                 </div>
                 
-                <!-- Filters -->
-                <div class="mt-4 md:mt-0 flex flex-wrap gap-2 justify-end">
-                    <button onclick="filterItinerary('all')" id="btn-all" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-curacao text-white shadow-sm transition">Alle</button>
-                    <button onclick="filterItinerary('beach')" id="btn-beach" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">🏖️ Strand & Relax</button>
-                    <button onclick="filterItinerary('city')" id="btn-city" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-sunset hover:text-sunset transition">🏙️ Stadt & Kultur</button>
-                    <button onclick="filterItinerary('nature')" id="btn-nature" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:border-palm hover:text-palm transition">🦎 Natur</button>
-                    <div class="w-full md:w-auto md:border-l md:pl-2 flex gap-2">
-                         <button onclick="filterItinerary('toronto')" id="btn-toronto" class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium bg-white text-gray-500 border border-gray-200 hover:bg-gray-50 transition">🍁 Toronto</button>
-                    </div>
+                <!-- Filters (Tabs for Location) -->
+                <div class="mt-4 md:mt-0 flex flex-wrap gap-2 justify-end w-full md:w-auto">
+                    <button onclick="filterItinerary('all')" id="btn-all" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-curacao text-white shadow-md transition">Alles</button>
+                    <button onclick="filterItinerary('willemstad')" id="btn-willemstad" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">📍 Willemstad (Woche 1)</button>
+                    <button onclick="filterItinerary('groteberg')" id="btn-groteberg" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">📍 Grote Berg (Woche 2)</button>
+                    <button onclick="filterItinerary('toronto')" id="btn-toronto" class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-gray-500 border border-gray-200 hover:border-curacao hover:text-curacao transition">🍁 Toronto</button>
                 </div>
             </div>
 
@@ -644,81 +641,95 @@
         // --- DATA STORAGE ---
         const itinerary = [
             // TORONTO ARRIVAL
-            { date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
+            { phase: "travel", date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
               img: "https://image.pollinations.ai/prompt/The%20Keg%20Steakhouse%20Toronto%20Airport%20Exterior",
               details: "Landung 14:55. Gratis Shuttle zum <a href='https://goo.gl/maps/WestinTorontoAirport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://goo.gl/maps/TheKegTorontoAirport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
             
-            // CURACAO WEEK 1 - PIETERMAAI
-            { date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
+            // CURACAO WEEK 1 - PIETERMAAI (Base: Stadt)
+            { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Pietermaai%20colorful%20dutch%20architecture%20street",
-              details: "Flug 09:40 -> 15:50. Check-in Apt Pietermaai. Drink im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='details-link'>Mundo Bizarro</a>.", highlight: false },
-            { date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
+              details: "Flug 09:40 -> 15:50. Taxi zur Unterkunft (~35$). Check-in Apt Pietermaai. <strong>19:00 Dinner im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='details-link'>Mundo Bizarro</a></strong> (Reserviert ✅ <a href='https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dinner+Mundo+Bizarro&dates=20260117T190000/20260117T210000&details=Reservation+Mundo+Bizarro&location=Mundo+Bizarro+Curacao' target='_blank' class='text-curacao hover:underline'>📅 Kalender</a>).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Pietermaai+District' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Vom Flughafen: 14 km (ca. 25 Min)</a></span>", highlight: false },
+            
+            { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Queen%20Emma%20Bridge%20Handelskade%20colorful%20houses",
-              details: "<a href='https://goo.gl/maps/QueenEmmaBridge' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://kurahulanda.com/' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://goo.gl/maps/Handelskade' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://goo.gl/maps/RiffFort' target='_blank' class='details-link'>Riff Fort</a>.", highlight: false },
-            { date: "19. Jan (Mo)", category: "city", loc: "Pietermaai", title: "Likör & Aussicht", icon: "🍸", 
+              details: "<a href='https://goo.gl/maps/QueenEmmaBridge' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://kurahulanda.com/' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://goo.gl/maps/Handelskade' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://goo.gl/maps/RiffFort' target='_blank' class='details-link'>Riff Fort</a>.<span class='block mt-2 text-xs bg-green-50 text-green-700 p-2 rounded border border-green-100'>🚶 Alles fußläufig machbar (0 km)</span>", highlight: false },
+            
+            { phase: "willemstad", date: "19. Jan (Mo)", category: "city", loc: "Pietermaai", title: "Likör & Aussicht", icon: "🍸", 
               img: "https://image.pollinations.ai/prompt/Fort%20Nassau%20Curacao%20view%20over%20Willemstad%20harbor",
-              details: "<a href='https://chobolobo.com/' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). <a href='https://mambobeach.com/' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='details-link'>Fort Nassau</a>.", highlight: true },
-            { date: "20. Jan (Di)", category: "beach", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
+              details: "<a href='https://chobolobo.com/' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). <a href='https://mambobeach.com/' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='details-link'>Fort Nassau</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Fort+Nassau+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 5-7 km (ca. 10-15 Min)</a> • Kurze Wege</span>", highlight: true },
+            
+            { phase: "willemstad", date: "20. Jan (Di)", category: "beach", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
               img: "https://image.pollinations.ai/prompt/Tugboat%20Beach%20Curacao%20sunken%20ship%20underwater",
-              details: "<strong><a href='https://goo.gl/maps/TugboatBeach' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong><a href='https://goo.gl/maps/Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong> (tolles Riff).", highlight: true },
-            { date: "21. Jan (Mi)", category: "nature", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
+              details: "<strong><a href='https://goo.gl/maps/TugboatBeach' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong><a href='https://goo.gl/maps/Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong> (tolles Riff).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Tugboat+Beach+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 12 km (20-25 Min)</a> • Via Caracasbaaiweg</span>", highlight: true },
+            
+            { phase: "willemstad", date: "21. Jan (Mi)", category: "nature", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Aloe%20Vera%20Plantation%20landscape",
-              details: "<a href='https://aloecuracao.com/' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://goo.gl/maps/StJorisBaai' target='_blank' class='details-link'>St. Joris Baai</a> (raue Seite). <a href='https://curacao-sea-aquarium.com/' target='_blank' class='details-link'>Sea Aquarium</a> Option.", highlight: false },
-            { date: "22. Jan (Do)", category: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
+              details: "<a href='https://aloecuracao.com/' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://goo.gl/maps/StJorisBaai' target='_blank' class='details-link'>St. Joris Baai</a> (raue Seite). <a href='https://curacao-sea-aquarium.com/' target='_blank' class='details-link'>Sea Aquarium</a> Option.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=The+Aloe+Vera+Plantation+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: ca. 10-15 km (20 Min)</a> • Richtung Nord-Ost</span>", highlight: false },
+            
+            { phase: "willemstad", date: "22. Jan (Do)", category: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Punda%20Vibes%20night%20fireworks%20street%20party",
-              details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.", highlight: true },
+              details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.<span class='block mt-2 text-xs bg-green-50 text-green-700 p-2 rounded border border-green-100'>🚶 Zu Fuß in die Stadt</span>", highlight: true },
 
-            // CURACAO WEEK 2 - GROTE BERG (WEST)
-            { date: "23. Jan (Fr)", category: "travel", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
+            // CURACAO WEEK 2 - GROTE BERG (Base: Zentral/West)
+            { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Flamingos%20Salt%20Lake%20Jan%20Kok",
-              details: "Fahrt via <a href='https://goo.gl/maps/JanKokFlamingos' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
-            { date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
+              details: "Fahrt via <a href='https://goo.gl/maps/JanKokFlamingos' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!<span class='block mt-2 text-xs bg-blue-50 text-blue-800 p-2 rounded border border-blue-100'><a href='https://www.google.com/maps/dir/?api=1&destination=Grote+Berg+Curacao' target='_blank' class='hover:text-blue-600 underline decoration-dotted'>🚗 Transfer: 22 km (35 Min)</a> • Via Weg naar Bullenbaai</span>", highlight: false },
+            
+            { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
               img: "https://image.pollinations.ai/prompt/Daaibooi%20Beach%20Curacao%20cozy%20beach%20bar",
-              details: "Tag für euch. <a href='https://goo.gl/maps/Daaibooi' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://goo.gl/maps/CentrumPiscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.", highlight: false },
-            { date: "25. Jan (So)", category: "travel", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
+              details: "Tag für euch. <a href='https://goo.gl/maps/Daaibooi' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://goo.gl/maps/CentrumPiscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Daaibooi+Beach' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 8 km (10 Min)</a> • Daaibooi ist der Hausstrand</span>", highlight: false },
+            
+            { phase: "groteberg", date: "25. Jan (So)", category: "travel", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
               img: "https://image.pollinations.ai/prompt/Grote%20Knip%20Beach%20Curacao%20turquoise%20water",
-              details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true },
-            { date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
+              details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Grote+Knip' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Zum Strand: 22 km (25 Min)</a> <br><a href='https://www.google.com/maps/dir/?api=1&destination=Curacao+International+Airport' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Zum Airport: 9 km (10 Min)</a></span>", highlight: true },
+            
+            { phase: "groteberg", date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
               img: "https://image.pollinations.ai/prompt/Mosa%20Cana%20Curacao%20restaurant%20terrace%20night",
-              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.", highlight: true },
-            { date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles, Wellen & Sunset", icon: "🌊", 
+              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Cas+Abao+Beach' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Strand: 8 km (12 Min)</a><br><a href='https://www.google.com/maps/dir/?api=1&destination=Mosa+Cana+Bar+Kitchen' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Stadt abends: 16 km (25 Min)</a></span>", highlight: true },
+            
+            { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles, Wellen & Sunset", icon: "🌊", 
               img: "https://image.pollinations.ai/prompt/Shete%20Boka%20National%20Park%20waves%20crashing%20curacao",
-              details: "Vormittag: <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.shetebokapark.org/' target='_blank' class='details-link'>Shete Boka Park</a></strong>. Sunset-Drink: <strong><a href='https://goo.gl/maps/BlueViewSunset' target='_blank' class='details-link'>Blue View Terrace</a></strong>.", highlight: true },
-            { date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
+              details: "Vormittag: <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.shetebokapark.org/' target='_blank' class='details-link'>Shete Boka Park</a></strong>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Playa+Piskado' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 26 km (35 Min)</a> • Ganz in den Westen</span>", highlight: true },
+            
+            { phase: "groteberg", date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
               img: "https://image.pollinations.ai/prompt/Klein%20Curacao%20island%20lighthouse%20white%20sand%20boat",
-              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
-            { date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
+              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.<span class='block mt-2 text-xs bg-red-50 text-red-800 p-2 rounded border border-red-100 font-bold'><a href='https://www.google.com/maps/dir/?api=1&destination=Brakkeput+Ariba+62' target='_blank' class='hover:text-red-600 underline decoration-dotted'>⚠️ Anfahrt: 28 km (45-60 Min!)</a> • Berufsverkehr um Willemstad einplanen!</span>", highlight: true },
+            
+            { phase: "groteberg", date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
               img: "https://image.pollinations.ai/prompt/Cascada%20Rooftop%20Bar%20Curacao%20sunset%20cocktails",
-              details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>Abend:</strong> Sundowner in der <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a> (360° Blick), danach Punda Vibes Straßenfest.", highlight: true },
-            { date: "30. Jan (Fr)", category: "nature", loc: "Grote Berg / Otrobanda", title: "Views & Green Rum", icon: "🥃", 
+              details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>18:00 Sundowner & Dinner: <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a></strong> (Reserviert ✅ <a href='https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dinner+Cascada+Rooftop&dates=20260129T180000/20260129T210000&details=Reservation+Cascada+Rooftop&location=Cascada+Rooftop+Bar+Curacao' target='_blank' class='text-curacao hover:underline'>📅 Kalender</a>). Danach Punda Vibes Straßenfest.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Playa+Porto+Mari' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Strand: 9 km (12 Min)</a><br><a href='https://www.google.com/maps/dir/?api=1&destination=Cascada+Rooftop+Bar+Kitchen' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Stadt: 16 km (25 Min)</a></span>", highlight: true },
+            
+            { phase: "groteberg", date: "30. Jan (Fr)", category: "nature", loc: "Grote Berg / Otrobanda", title: "Views & Green Rum", icon: "🥃", 
               img: "https://image.pollinations.ai/prompt/Santa%20Martha%20Bay%20View%20Curacao%20panorama",
-              details: "Stopp: <strong><a href='https://goo.gl/maps/SantaMarthaView' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).", highlight: true },
-            { date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
+              details: "Stopp: <strong><a href='https://goo.gl/maps/SantaMarthaView' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Santa+Martha+Bay+View+Lookout' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Viewpoint: 16 km (20 Min)</a> • Via Soto</span>", highlight: true },
+            
+            { phase: "groteberg", date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
               img: "https://image.pollinations.ai/prompt/Karakter%20Curacao%20sunset%20infinity%20pool%20ocean%20view",
-              details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.", highlight: false },
-            { date: "01. Feb (So)", category: "beach", loc: "Grote Berg", title: "Farewell Beach", icon: "🐟", 
+              details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Karakter+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 10 km (15 Min)</a> • Richtung St. Willibrordus</span>", highlight: false },
+            
+            { phase: "groteberg", date: "01. Feb (So)", category: "beach", loc: "Grote Berg", title: "Farewell Beach", icon: "🐟", 
               img: "https://image.pollinations.ai/prompt/De%20Visserij%20Curacao%20seafood%20restaurant%20sunset",
-              details: "Lieblings-Schnorchelspot nochmal genießen. Dinner bei <a href='https://www.facebook.com/piscaderanoreservations/' target='_blank' class='details-link'>De Visserij</a> (Piscadera).", highlight: false },
+              details: "Lieblings-Schnorchelspot nochmal genießen. Dinner bei <a href='https://www.facebook.com/piscaderanoreservations/' target='_blank' class='details-link'>De Visserij</a> (Piscadera).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=De+Visserij+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Dinner: 12 km (15 Min)</a> • Nahe Willemstad</span>", highlight: false },
 
             // RETURN
-            { date: "02. Feb (Mo)", category: "travel", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
+            { phase: "travel", date: "02. Feb (Mo)", category: "travel", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
               img: "https://image.pollinations.ai/prompt/Curacao%20Airport%20Hato%20Exterior",
-              details: "13:00 Gemeinsame Fahrt zum Flughafen. S&G: 15:49 (MIA), S&D: 16:45 (YYZ).", highlight: false },
+              details: "13:00 Gemeinsame Fahrt zum Flughafen. S&G: 15:49 (MIA), S&D: 16:45 (YYZ).<span class='block mt-2 text-xs bg-blue-50 text-blue-800 p-2 rounded border border-blue-100 font-bold'><a href='https://www.google.com/maps/dir/?api=1&destination=Curacao+International+Airport' target='_blank' class='hover:text-blue-600 underline decoration-dotted'>🚗 Fahrt: 9 km (10-15 Min)</a></span>", highlight: false },
             
             // TORONTO DETAILED DAY (03. FEB)
-            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
               img: "https://image.pollinations.ai/prompt/Toronto%20St%20Lawrence%20Market%20Interior%20Food",
               details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>09:00:</strong> Check-out Delta Hotel. Gratis-Shuttle zu Terminal 1.</li><li><strong>09:30:</strong> Koffer bei 'Excess Baggage' (T1 Ankunft) abgeben (~10-15 CAD).</li><li><strong>10:00:</strong> UP Express Zug nach Union Station (25 Min).</li><li><strong>10:30:</strong> Spaziergang zum <a href='https://www.stlawrencemarket.com/' target='_blank' class='details-link'>St. Lawrence Market</a>.</li><li><strong>Must-Eat:</strong> 'Peameal Bacon Sandwich' bei der <a href='https://stlawrencemarket.com/vendors/carousel_bakery/61' target='_blank' class='details-link'>Carousel Bakery</a>.</li></ul>", highlight: true },
 
-            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
               img: "https://image.pollinations.ai/prompt/Toronto%20Eaton%20Centre%20Glass%20Ceiling",
               details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>12:00:</strong> Via <strong>PATH</strong> (unterirdisch & warm!) Richtung Norden laufen.</li><li><strong>12:30:</strong> <a href='https://shops.cadillacfairview.com/property/cf-toronto-eaton-centre' target='_blank' class='details-link'>Eaton Centre</a>. Bummeln & Shoppen.</li><li><strong>14:00:</strong> Kaffee-Pause bei <a href='https://balzacs.com/' target='_blank' class='details-link'>Balzac's Coffee</a>.</li><li><strong>14:30:</strong> <a href='https://goo.gl/maps/NathanPhillipsSquare' target='_blank' class='details-link'>Nathan Phillips Square</a>. Selfie vor dem 'TORONTO'-Schriftzug & Eisläufer beobachten.</li></ul>", highlight: false },
 
-            { date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
               img: "https://image.pollinations.ai/prompt/UP%20Express%20Train%20Toronto%20Union%20Station",
               details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>15:15:</strong> Rückweg zur Union Station.</li><li><strong>15:30:</strong> UP Express zum Flughafen (alle 15 Min).</li><li><strong>16:00:</strong> Ankunft T1 & Koffer abholen.</li><li><strong>16:30:</strong> Check-in Air Canada (Abflug 19:45).</li><li><strong>Tipp:</strong> Nutzt die Zeit für ein entspanntes Dinner im Terminal nach der Security.</li></ul>", highlight: false },
 
-            { date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
+            { phase: "toronto", date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
               img: "https://image.pollinations.ai/prompt/Munich%20Airport%20Arrival",
               details: "Landung 09:50 Uhr in München.", highlight: false }
         ];
@@ -738,7 +749,8 @@
             };
 
             itinerary.forEach((item, index) => {
-                if (filter !== 'all' && item.category !== filter) return;
+                // Filter Logic: Check Phase OR allow 'all'
+                if (filter !== 'all' && item.phase !== filter) return;
 
                 const isHighlight = item.highlight ? 'border-l-4 border-sunset shadow-lg' : 'bg-white';
                 const catStyle = categoryColors[item.category] || categoryColors['travel'];
