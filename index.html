@@ -61,18 +61,22 @@
             margin: 0 auto;
             height: 300px;
         }
-        /* Image Hover Zoom */
         .img-zoom-container {
             overflow: hidden;
+            background-color: #cbd5e1; /* Gray placeholder while loading */
+            min-height: 200px;
         }
         .img-zoom {
             transition: transform 0.5s ease;
+            opacity: 0; 
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .img-loaded {
+            opacity: 1;
         }
         .card-shadow:hover .img-zoom {
             transform: scale(1.05);
         }
-        
-        /* Custom Scrollbar */
         .itinerary-scroll::-webkit-scrollbar {
             width: 8px;
         }
@@ -83,8 +87,6 @@
             background: #cbd5e1;
             border-radius: 4px;
         }
-        
-        /* Link Styling in Details */
         .details-link {
             color: #00A3E0;
             font-weight: 600;
@@ -95,8 +97,6 @@
             color: #0F4C81;
             text-decoration: underline;
         }
-        
-        /* Weather Widget Animation */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
@@ -109,14 +109,20 @@
             animation: float 3s ease-in-out infinite;
             animation-delay: 1.5s;
         }
-        
-        /* Animation for accordion */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in {
             animation: fadeIn 0.3s ease-out forwards;
+        }
+        /* Loader for images */
+        .loading-pulse {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; background-color: #cbd5e1; }
+            50% { opacity: .7; background-color: #e2e8f0; }
         }
     </style>
 </head>
@@ -133,20 +139,19 @@
                     <button onclick="scrollToSection('flights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Flüge</button>
                     <button onclick="scrollToSection('bookings')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap shadow-sm">Buchungen</button>
                     <button onclick="scrollToSection('itinerary')" class="text-white bg-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Plan</button>
-                    <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Statistik</button>
+                    <button onclick="scrollToSection('highlights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Highlights</button>
                     <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food & Drinks</button>
+                    <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Statistik</button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- NEW: HERO HEADER WITH WEATHER -->
-    <header class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+    <header class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gray-300">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0">
-            <img src="https://image.pollinations.ai/prompt/Curacao%20Kenepa%20Grandi%20beach%20turquoise%20water%20white%20sand%20sunny%20paradise%20wide%20view%20hd" 
-                 alt="Curacao Paradise" 
-                 class="w-full h-full object-cover">
+            <img id="hero-image" data-fallback-key="hero" src="" alt="Curacao Paradise" class="w-full h-full object-cover img-zoom">
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-slate-50"></div>
         </div>
 
@@ -575,38 +580,15 @@
             </div>
         </section>
 
-         <!-- COMPACT DASHBOARD SECTION (COLLAPSIBLE) -->
-         <section id="dashboard" class="bg-white rounded-2xl p-4 card-shadow border-t-4 border-curacao max-w-4xl mx-auto transition-all duration-300">
-            <!-- Header -->
-            <div onclick="toggleSection('dashboard-content', 'dashboard-arrow')" class="cursor-pointer flex flex-row justify-between items-center mb-4 border-b-2 border-gray-200 pb-2 select-none group">
-                <div class="text-left">
-                    <h2 class="text-xl font-bold font-display text-gray-800 group-hover:text-curacao transition-colors">Reise-Statistik</h2>
-                    <p class="text-sm text-gray-500">Kompakter Überblick über Ablauf & Aktivitäten <span class="text-curacao text-xs font-bold ml-2">(Anzeigen)</span></p>
-                </div>
-                <div class="bg-white p-2 rounded-full shadow-sm">
-                    <svg id="dashboard-arrow" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </div>
+        <!-- HIGHLIGHTS SECTION -->
+        <section id="highlights" class="bg-white rounded-3xl p-8 card-shadow">
+            <div class="text-center mb-10">
+                <span class="text-4xl">✨</span>
+                <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Top 10 Must-See Highlights</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Die wichtigsten Sehenswürdigkeiten, die ihr auf keinen Fall verpassen dürft.</p>
             </div>
-            
-            <!-- Content (Hidden by default) -->
-            <div id="dashboard-content" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 items-center animate-fade-in">
-                <!-- Timeline Chart -->
-                <div class="w-full">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">Zeitplan</h3>
-                    <div class="chart-container h-48 mx-auto">
-                        <canvas id="timelineChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Activity Mix Chart -->
-                <div class="w-full">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">Mix</h3>
-                    <div class="chart-container h-40 mx-auto" style="max-width: 300px;">
-                        <canvas id="activityChart"></canvas>
-                    </div>
-                </div>
+            <div id="highlights-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Injected via JS -->
             </div>
         </section>
 
@@ -615,113 +597,10 @@
             <div class="text-center mb-10">
                 <span class="text-4xl">🍽️</span>
                 <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Kulinarischer Guide</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Authentische Küche, frischer Fisch, coole Drinks und die besten Snacks der Insel. Keine Touristenfallen.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Authentische Küche, frischer Fisch, coole Drinks.</p>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Krioyo -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-32 bg-gray-200 img-zoom-container">
-                        <img src="https://image.pollinations.ai/prompt/Curacao%20local%20food%20market%20Plasa%20Bieu%20stew" alt="Krioyo Food" class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xl mr-2">🥘</span>
-                            <h3 class="text-lg font-bold text-gray-800">Krioyo (Local)</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm">
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://goo.gl/maps/PlasaBieu" target="_blank" class="details-link">Plasa Bieu</a>
-                                <p class="text-xs text-gray-500">Markthalle (nur Mittags). Must-Eat: "Karni Stoba".</p>
-                            </li>
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://goo.gl/maps/KomedorKrioyo" target="_blank" class="details-link">Komedor Krioyo</a>
-                                <p class="text-xs text-gray-500">Landhaus-Flair, riesige Portionen.</p>
-                            </li>
-                            <li>
-                                <a href="https://goo.gl/maps/Jaanchies" target="_blank" class="details-link">Jaanchie’s</a>
-                                <p class="text-xs text-gray-500">Kult in Westpunt. Mutige essen Leguan.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Fisch -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-32 bg-gray-200 img-zoom-container">
-                        <img src="https://image.pollinations.ai/prompt/Fresh%20fish%20Curacao%20seaside%20restaurant%20rustic" alt="Fresh Fish" class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xl mr-2">🐟</span>
-                            <h3 class="text-lg font-bold text-gray-800">Frischer Fisch</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm">
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://www.facebook.com/piscaderanoreservations/" target="_blank" class="details-link">De Visserij</a>
-                                <p class="text-xs text-gray-500">Fisch nach Gewicht, direkt am Wasser. Fr-Mo.</p>
-                            </li>
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://goo.gl/maps/Purunchi" target="_blank" class="details-link">Purunchi</a>
-                                <p class="text-xs text-gray-500">Geheimtipp in den Mangroven.</p>
-                            </li>
-                            <li>
-                                <a href="https://goo.gl/maps/PopsPlace" target="_blank" class="details-link">Pop's Place</a>
-                                <p class="text-xs text-gray-500">Locals-Treff an der Caracasbaai.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Bars & Nightlife -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-32 bg-gray-200 img-zoom-container">
-                        <img src="https://image.pollinations.ai/prompt/Cocktail%20Bar%20Curacao%20Pietermaai%20night%20drinks" alt="Cocktails" class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xl mr-2">🍹</span>
-                            <h3 class="text-lg font-bold text-gray-800">Bars & Drinks</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm">
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://www.facebook.com/LukesCocktailbar/" target="_blank" class="details-link">Luke's Cocktailbar</a>
-                                <p class="text-xs text-gray-500">Beste Craft Cocktails der Insel. Hipster-Vibe.</p>
-                            </li>
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://cascadacuracao.com/" target="_blank" class="details-link">Cascada Rooftop</a>
-                                <p class="text-xs text-gray-500">360° Blick über die Stadt. Perfekt für Sunset.</p>
-                            </li>
-                            <li>
-                                <a href="https://www.curacao.com/de/activity/netto-bar" target="_blank" class="details-link">Netto Bar</a>
-                                <p class="text-xs text-gray-500">Die älteste Bar. Heimat des grünen Rums.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Snacks -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden">
-                    <div class="h-32 bg-gray-200 img-zoom-container">
-                        <img src="https://image.pollinations.ai/prompt/Curacao%20food%20truck%20BBQ%20ribs%20night" alt="Food Truck" class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xl mr-2">🍢</span>
-                            <h3 class="text-lg font-bold text-gray-800">Truk'i Pan (Snacks)</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm">
-                            <li class="border-b border-gray-100 pb-2">
-                                <a href="https://goo.gl/maps/BBQExpress" target="_blank" class="details-link">BBQ Express</a>
-                                <p class="text-xs text-gray-500">Caracasbaaiweg. Legendäre Ribs (abends).</p>
-                            </li>
-                            <li>
-                                <a href="https://goo.gl/maps/KokiRibaBloki" target="_blank" class="details-link">Koki Riba Bloki</a>
-                                <p class="text-xs text-gray-500">Schottegatweg. Street BBQ vom Feinsten.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div id="culinary-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Injected via JS -->
             </div>
         </section>
 
@@ -777,6 +656,41 @@
 
         </section>
 
+         <!-- COMPACT DASHBOARD SECTION (COLLAPSIBLE) -->
+         <section id="dashboard" class="bg-white rounded-2xl p-4 card-shadow border-t-4 border-curacao max-w-4xl mx-auto transition-all duration-300">
+            <!-- Header -->
+            <div onclick="toggleSection('dashboard-content', 'dashboard-arrow')" class="cursor-pointer flex flex-row justify-between items-center mb-4 border-b-2 border-gray-200 pb-2 select-none group">
+                <div class="text-left">
+                    <h2 class="text-xl font-bold font-display text-gray-800 group-hover:text-curacao transition-colors">Reise-Statistik</h2>
+                    <p class="text-sm text-gray-500">Kompakter Überblick über Ablauf & Aktivitäten <span class="text-curacao text-xs font-bold ml-2">(Anzeigen)</span></p>
+                </div>
+                <div class="bg-white p-2 rounded-full shadow-sm">
+                    <svg id="dashboard-arrow" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Content (Hidden by default) -->
+            <div id="dashboard-content" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 items-center animate-fade-in">
+                <!-- Timeline Chart -->
+                <div class="w-full">
+                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">Zeitplan</h3>
+                    <div class="chart-container h-48 mx-auto">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Activity Mix Chart -->
+                <div class="w-full">
+                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">Mix</h3>
+                    <div class="chart-container h-40 mx-auto" style="max-width: 300px;">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-gray-800 text-white py-8 mt-12">
@@ -788,103 +702,301 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // --- DATA STORAGE ---
-        const itinerary = [
-            // TORONTO ARRIVAL
-            { phase: "travel", date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
-              img: "https://image.pollinations.ai/prompt/The%20Keg%20Steakhouse%20Toronto%20Airport%20Exterior",
-              details: "Landung 14:55. Gratis Shuttle zum <a href='https://goo.gl/maps/WestinTorontoAirport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://goo.gl/maps/TheKegTorontoAirport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
-            
-            // CURACAO WEEK 1 - PIETERMAAI (Base: Stadt)
-            { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Pietermaai%20colorful%20dutch%20architecture%20street",
-              details: "Flug 09:40 -> 15:50. Taxi zur Unterkunft (~35$). Check-in Apt Pietermaai. <strong>19:00 Dinner im <a href='https://www.mundobizarrocuracao.com/' target='_blank' class='details-link'>Mundo Bizarro</a></strong> (Reserviert ✅ <a href='https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dinner+Mundo+Bizarro&dates=20260117T190000/20260117T210000&details=Reservation+Mundo+Bizarro&location=Mundo+Bizarro+Curacao' target='_blank' class='text-curacao hover:underline'>📅 Kalender</a>).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Pietermaai+District' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Vom Flughafen: 14 km (ca. 25 Min)</a></span>", highlight: false },
-            
-            { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Queen%20Emma%20Bridge%20Handelskade%20colorful%20houses",
-              details: "<a href='https://goo.gl/maps/QueenEmmaBridge' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://kurahulanda.com/' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://goo.gl/maps/Handelskade' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://goo.gl/maps/RiffFort' target='_blank' class='details-link'>Riff Fort</a>.<span class='block mt-2 text-xs bg-green-50 text-green-700 p-2 rounded border border-green-100'>🚶 Alles fußläufig machbar (0 km)</span>", highlight: false },
-            
-            { phase: "willemstad", date: "19. Jan (Mo)", category: "travel", loc: "Pietermaai / Avila", title: "Mietwagen Abholung & Likör", icon: "🔑", 
-              img: "https://image.pollinations.ai/prompt/Avila%20Beach%20Hotel%20Curacao%20Entrance",
-              details: "<strong>10:00 Mietwagen Übernahme</strong> im <a href='https://goo.gl/maps/AvilaBeachHotel' target='_blank' class='details-link'>Avila Beach Hotel</a> (Penstraat 130).<br>Danach: <a href='https://chobolobo.com/' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). <a href='https://mambobeach.com/' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://fortnassau.com/' target='_blank' class='details-link'>Fort Nassau</a>.<span class='block mt-2 text-xs bg-yellow-50 text-yellow-800 p-2 rounded border border-yellow-100'>⚠️ Kreditkarte + PIN & Führerschein mitnehmen!</span>", highlight: true },
-            
-            { phase: "willemstad", date: "20. Jan (Di)", category: "beach", loc: "Pietermaai", title: "Schnorchel-Highlight Ost", icon: "🤿", 
-              img: "https://image.pollinations.ai/prompt/Tugboat%20Beach%20Curacao%20sunken%20ship%20underwater",
-              details: "<strong><a href='https://goo.gl/maps/TugboatBeach' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln im Flachwasser (5m). Danach <strong><a href='https://goo.gl/maps/Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong> (tolles Riff).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Tugboat+Beach+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 12 km (20-25 Min)</a> • Via Caracasbaaiweg</span>", highlight: true },
-            
-            { phase: "willemstad", date: "21. Jan (Mi)", category: "nature", loc: "Pietermaai", title: "Natur Osten", icon: "🌵", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Aloe%20Vera%20Plantation%20landscape",
-              details: "<a href='https://aloecuracao.com/' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://goo.gl/maps/StJorisBaai' target='_blank' class='details-link'>St. Joris Baai</a> (raue Seite). <a href='https://curacao-sea-aquarium.com/' target='_blank' class='details-link'>Sea Aquarium</a> Option.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=The+Aloe+Vera+Plantation+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: ca. 10-15 km (20 Min)</a> • Richtung Nord-Ost</span>", highlight: false },
-            
-            { phase: "willemstad", date: "22. Jan (Do)", category: "city", loc: "Pietermaai", title: "Punda Vibes", icon: "🎆", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Punda%20Vibes%20night%20fireworks%20street%20party",
-              details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.<span class='block mt-2 text-xs bg-green-50 text-green-700 p-2 rounded border border-green-100'>🚶 Zu Fuß in die Stadt</span>", highlight: true },
+        // --- API CONFIGURATION ---
+        const POLLINATIONS_CONFIG = {
+            baseUrl: "https://gen.pollinations.ai/image/", 
+            apiKey: "sk_BOcYryZWYmudQGyw1U0goBIeIc6gkQp4" // Secret Key
+        };
 
-            // CURACAO WEEK 2 - GROTE BERG (Base: Zentral/West)
-            { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Grote Berg", title: "Umzug in den Westen", icon: "🦩", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Flamingos%20Salt%20Lake%20Jan%20Kok",
-              details: "Fahrt via <a href='https://goo.gl/maps/JanKokFlamingos' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!<span class='block mt-2 text-xs bg-blue-50 text-blue-800 p-2 rounded border border-blue-100'><a href='https://www.google.com/maps/dir/?api=1&destination=Grote+Berg+Curacao' target='_blank' class='hover:text-blue-600 underline decoration-dotted'>🚗 Transfer: 22 km (35 Min)</a> • Via Weg naar Bullenbaai</span>", highlight: false },
-            
-            { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Solo Relaxing", icon: "🥥", 
-              img: "https://image.pollinations.ai/prompt/Daaibooi%20Beach%20Curacao%20cozy%20beach%20bar",
-              details: "Tag für euch. <a href='https://goo.gl/maps/Daaibooi' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://goo.gl/maps/CentrumPiscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Daaibooi+Beach' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 8 km (10 Min)</a> • Daaibooi ist der Hausstrand</span>", highlight: false },
-            
-            { phase: "groteberg", date: "25. Jan (So)", category: "travel", loc: "Flughafen / Grote Berg", title: "Ankunft Sarah & Gabriel", icon: "🇺🇸", 
-              img: "https://image.pollinations.ai/prompt/Grote%20Knip%20Beach%20Curacao%20turquoise%20water",
-              details: "Vormittag: Kurz zum <a href='https://goo.gl/maps/GroteKnip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Grote+Knip' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Zum Strand: 22 km (25 Min)</a> <br><a href='https://www.google.com/maps/dir/?api=1&destination=Curacao+International+Airport' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Zum Airport: 9 km (10 Min)</a></span>", highlight: true },
-            
-            { phase: "groteberg", date: "26. Jan (Mo)", category: "city", loc: "Grote Berg / Pietermaai", title: "Cas Abao & Hip Dinner", icon: "🍸", 
-              img: "https://image.pollinations.ai/prompt/Mosa%20Cana%20Curacao%20restaurant%20terrace%20night",
-              details: "Tagsüber: <a href='https://casabaobeach.com/' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.mosacana.com/' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.bklyn.cw/' target='_blank' class='details-link'>BKLYN</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Cas+Abao+Beach' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Strand: 8 km (12 Min)</a><br><a href='https://www.google.com/maps/dir/?api=1&destination=Mosa+Cana+Bar+Kitchen' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Stadt abends: 16 km (25 Min)</a></span>", highlight: true },
-            
-            { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles, Wellen & Sunset", icon: "🌊", 
-              img: "https://image.pollinations.ai/prompt/Shete%20Boka%20National%20Park%20waves%20crashing%20curacao",
-              details: "Vormittag: <strong><a href='https://goo.gl/maps/PlayaPiskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.shetebokapark.org/' target='_blank' class='details-link'>Shete Boka Park</a></strong>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Playa+Piskado' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 26 km (35 Min)</a> • Ganz in den Westen</span>", highlight: true },
-            
-            { phase: "groteberg", date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Bootstour & Drift Snorkel", icon: "🚤", 
-              img: "https://image.pollinations.ai/prompt/Klein%20Curacao%20island%20lighthouse%20white%20sand%20boat",
-              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://goo.gl/maps/BrakkeputAriba62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.<span class='block mt-2 text-xs bg-red-50 text-red-800 p-2 rounded border border-red-100 font-bold'><a href='https://www.google.com/maps/dir/?api=1&destination=Brakkeput+Ariba+62' target='_blank' class='hover:text-red-600 underline decoration-dotted'>⚠️ Anfahrt: 28 km (45-60 Min!)</a> • Berufsverkehr um Willemstad einplanen!</span>", highlight: true },
-            
-            { phase: "groteberg", date: "29. Jan (Do)", category: "city", loc: "Grote Berg / Punda", title: "Rooftop & Punda Vibes", icon: "🥂", 
-              img: "https://image.pollinations.ai/prompt/Cascada%20Rooftop%20Bar%20Curacao%20sunset%20cocktails",
-              details: "Vormittag: <a href='https://www.playaportomari.com/' target='_blank' class='details-link'>Porto Marie</a>. <strong>18:00 Sundowner & Dinner: <a href='https://cascadacuracao.com/' target='_blank' class='details-link'>Cascada Rooftop Bar</a></strong> (Reserviert ✅ <a href='https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dinner+Cascada+Rooftop&dates=20260129T180000/20260129T210000&details=Reservation+Cascada+Rooftop&location=Cascada+Rooftop+Bar+Curacao' target='_blank' class='text-curacao hover:underline'>📅 Kalender</a>). Danach Punda Vibes Straßenfest.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Playa+Porto+Mari' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Strand: 9 km (12 Min)</a><br><a href='https://www.google.com/maps/dir/?api=1&destination=Cascada+Rooftop+Bar+Kitchen' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Stadt: 16 km (25 Min)</a></span>", highlight: true },
-            
-            { phase: "groteberg", date: "30. Jan (Fr)", category: "nature", loc: "Grote Berg / Otrobanda", title: "Views & Green Rum", icon: "🥃", 
-              img: "https://image.pollinations.ai/prompt/Santa%20Martha%20Bay%20View%20Curacao%20panorama",
-              details: "Stopp: <strong><a href='https://goo.gl/maps/SantaMarthaView' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://goo.gl/maps/PlayaLagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.curacao.com/de/activity/netto-bar' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Santa+Martha+Bay+View+Lookout' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Viewpoint: 16 km (20 Min)</a> • Via Soto</span>", highlight: true },
-            
-            { phase: "groteberg", date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
-              img: "https://image.pollinations.ai/prompt/Karakter%20Curacao%20sunset%20infinity%20pool%20ocean%20view",
-              details: "<a href='https://karaktercuracao.com/' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://koraalcuracao.com/' target='_blank' class='details-link'>Koraal Rooftop</a>.<span class='block mt-2 text-xs bg-gray-100 text-gray-600 p-2 rounded border border-gray-200'><a href='https://www.google.com/maps/dir/?api=1&destination=Karakter+Curacao' target='_blank' class='hover:text-curacao underline decoration-dotted'>🚗 Anfahrt: 10 km (15 Min)</a> • Richtung St. Willibrordus</span>", highlight: false },
-            
-            { phase: "groteberg", date: "01. Feb (So)", category: "travel", loc: "Grote Berg / Avila", title: "Rückgabe Mietwagen & Farewell", icon: "🔑", 
-              img: "https://image.pollinations.ai/prompt/De%20Visserij%20Curacao%20seafood%20restaurant%20sunset",
-              details: "<strong>10:00 Mietwagen Rückgabe</strong> am <a href='https://goo.gl/maps/AvilaBeachHotel' target='_blank' class='details-link'>Avila Beach Hotel</a>.<br>Nachmittag ohne Auto: Relaxen in der Nähe. Farewell-Dinner (Taxi nötig!) bei <a href='https://www.facebook.com/piscaderanoreservations/' target='_blank' class='details-link'>De Visserij</a>.<span class='block mt-2 text-xs bg-red-50 text-red-800 p-2 rounded border border-red-100'>⚠️ Auto ist weg! Taxi einplanen für Dinner & Airport morgen.</span>", highlight: true },
+        // --- HARDCODED FALLBACKS ---
+        const FALLBACK_IMAGES = {
+            'grote_knip': 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Grote_Knip_Curacao.jpg',
+            'cas_abao': 'https://upload.wikimedia.org/wikipedia/commons/2/23/Cas_Abao_Beach_Curacao.jpg',
+            'handelskade': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Willemstad_Curacao_Handelskade.jpg',
+            'rooftop': 'https://images.unsplash.com/photo-1514362545857-3bc16549766b?auto=format&fit=crop&w=800', // Cocktail vibe
+            'views_rum': 'https://images.unsplash.com/photo-1540206395-688085723adb?auto=format&fit=crop&w=800', // Landscape
+            'bars': 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800', // Bar interior
+            'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800' // Generic Beach
+        };
 
-            // RETURN
-            { phase: "travel", date: "02. Feb (Mo)", category: "travel", loc: "Reise", title: "Abreise (Alle)", icon: "🛫", 
-              img: "https://image.pollinations.ai/prompt/Curacao%20Airport%20Hato%20Exterior",
-              details: "13:00 Gemeinsame Fahrt zum Flughafen (Taxi buchen!). S&G: 15:49 (MIA), S&D: 16:45 (YYZ).<span class='block mt-2 text-xs bg-blue-50 text-blue-800 p-2 rounded border border-blue-100 font-bold'><a href='https://www.google.com/maps/dir/?api=1&destination=Curacao+International+Airport' target='_blank' class='hover:text-blue-600 underline decoration-dotted'>🚕 Taxi nötig: 9 km (10-15 Min)</a></span>", highlight: false },
+        // --- FETCH LOGIC FOR AUTHENTICATED IMAGES ---
+        async function fetchImageBlob(prompt, seed, fallbackKey) {
+            const encodedPrompt = encodeURIComponent(prompt);
+            const url = `${POLLINATIONS_CONFIG.baseUrl}${encodedPrompt}?width=800&height=600&seed=${seed}&nologo=true&model=flux`;
             
-            // TORONTO DETAILED DAY (03. FEB)
-            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Start & Foodie Tour", icon: "🥓", 
-              img: "https://image.pollinations.ai/prompt/Toronto%20St%20Lawrence%20Market%20Interior%20Food",
-              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>09:00:</strong> Check-out Delta Hotel. Gratis-Shuttle zu Terminal 1.</li><li><strong>09:30:</strong> Koffer bei 'Excess Baggage' (T1 Ankunft) abgeben (~10-15 CAD).</li><li><strong>10:00:</strong> UP Express Zug nach Union Station (25 Min).</li><li><strong>10:30:</strong> Spaziergang zum <a href='https://www.stlawrencemarket.com/' target='_blank' class='details-link'>St. Lawrence Market</a>.</li><li><strong>Must-Eat:</strong> 'Peameal Bacon Sandwich' bei der <a href='https://stlawrencemarket.com/vendors/carousel_bakery/61' target='_blank' class='details-link'>Carousel Bakery</a>.</li></ul>", highlight: true },
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${POLLINATIONS_CONFIG.apiKey}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const blob = await response.blob();
+                return URL.createObjectURL(blob);
+            } catch (error) {
+                console.warn("Image Fetch Error, using static fallback for:", fallbackKey || 'default');
+                // Return static fallback URL
+                return FALLBACK_IMAGES[fallbackKey] || FALLBACK_IMAGES['default'];
+            }
+        }
 
-            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Shopping", icon: "🛍️", 
-              img: "https://image.pollinations.ai/prompt/Toronto%20Eaton%20Centre%20Glass%20Ceiling",
-              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>12:00:</strong> Via <strong>PATH</strong> (unterirdisch & warm!) Richtung Norden laufen.</li><li><strong>12:30:</strong> <a href='https://shops.cadillacfairview.com/property/cf-toronto-eaton-centre' target='_blank' class='details-link'>Eaton Centre</a>. Bummeln & Shoppen.</li><li><strong>14:00:</strong> Kaffee-Pause bei <a href='https://balzacs.com/' target='_blank' class='details-link'>Balzac's Coffee</a>.</li><li><strong>14:30:</strong> <a href='https://goo.gl/maps/NathanPhillipsSquare' target='_blank' class='details-link'>Nathan Phillips Square</a>. Selfie vor dem 'TORONTO'-Schriftzug & Eisläufer beobachten.</li></ul>", highlight: false },
+        async function loadAllAuthImages() {
+            const images = document.querySelectorAll('.auth-image');
+            
+            // Parallel fetching
+            const promises = Array.from(images).map(async (img) => {
+                const prompt = img.dataset.prompt;
+                const seed = img.dataset.seed;
+                const fallbackKey = img.dataset.fallbackKey;
+                
+                if (prompt) {
+                    // Add loading class
+                    img.parentElement.classList.add('loading-pulse');
+                    const imgUrl = await fetchImageBlob(prompt, seed, fallbackKey);
+                    img.src = imgUrl;
+                    img.onload = () => {
+                        img.classList.add('img-loaded');
+                        img.parentElement.classList.remove('loading-pulse');
+                        img.parentElement.style.backgroundColor = 'transparent';
+                    };
+                    img.onerror = () => {
+                        // Double fallback if blob fails unexpectedly (should be caught above, but safety first)
+                        img.src = FALLBACK_IMAGES[fallbackKey] || FALLBACK_IMAGES['default'];
+                    }
+                }
+            });
+            
+            await Promise.all(promises);
+        }
 
-            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Rückweg zum Flug", icon: "🚆", 
-              img: "https://image.pollinations.ai/prompt/UP%20Express%20Train%20Toronto%20Union%20Station",
-              details: "<ul class='list-disc pl-4 space-y-1 text-sm'><li><strong>15:15:</strong> Rückweg zur Union Station.</li><li><strong>15:30:</strong> UP Express zum Flughafen (alle 15 Min).</li><li><strong>16:00:</strong> Ankunft T1 & Koffer abholen.</li><li><strong>16:30:</strong> Check-in Air Canada (Abflug 19:45).</li><li><strong>Tipp:</strong> Nutzt die Zeit für ein entspanntes Dinner im Terminal nach der Security.</li></ul>", highlight: false },
-
-            { phase: "toronto", date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
-              img: "https://image.pollinations.ai/prompt/Munich%20Airport%20Arrival",
-              details: "Landung 09:50 Uhr in München.", highlight: false }
+        // --- DATA DATA DATA ---
+        
+        const highlightsData = [
+            { 
+                title: "Handelskade", 
+                description: "Das Wahrzeichen von Willemstad mit bunten Kolonialhäusern. UNESCO-Weltkulturerbe und perfektes Fotomotiv, besonders nachts beleuchtet.",
+                prompt: "Handelskade Willemstad Curacao colorful houses waterfront sunny day photorealistic", 
+                dist: "0 km ab Pietermaai", 
+                link: "https://goo.gl/maps/Handelskade", 
+                seed: 101, 
+                fallbackKey: 'handelskade' 
+            },
+            { 
+                title: "Grote Knip", 
+                description: "Der wohl schönste Strand der Insel mit leuchtend türkisem Wasser. Ideal zum Schwimmen, Schnorcheln und für Klippenspringer.",
+                prompt: "Grote Knip Beach Curacao turquoise water white sand cliff view panoramic photorealistic", 
+                dist: "~25 min ab Grote Berg", 
+                link: "https://goo.gl/maps/GroteKnip", 
+                seed: 102, 
+                fallbackKey: 'grote_knip' 
+            },
+            { 
+                title: "Klein Curacao", 
+                description: "Unbewohnte Inselparadies mit weißem Sand und Schiffswracks. Ein Tagesausflug zum Schnorcheln mit Schildkröten und Relaxen.",
+                prompt: "Klein Curacao island white sand beach turquoise sea abandoned lighthouse photorealistic", 
+                dist: "Boot ab Brakkeput", 
+                link: "https://goo.gl/maps/KleinCuracao", 
+                seed: 103 
+            },
+            { 
+                title: "Queen Emma Bridge", 
+                description: "Die 'schwingende alte Dame' verbindet Punda und Otrobanda. Eine einzigartige Pontonbrücke, die sich für Schiffe zur Seite öffnet.",
+                prompt: "Queen Emma Bridge Willemstad floating bridge open sunny day photorealistic", 
+                dist: "5 min ab Pietermaai", 
+                link: "https://goo.gl/maps/QueenEmmaBridge", 
+                seed: 104 
+            },
+            { 
+                title: "Shete Boka", 
+                description: "Wilder Nationalpark an der Nordküste mit dramatischer Brandung. Spektakuläre Wellen, die bei Boka Pistol meterhoch in die Luft schießen.",
+                prompt: "Shete Boka National Park Curacao big waves crashing rocks ocean power photorealistic", 
+                dist: "~30 min ab Grote Berg", 
+                link: "https://www.shetebokapark.org/", 
+                seed: 105 
+            },
+            { 
+                title: "Tugboat Beach", 
+                description: "Berühmter Schnorchel-Spot mit einem versunkenen Schlepper im Flachwasser. Beherbergt unzählige bunte Fische und Korallen direkt am Ufer.",
+                prompt: "Sunken tugboat shipwreck underwater curacao snorkeling clear water photorealistic", 
+                dist: "~20 min ab Pietermaai", 
+                link: "https://goo.gl/maps/TugboatBeach", 
+                seed: 106 
+            },
+            { 
+                title: "Cas Abao", 
+                description: "Traumhafter weißer Sandstrand mit kristallklarem Wasser. Bietet volle Ausstattung, Massagen und ein Riff direkt vom Strand aus.",
+                prompt: "Cas Abao Beach Curacao palm trees white sand perfect caribbean beach photorealistic", 
+                dist: "~12 min ab Grote Berg", 
+                link: "https://casabaobeach.com/", 
+                seed: 107, 
+                fallbackKey: 'cas_abao' 
+            },
+            { 
+                title: "Playa Piskado", 
+                description: "Kleiner Fischerstrand, bekannt für wilde Meeresschildkröten. Ein magisches Erlebnis, mit den Tieren im flachen Wasser zu schwimmen.",
+                prompt: "Sea turtle swimming underwater blue ocean clear water photorealistic", 
+                dist: "~30 min ab Grote Berg", 
+                link: "https://goo.gl/maps/PlayaPiskado", 
+                seed: 108 
+            },
+            { 
+                title: "Christoffelberg", 
+                description: "Der höchste Punkt der Insel im Nationalpark. Der Aufstieg lohnt sich für den 360°-Panoramablick (unbedingt früh morgens starten!).",
+                prompt: "Mount Christoffelberg Curacao mountain view green nature hiking photorealistic", 
+                dist: "~20 min ab Grote Berg", 
+                link: "https://goo.gl/maps/ChristoffelPark", 
+                seed: 109 
+            },
+            { 
+                title: "Porto Mari", 
+                description: "Wunderschöner Strand mit einem einzigartigen Doppelriff zum Tauchen. Bekannt für die zutraulichen Schweine, die oft am Strand relaxen.",
+                prompt: "Playa Porto Mari Curacao beach wooden pier turquoise water sunny photorealistic", 
+                dist: "~12 min ab Grote Berg", 
+                link: "https://www.playaportomari.com/", 
+                seed: 110 
+            }
         ];
 
-        // --- RENDER FUNCTIONS ---
+        const culinaryData = [
+            { category: "Krioyo (Local)", icon: "🥘", items: [
+                { name: "Plasa Bieu", desc: "Markthalle (Mittag). Karni Stoba.", link: "https://goo.gl/maps/PlasaBieu", info: "📍 10 min ab Pietermaai" },
+                { name: "Komedor Krioyo", desc: "Landhaus-Flair, riesig.", link: "https://goo.gl/maps/KomedorKrioyo", info: "📍 15 min ab Grote Berg" },
+                { name: "Jaanchie’s", desc: "Kult in Westpunt. Leguan.", link: "https://goo.gl/maps/Jaanchies", info: "📍 25 min ab Grote Berg" },
+                { name: "De Gouverneur", desc: "Klassiker, Bananensuppe.", link: "https://goo.gl/maps/DeGouverneur", info: "📍 15 min ab Pietermaai" }
+            ], prompt: "Curacao local food stew plate caribbean rustic photorealistic", seed: 111 },
+            { category: "Frischer Fisch", icon: "🐟", items: [
+                { name: "De Visserij", desc: "Fisch nach Gewicht am Wasser.", link: "https://goo.gl/maps/DeVisserij", info: "📍 20 min ab Grote Berg" },
+                { name: "Purunchi", desc: "Geheimtipp in Mangroven.", link: "https://goo.gl/maps/Purunchi", info: "📍 8 min ab Pietermaai" },
+                { name: "Pop's Place", desc: "Locals an Caracasbaai.", link: "https://goo.gl/maps/PopsPlace", info: "📍 15 min ab Pietermaai" },
+                { name: "Playa Forti", desc: "Essen auf der Klippe.", link: "https://goo.gl/maps/PlayaFortiRest", info: "📍 25 min ab Grote Berg" }
+            ], prompt: "Fresh fried fish caribbean seaside restaurant plate photorealistic", seed: 112 },
+            { category: "Bars & Drinks", icon: "🍹", items: [
+                { name: "Luke's Cocktailbar", desc: "Beste Craft Cocktails.", link: "https://goo.gl/maps/LukesCocktailbar", info: "📍 2 min ab Pietermaai" },
+                { name: "Cascada Rooftop", desc: "360° Blick, Sunset.", link: "https://goo.gl/maps/CascadaRooftop", info: "📍 10 min ab Pietermaai" },
+                { name: "Netto Bar", desc: "Älteste Bar, Grüner Rum.", link: "https://goo.gl/maps/NettoBar", info: "📍 5 min ab Pietermaai" },
+                { name: "Saint Tropez", desc: "Infinity Pool Style.", link: "https://goo.gl/maps/SaintTropezOceanClub", info: "📍 1 min ab Pietermaai" }
+            ], prompt: "Tropical cocktail bar sunset view caribbean drinks photorealistic", seed: 113, fallbackKey: 'bars' },
+            { category: "Snacks (Truk'i Pan)", icon: "🍢", items: [
+                { name: "BBQ Express", desc: "Legendäre Ribs (abends).", link: "https://goo.gl/maps/BBQExpress", info: "📍 15 min ab Pietermaai" },
+                { name: "Koki Riba Bloki", desc: "Street BBQ Deluxe.", link: "https://goo.gl/maps/KokiRibaBloki", info: "📍 10 min ab Pietermaai" },
+                { name: "Pasawa Box", desc: "Container Food Park.", link: "https://goo.gl/maps/PasawaBoxEatery", info: "📍 10 min ab Pietermaai" },
+                { name: "Tokn Tokn", desc: "Bestes Hähnchen.", link: "https://goo.gl/maps/ToknTokn", info: "📍 10 min ab Pietermaai" }
+            ], prompt: "Food truck curacao night bbq street food photorealistic", seed: 114 }
+        ];
+
+        const itinerary = [
+            { phase: "travel", date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
+              prompt: "The Keg Steakhouse exterior modern building evening lights photorealistic", seed: 201,
+              details: "Landung 14:55. Gratis Shuttle zum Westin. Dinner im The Keg.", highlight: false },
+            { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
+              prompt: "Curacao Pietermaai district colorful dutch architecture street sunny photorealistic", seed: 202,
+              details: "Check-in Apt Pietermaai. 19:00 Dinner Mundo Bizarro.", highlight: false },
+            { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
+              prompt: "Handelskade Willemstad waterfront view from bridge sunny photorealistic", seed: 203,
+              details: "Queen Emma Bridge, Kura Hulanda, Handelskade.", highlight: false },
+            { phase: "willemstad", date: "19. Jan (Mo)", category: "travel", loc: "Avila", title: "Mietwagen & Likör", icon: "🔑", 
+              prompt: "Avila Beach Hotel entrance tropical curacao photorealistic", seed: 204,
+              details: "10:00 Mietwagen Übernahme. Landhuis Chobolobo.", highlight: true },
+            { phase: "willemstad", date: "20. Jan (Di)", category: "beach", loc: "Ost-Seite", title: "Schnorchel-Highlight", icon: "🤿", 
+              prompt: "Tugboat beach curacao underwater shipwreck clear water photorealistic", seed: 205,
+              details: "Tugboat Beach & Direkteursbaai.", highlight: true },
+            { phase: "willemstad", date: "21. Jan (Mi)", category: "nature", loc: "Osten", title: "Natur pur", icon: "🌵", 
+              prompt: "Aloe Vera Plantation Curacao fields landscape photorealistic", seed: 206,
+              details: "Aloe Vera Farm & St. Joris Baai.", highlight: false },
+            { phase: "willemstad", date: "22. Jan (Do)", category: "city", loc: "Punda", title: "Punda Vibes", icon: "🎆", 
+              prompt: "Curacao Punda Vibes night fireworks street party photorealistic", seed: 207,
+              details: "Straßenfest und Feuerwerk in der Stadt.", highlight: true },
+            { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Westen", title: "Umzug in den Westen", icon: "🦩", 
+              prompt: "Flamingos in salt lake Jan Kok Curacao nature photorealistic", seed: 208,
+              details: "Fahrt via St. Willibrordus. Check-in Villa Grote Berg.", highlight: false },
+            { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Relaxing", icon: "🥥", 
+              prompt: "Daaibooi Beach Curacao cozy beach bar shade photorealistic", seed: 209,
+              details: "Daaibooi Beach (Hausstrand). Einkauf Centrum.", highlight: false },
+            { phase: "groteberg", date: "25. Jan (So)", category: "travel", loc: "Flughafen", title: "Ankunft Gäste", icon: "🇺🇸", 
+              prompt: "Grote Knip Beach panoramic view turquoise water photorealistic", seed: 210,
+              details: "14:05 Landung Sarah & Gabriel. Welcome BBQ.", highlight: true, fallbackKey: 'grote_knip' },
+            { phase: "groteberg", date: "26. Jan (Mo)", category: "city", loc: "Stadt", title: "Cas Abao & Dinner", icon: "🍸", 
+              prompt: "Cas Abao Beach white sand turquoise water photorealistic", seed: 211,
+              details: "Cas Abao Beach. Abends Mosa/Caña.", highlight: true, fallbackKey: 'cas_abao' },
+            { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles & Waves", icon: "🌊", 
+              prompt: "Sea turtle underwater close up clear water photorealistic", seed: 212,
+              details: "Playa Piskado & Shete Boka Park.", highlight: true },
+            { phase: "groteberg", date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Insel-Trip", icon: "🚤", 
+              prompt: "Klein Curacao white beach abandoned lighthouse boat photorealistic", seed: 213,
+              details: "06:15 Start! Katamaran Tour.", highlight: true },
+            { phase: "groteberg", date: "29. Jan (Do)", category: "city", loc: "Stadt", title: "Rooftop & Vibes", icon: "🥂", 
+              prompt: "Rooftop bar sunset cocktail view curacao photorealistic", seed: 214,
+              details: "Porto Mari. 18:00 Cascada Rooftop.", highlight: true, fallbackKey: 'rooftop' },
+            { phase: "groteberg", date: "30. Jan (Fr)", category: "nature", loc: "Westen", title: "Views & Rum", icon: "🥃", 
+              prompt: "Santa Martha Bay View lookout panorama curacao photorealistic", seed: 215,
+              details: "Santa Martha View. Netto Bar.", highlight: true, fallbackKey: 'views_rum' },
+            { phase: "groteberg", date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
+              prompt: "Infinity pool sunset view ocean luxury curacao photorealistic", seed: 216,
+              details: "Karakter & Koraal Rooftop.", highlight: false },
+            { phase: "groteberg", date: "01. Feb (So)", category: "travel", loc: "Avila", title: "Rückgabe & Farewell", icon: "🔑", 
+              prompt: "Fresh seafood plate restaurant seaside sunset photorealistic", seed: 217,
+              details: "10:00 Auto Rückgabe. Dinner De Visserij (Taxi).", highlight: true },
+            { phase: "travel", date: "02. Feb (Mo)", category: "travel", loc: "Airport", title: "Abreise", icon: "🛫", 
+              prompt: "Curacao Hato Airport exterior sunny day photorealistic", seed: 218,
+              details: "13:00 Taxi zum Airport. Rückflüge.", highlight: false },
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Market & Food", icon: "🥓", 
+              prompt: "St Lawrence Market Toronto interior food stalls photorealistic", seed: 219,
+              details: "St. Lawrence Market (Peameal Bacon Sandwich).", highlight: true },
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Flight", icon: "🛍️", 
+              prompt: "Toronto Nathan Phillips Square winter skating rink photorealistic", seed: 220,
+              details: "Eaton Centre, Nathan Phillips Square. 19:45 Rückflug.", highlight: false }
+        ];
+
+        // --- RENDER FUNCTIONS (Generating Placeholders) ---
+
+        function renderHighlights() {
+            const container = document.getElementById('highlights-container');
+            container.innerHTML = '';
+            highlightsData.forEach(h => {
+                container.innerHTML += `
+                <div class="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all h-64">
+                    <img data-prompt="${h.prompt}" data-seed="${h.seed}" data-fallback-key="${h.fallbackKey || ''}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 auth-image img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                        <h3 class="text-white font-bold text-lg leading-tight">${h.title}</h3>
+                        <p class="text-gray-200 text-xs mt-1 line-clamp-3">${h.description}</p>
+                        <p class="text-curacao font-bold text-xs mt-2">Dist: ${h.dist}</p>
+                        <a href="${h.link}" target="_blank" class="mt-1 text-xs text-white hover:underline flex items-center gap-1">
+                            📍 Google Maps
+                        </a>
+                    </div>
+                </div>`;
+            });
+        }
+
+        function renderCulinary() {
+            const container = document.getElementById('culinary-container');
+            container.innerHTML = '';
+            culinaryData.forEach(c => {
+                let listHtml = c.items.map(i => `
+                    <li class="border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+                        <a href="${i.link}" target="_blank" class="details-link">${i.name}</a>
+                        <p class="text-xs text-gray-500">${i.desc}</p>
+                        <p class="text-[10px] text-gray-400 mt-1">${i.info}</p>
+                    </li>`).join('');
+                
+                container.innerHTML += `
+                <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                    <div class="h-32 bg-gray-200 img-zoom-container">
+                        <img data-prompt="${c.prompt}" data-seed="${c.seed}" data-fallback-key="${c.fallbackKey || ''}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover img-zoom auth-image">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xl mr-2">${c.icon}</span>
+                            <h3 class="text-lg font-bold text-gray-800">${c.category}</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm">${listHtml}</ul>
+                    </div>
+                </div>`;
+            });
+        }
 
         function renderItinerary(filter = 'all') {
             const container = document.getElementById('itinerary-container');
@@ -898,240 +1010,109 @@
                 'toronto': { bg: 'bg-red-100', text: 'text-red-700', label: 'Toronto' }
             };
 
-            itinerary.forEach((item, index) => {
-                // Filter Logic: Check Phase OR allow 'all'
-                if (filter !== 'all' && item.phase !== filter) return;
+            const filteredItems = itinerary.filter(item => filter === 'all' || item.phase === filter);
 
+            filteredItems.forEach((item) => {
                 const isHighlight = item.highlight ? 'border-l-4 border-sunset shadow-lg' : 'bg-white';
                 const catStyle = categoryColors[item.category] || categoryColors['travel'];
 
-                const card = document.createElement('div');
-                card.className = `${isHighlight} bg-white rounded-xl card-shadow overflow-hidden flex flex-col h-full transition-all duration-300 relative`;
-                
-                card.innerHTML = `
-                    <div class="h-48 overflow-hidden img-zoom-container relative">
-                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover img-zoom">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold shadow-sm">
-                            ${item.date.split(' ')[0]}. ${item.date.split(' ')[1]}
-                        </div>
-                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-sm ${catStyle.bg} ${catStyle.text}">
-                            ${catStyle.label}
-                        </div>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <h3 class="text-lg font-bold text-gray-800 leading-tight">${item.title}</h3>
-                                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-500 mt-1 inline-block">${item.loc}</span>
+                container.innerHTML += `
+                    <div class="${isHighlight} bg-white rounded-xl card-shadow overflow-hidden flex flex-col h-full transition-all duration-300 relative">
+                        <div class="h-48 overflow-hidden img-zoom-container relative">
+                            <img data-prompt="${item.prompt}" data-seed="${item.seed}" data-fallback-key="${item.fallbackKey || ''}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover img-zoom auth-image">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold shadow-sm">
+                                ${item.date.split(' ')[0]}. ${item.date.split(' ')[1]}
                             </div>
-                            <span class="text-2xl">${item.icon}</span>
+                            <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold shadow-sm ${catStyle.bg} ${catStyle.text}">
+                                ${catStyle.label}
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm leading-relaxed">${item.details}</p>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-800 leading-tight">${item.title}</h3>
+                                    <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-500 mt-1 inline-block">${item.loc}</span>
+                                </div>
+                                <span class="text-2xl">${item.icon}</span>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">${item.details}</p>
+                        </div>
                     </div>
                 `;
-                container.appendChild(card);
             });
+            // After rendering itinerary, we need to load images for just added elements if this function is called dynamically
+            // But main loadAllAuthImages handles everything on load. 
+            // If filter changes, we re-render, so we need to fetch again for new elements.
+            loadAllAuthImages();
         }
 
         // --- CHARTS ---
-
         function initCharts() {
-            // 1. Timeline Chart (Gantt Style)
             const ctxTimeline = document.getElementById('timelineChart').getContext('2d');
-            
             new Chart(ctxTimeline, {
                 type: 'bar',
                 data: {
                     labels: ['Steffen & Doris', 'Sarah & Gabriel'],
                     datasets: [
-                        {
-                            label: 'Toronto',
-                            data: [
-                                {x: [0, 1], y: 'Steffen & Doris'}, // Initial Stop
-                                {x: [17, 19], y: 'Steffen & Doris'} // Return Stop
-                            ],
-                            backgroundColor: '#0F4C81', // Ocean Blue
-                            borderRadius: 4,
-                            barPercentage: 0.5
-                        },
-                        {
-                            label: 'Curacao (Pietermaai)',
-                            data: [
-                                {x: [1, 7], y: 'Steffen & Doris'}
-                            ],
-                            backgroundColor: '#FF7F50', // Sunset Orange
-                            borderRadius: 4,
-                            barPercentage: 0.5
-                        },
-                        {
-                            label: 'Curacao (Grote Berg)',
-                            data: [
-                                {x: [7, 17], y: 'Steffen & Doris'},
-                                {x: [9, 17], y: 'Sarah & Gabriel'} // Adjusted for 25th Arrival
-                            ],
-                            backgroundColor: '#00A3E0', // Curacao Blue
-                            borderRadius: 4,
-                            barPercentage: 0.5
-                        }
+                        { label: 'Toronto', data: [{x: [0, 1], y: 'Steffen & Doris'}, {x: [17, 19], y: 'Steffen & Doris'}], backgroundColor: '#0F4C81', borderRadius: 4, barPercentage: 0.5 },
+                        { label: 'Curacao (Pietermaai)', data: [{x: [1, 7], y: 'Steffen & Doris'}], backgroundColor: '#FF7F50', borderRadius: 4, barPercentage: 0.5 },
+                        { label: 'Curacao (Grote Berg)', data: [{x: [7, 17], y: 'Steffen & Doris'}, {x: [9, 17], y: 'Sarah & Gabriel'}], backgroundColor: '#00A3E0', borderRadius: 4, barPercentage: 0.5 }
                     ]
                 },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            display: true,
-                            min: 0,
-                            max: 19,
-                            ticks: {
-                                callback: function(value) {
-                                    if(value % 2 === 0) return (value/2 < 8 ? (16 + value) + '. Jan' : (value - 15) + '. Feb');
-                                    return '';
-                                }
-                            }
-                        },
-                        y: {
-                            grid: { display: false }
-                        }
-                    },
-                    plugins: {
-                        legend: { position: 'bottom' }
-                    }
-                }
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { display: true, min: 0, max: 19, ticks: { callback: function(value) { if(value % 2 === 0) return (value/2 < 8 ? (16 + value) + '. Jan' : (value - 15) + '. Feb'); return ''; } } }, y: { grid: { display: false } } }, plugins: { legend: { position: 'bottom' } } }
             });
 
-            // 2. Activity Mix Chart
             const ctxActivity = document.getElementById('activityChart').getContext('2d');
             new Chart(ctxActivity, {
                 type: 'doughnut',
-                data: {
-                    labels: ['Strand & Relax', 'Kultur & Stadt', 'Natur & Aktiv', 'Reise/Transfer'],
-                    datasets: [{
-                        data: [45, 25, 20, 10], // Estimated percentages
-                        backgroundColor: [
-                            '#00A3E0', // Beach
-                            '#FF7F50', // Culture
-                            '#4A7c59', // Nature
-                            '#94a3b8'  // Travel
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right' }
-                    }
-                }
+                data: { labels: ['Strand', 'Kultur', 'Natur', 'Reise'], datasets: [{ data: [45, 25, 20, 10], backgroundColor: ['#00A3E0', '#FF7F50', '#4A7c59', '#94a3b8'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
             });
         }
 
-        // --- NAVIGATION & INTERACTION ---
-
+        // --- UTIL ---
         function filterItinerary(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
-                btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
-            });
-            const activeBtn = document.getElementById(`btn-${type}`);
-            activeBtn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
-            activeBtn.classList.add('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
-
+            document.querySelectorAll('.filter-btn').forEach(btn => { btn.classList.remove('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent'); btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200'); });
+            document.getElementById(`btn-${type}`).classList.add('bg-curacao', 'text-white', 'shadow-sm', 'border-transparent');
             renderItinerary(type);
         }
+        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+        function toggleSection(contentId, arrowId) { const content = document.getElementById(contentId); const arrow = document.getElementById(arrowId); if (content.classList.contains('hidden')) { content.classList.remove('hidden'); arrow.classList.add('rotate-180'); } else { content.classList.add('hidden'); arrow.classList.remove('rotate-180'); } }
 
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- NEW: TOGGLE SECTION FUNCTION ---
-        function toggleSection(contentId, arrowId) {
-            const content = document.getElementById(contentId);
-            const arrow = document.getElementById(arrowId);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                // Rotate arrow up (open state)
-                arrow.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                // Rotate arrow down (closed state)
-                arrow.classList.remove('rotate-180');
-            }
-        }
-
-        // --- WEATHER LOGIC ---
-        
-        function getWeatherIcon(code) {
-            // WMO Weather interpretation codes (WW)
-            if (code === 0) return '☀️'; // Clear sky
-            if (code === 1 || code === 2 || code === 3) return '🌤️'; // Mainly clear, partly cloudy, and overcast
-            if (code === 45 || code === 48) return '🌫️'; // Fog
-            if (code >= 51 && code <= 55) return '🌧️'; // Drizzle
-            if (code >= 61 && code <= 67) return '🌧️'; // Rain
-            if (code >= 80 && code <= 82) return '🌦️'; // Rain showers
-            if (code >= 95) return '⛈️'; // Thunderstorm
-            return '☀️'; // Default
-        }
-
-        function getDayName(dateString) {
-            const date = new Date(dateString);
-            const days = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
-            return days[date.getDay()];
-        }
-
+        // --- WEATHER ---
+        function getWeatherIcon(code) { if (code === 0) return '☀️'; if (code <= 3) return '🌤️'; if (code === 45) return '🌫️'; if (code >= 51 && code <= 67) return '🌧️'; if (code >= 95) return '⛈️'; return '☀️'; }
+        function getDayName(dateString) { const days = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA']; return days[new Date(dateString).getDay()]; }
         async function fetchWeather() {
-            const tempElement = document.getElementById('weather-temp');
-            const iconElement = document.getElementById('current-icon');
-            
             try {
-                // Fetch daily forecast for Willemstad (Lat 12.1, Long -68.9)
-                // requesting: weathercode, max temp
                 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=12.11&longitude=-68.93&current_weather=true&daily=weathercode,temperature_2m_max&timezone=auto');
                 const data = await response.json();
-                
-                // 1. Current Weather Update
-                if (data && data.current_weather) {
-                    const temp = Math.round(data.current_weather.temperature);
-                    const code = data.current_weather.weathercode;
-                    
-                    tempElement.innerText = `${temp}°C`;
-                    iconElement.innerText = getWeatherIcon(code);
-                }
-
-                // 2. Forecast Update (Next 3 Days: indices 1, 2, 3)
-                if (data && data.daily) {
-                    for (let i = 1; i <= 3; i++) {
-                        const dayName = getDayName(data.daily.time[i]);
-                        const dayTemp = Math.round(data.daily.temperature_2m_max[i]);
-                        const dayIcon = getWeatherIcon(data.daily.weathercode[i]);
-                        
-                        document.getElementById(`day-${i}-name`).innerText = dayName;
-                        document.getElementById(`day-${i}-temp`).innerText = `${dayTemp}°`;
-                        document.getElementById(`day-${i}-icon`).innerText = dayIcon;
-                    }
-                }
-
-            } catch (e) {
-                // Fallback typical Curacao temperature
-                console.log("Weather fetch failed, using fallback");
-                tempElement.innerText = "29°C";
-                // Optionally fill forecast with static data if fetch fails
-                document.getElementById('day-1-temp').innerText = "30°";
-                document.getElementById('day-2-temp').innerText = "29°";
-                document.getElementById('day-3-temp').innerText = "30°";
-            }
+                if (data.current_weather) { document.getElementById('weather-temp').innerText = Math.round(data.current_weather.temperature) + '°C'; document.getElementById('current-icon').innerText = getWeatherIcon(data.current_weather.weathercode); }
+                if (data.daily) { for (let i = 1; i <= 3; i++) { document.getElementById(`day-${i}-name`).innerText = getDayName(data.daily.time[i]); document.getElementById(`day-${i}-temp`).innerText = Math.round(data.daily.temperature_2m_max[i]) + '°'; document.getElementById(`day-${i}-icon`).innerText = getWeatherIcon(data.daily.weathercode[i]); } }
+            } catch (e) { document.getElementById('weather-temp').innerText = "29°C"; }
         }
 
-        // --- INITIALIZATION ---
+        // --- INIT ---
         window.addEventListener('DOMContentLoaded', () => {
-            renderItinerary('all');
+            // Set Hero Image (Manually trigger fetch for hero)
+            const hero = document.getElementById('hero-image');
+            if(hero) {
+                // Manually trigger fetch for hero
+                fetchImageBlob("Curacao Kenepa Grandi beach turquoise water white sand sunny paradise wide view hd", 99, 'hero').then(url => {
+                    hero.src = url;
+                    hero.classList.add('img-loaded');
+                });
+            }
+            
+            renderHighlights();
+            renderCulinary();
+            renderItinerary('all'); // This will trigger fetching for itinerary images
+            
+            // Initial batch load for highlights and culinary
+            loadAllAuthImages();
+            
             initCharts();
             fetchWeather();
         });
-
     </script>
 </body>
 </html>
