@@ -140,7 +140,7 @@
                     <button onclick="scrollToSection('bookings')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap shadow-sm">Buchungen</button>
                     <button onclick="scrollToSection('itinerary')" class="text-white bg-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Plan</button>
                     <button onclick="scrollToSection('highlights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Highlights</button>
-                    <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food & Drinks</button>
+                    <button onclick="scrollToSection('packing')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Packliste</button>
                     <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Statistik</button>
                 </div>
             </div>
@@ -219,7 +219,7 @@
             <!-- Header (Clickable) -->
             <div onclick="toggleSection('flights-content', 'flights-arrow')" class="cursor-pointer flex flex-row justify-between items-center mb-0 md:mb-4 pb-2 md:pb-4 border-b-2 border-gray-200 select-none group">
                 <div>
-                    <h2 class="text-3xl font-bold font-display text-gray-800 group-hover:text-curacao transition-colors">Flugtickets</h2>
+                    <h2 class="text-3xl font-bold font-display text-gray-800 group-hover:text-curacao transition-colors">Flugtickets & Online Check-in</h2>
                     <p class="text-gray-500 mt-1 text-sm md:text-base">Air Canada (S&D) & American Airlines (S&G) <span class="text-curacao text-xs font-bold ml-2">(Klicken zum Anzeigen)</span></p>
                 </div>
                 <!-- Arrow Icon -->
@@ -247,16 +247,18 @@
                             <div class="flex-grow px-4 text-center">
                                 <div class="text-xs text-gray-400">AC 837</div>
                                 <div class="border-t-2 border-dashed border-gray-300 relative top-[-8px]"></div>
-                                <div class="text-xs text-gray-500">9h 05m</div>
+                                <div class="text-xs text-gray-500">9h 00m</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-gray-800">YYZ</div>
-                                <div class="text-sm text-gray-500">14:55</div>
+                                <div class="text-sm text-gray-500">14:50</div>
                             </div>
                         </div>
                         <div class="bg-gray-50 p-2 rounded text-xs text-center font-mono text-gray-500">Ref: BF99RJ</div>
-                        <div class="mt-2 text-xs text-center text-gray-500">
-                            <span class="font-semibold">Check-in:</span> ab 15. Jan 11:50 Uhr (Online)
+                        <div class="mt-4 text-center">
+                            <a href="https://www.aircanada.com/checkin" target="_blank" class="inline-block bg-aircanada text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-red-700 transition">
+                                💺 Online Check-in
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -271,19 +273,24 @@
                         <div class="flex justify-between items-center mb-4">
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-gray-800">YYZ</div>
-                                <div class="text-sm text-gray-500">09:40</div>
+                                <div class="text-sm text-gray-500">10:10</div>
                             </div>
                             <div class="flex-grow px-4 text-center">
                                 <div class="text-xs text-gray-400">AC 1864</div>
                                 <div class="border-t-2 border-dashed border-gray-300 relative top-[-8px]"></div>
-                                <div class="text-xs text-gray-500">5h 10m</div>
+                                <div class="text-xs text-gray-500">5h 15m</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-gray-800">CUR</div>
-                                <div class="text-sm text-gray-500">15:50</div>
+                                <div class="text-sm text-gray-500">16:25</div>
                             </div>
                         </div>
                         <div class="bg-gray-50 p-2 rounded text-xs text-center font-mono text-gray-500">Ref: BF99RJ</div>
+                        <div class="mt-4 text-center">
+                            <a href="https://www.aircanada.com/checkin" target="_blank" class="inline-block bg-aircanada text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-red-700 transition">
+                                💺 Online Check-in
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -327,6 +334,11 @@
                                 Ref: ???
                             </div>
                         </div>
+                        <div class="mt-4 text-center">
+                            <a href="https://www.aa.com/checkin" target="_blank" class="inline-block bg-american text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-blue-600 transition">
+                                💺 Online Check-in
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -347,18 +359,20 @@
                             <div class="text-right">
                                 <span class="font-bold text-american">Nach MIA</span>
                                 <span class="block text-xs font-mono text-gray-400 mt-1">Ref: ???</span>
+                                <a href="https://www.aa.com/checkin" target="_blank" class="text-xs text-blue-500 hover:underline">Check-in ></a>
                             </div>
                         </div>
                         <!-- S&D -->
                         <div class="flex justify-between items-center">
                             <div class="text-left">
                                 <span class="block text-xs text-gray-400">Steffen & Doris (AC 1865)</span>
-                                <span class="font-bold text-gray-800">Abflug 16:45</span>
-                                <span class="text-xs text-gray-500 block">➔ YYZ (Ankunft 21:05)</span>
+                                <span class="font-bold text-gray-800">Abflug 17:20</span>
+                                <span class="text-xs text-gray-500 block">➔ YYZ (Ankunft 21:40)</span>
                             </div>
                             <div class="text-right">
                                 <span class="font-bold text-aircanada">Nach YYZ</span>
                                 <span class="block text-xs font-mono text-gray-500 mt-1">Ref: BF99RJ</span>
+                                <a href="https://www.aircanada.com/checkin" target="_blank" class="text-xs text-red-500 hover:underline">Check-in ></a>
                             </div>
                         </div>
                         <div class="bg-green-50 p-2 rounded text-xs text-center text-green-800 font-bold">
@@ -394,7 +408,7 @@
                             <h3 class="text-lg font-bold text-gray-800">The Westin Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/WestinTorontoAirport" target="_blank" class="details-link">950 Dixon Road, Toronto, ON</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://www.google.com/maps/search/?api=1&query=The+Westin+Toronto+Airport" target="_blank" class="details-link">950 Dixon Road, Toronto, ON</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -419,7 +433,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Airbnb: Pietermaai</h3>
                             <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 1</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/PietermaaiDistrict" target="_blank" class="details-link">"Spacious & Fabulous Apt", Willemstad</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://www.google.com/maps/search/?api=1&query=Pietermaai+District+Willemstad" target="_blank" class="details-link">"Spacious & Fabulous Apt", Willemstad</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Zeitraum</span>
@@ -445,7 +459,7 @@
                             <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">Partner: Budget</span>
                         </div>
                         <p class="text-sm text-gray-500 mb-2">Toyota Yaris (Auto/AC) o.ä.</p>
-                        <p class="text-xs text-gray-400 mb-4"><a href="https://goo.gl/maps/AvilaBeachHotel" target="_blank" class="details-link">Abholung: Avila Beach Hotel (Penstraat 130)</a></p>
+                        <p class="text-xs text-gray-400 mb-4"><a href="https://www.google.com/maps/search/?api=1&query=Avila+Beach+Hotel+Curacao" target="_blank" class="details-link">Abholung: Avila Beach Hotel (Penstraat 130)</a></p>
                         
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
@@ -487,7 +501,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Airbnb: Grote Berg</h3>
                             <span class="bg-red-100 text-airbnb text-xs font-bold px-2 py-1 rounded">Teil 2</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/GroteBergCuracao" target="_blank" class="details-link">Villa in Grote Berg, Curacao</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://www.google.com/maps/search/?api=1&query=Grote+Berg+Curacao" target="_blank" class="details-link">Villa in Grote Berg, Curacao</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Zeitraum</span>
@@ -510,7 +524,7 @@
                     <div class="absolute top-0 right-0 bg-gyg text-white text-xs px-2 py-1 rounded-bl">Ausflug</div>
                     <div class="p-5">
                         <h3 class="text-lg font-bold text-gray-800 mb-1">Klein Curacao Katamaran</h3>
-                        <p class="text-sm text-gray-500 mb-4">Treffpunkt: <a href="https://goo.gl/maps/BrakkeputAriba62" target="_blank" class="details-link">Brakkeput Ariba 62, Willemstad</a></p>
+                        <p class="text-sm text-gray-500 mb-4">Treffpunkt: <a href="https://www.google.com/maps/search/?api=1&query=Brakkeput+Ariba+62+Curacao" target="_blank" class="details-link">Brakkeput Ariba 62, Willemstad</a></p>
                         <div class="bg-orange-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Datum & Zeit</span>
@@ -536,7 +550,7 @@
                             <h3 class="text-lg font-bold text-gray-800">Delta Hotels Toronto Airport</h3>
                             <span class="bg-blue-100 text-booking text-xs font-bold px-2 py-1 rounded">Hotel</span>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4"><a href="https://goo.gl/maps/DeltaTorontoAirport" target="_blank" class="details-link">655 Dixon Road, Toronto, ON</a></p>
+                        <p class="text-sm text-gray-500 mb-4"><a href="https://www.google.com/maps/search/?api=1&query=Delta+Hotels+Toronto+Airport" target="_blank" class="details-link">655 Dixon Road, Toronto, ON</a></p>
                         <div class="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 text-sm mb-4">
                             <div>
                                 <span class="block text-gray-400 text-xs">Check-in</span>
@@ -601,6 +615,42 @@
             </div>
             <div id="culinary-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- PACKING LIST SECTION -->
+        <section id="packing" class="bg-white rounded-3xl p-8 card-shadow border-t-8 border-gray-200">
+            <div class="text-center mb-8">
+                <span class="text-4xl">🎒</span>
+                <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Die Packliste</h2>
+                <p class="text-gray-600">Arktis & Tropen in einer Reise – das müsst ihr dabei haben.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Toronto Column -->
+                <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                    <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center"><span class="text-2xl mr-2">❄️</span> Toronto Survival (-10°C)</h3>
+                    <p class="text-sm text-blue-800 mb-4 italic">Wichtig für Ankunft, Abflug & den City-Tag am 3. Feb!</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Winterjacke / Parka:</strong> Am besten im Handgepäck oder griffbereit ganz oben im Koffer.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Mütze, Schal, Handschuhe:</strong> Unverzichtbar für den Wind in der Stadt.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Festes Schuhwerk:</strong> Sneaker reichen für den kurzen Weg, aber warme Socken sind Pflicht.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Zwiebel-Look:</strong> T-Shirt + Pulli + Jacke, damit ihr euch im Flughafen/Flieger anpassen könnt.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Curacao Column -->
+                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+                    <h3 class="text-xl font-bold text-orange-900 mb-4 flex items-center"><span class="text-2xl mr-2">☀️</span> Curacao Beach Life (+30°C)</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Reef Shoes / Wasserschuhe:</strong> Sehr wichtig! Viele Strände (z.B. Directors Bay, Tugboat) sind steinig/korallig.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>US-Adapter (Typ A/B):</strong> Dieselben wie in Kanada/USA.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Reef-Safe Sonnencreme:</strong> Hoher Faktor, die Sonne brennt.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Mückenschutz:</strong> DEET-haltig für die Dämmerung.</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>UV-Shirt:</strong> Zum Schnorcheln sehr zu empfehlen (Sonnenbrand-Gefahr im Wasser!).</span></li>
+                        <li class="flex items-start"><input type="checkbox" class="mt-1 mr-2"><span class="text-sm"><strong>Führerschein & Kreditkarte (+PIN):</strong> Für den Mietwagen zwingend nötig.</span></li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -780,7 +830,7 @@
                 description: "Das Wahrzeichen von Willemstad mit bunten Kolonialhäusern. UNESCO-Weltkulturerbe und perfektes Fotomotiv, besonders nachts beleuchtet.",
                 prompt: "Handelskade Willemstad Curacao colorful houses waterfront sunny day photorealistic", 
                 dist: "0 km ab Pietermaai", 
-                link: "https://goo.gl/maps/Handelskade", 
+                link: "https://www.google.com/maps/search/?api=1&query=Handelskade+Willemstad+Curacao", 
                 seed: 101, 
                 fallbackKey: 'handelskade' 
             },
@@ -789,7 +839,7 @@
                 description: "Der wohl schönste Strand der Insel mit leuchtend türkisem Wasser. Ideal zum Schwimmen, Schnorcheln und für Klippenspringer.",
                 prompt: "Grote Knip Beach Curacao turquoise water white sand cliff view panoramic photorealistic", 
                 dist: "~25 min ab Grote Berg", 
-                link: "https://goo.gl/maps/GroteKnip", 
+                link: "https://www.google.com/maps/search/?api=1&query=Grote+Knip+Curacao", 
                 seed: 102, 
                 fallbackKey: 'grote_knip' 
             },
@@ -798,7 +848,7 @@
                 description: "Unbewohnte Inselparadies mit weißem Sand und Schiffswracks. Ein Tagesausflug zum Schnorcheln mit Schildkröten und Relaxen.",
                 prompt: "Klein Curacao island white sand beach turquoise sea abandoned lighthouse photorealistic", 
                 dist: "Boot ab Brakkeput", 
-                link: "https://goo.gl/maps/KleinCuracao", 
+                link: "https://www.google.com/maps/search/?api=1&query=Klein+Curacao", 
                 seed: 103 
             },
             { 
@@ -806,7 +856,7 @@
                 description: "Die 'schwingende alte Dame' verbindet Punda und Otrobanda. Eine einzigartige Pontonbrücke, die sich für Schiffe zur Seite öffnet.",
                 prompt: "Queen Emma Bridge Willemstad floating bridge open sunny day photorealistic", 
                 dist: "5 min ab Pietermaai", 
-                link: "https://goo.gl/maps/QueenEmmaBridge", 
+                link: "https://www.google.com/maps/search/?api=1&query=Queen+Emma+Bridge+Curacao", 
                 seed: 104 
             },
             { 
@@ -814,7 +864,7 @@
                 description: "Wilder Nationalpark an der Nordküste mit dramatischer Brandung. Spektakuläre Wellen, die bei Boka Pistol meterhoch in die Luft schießen.",
                 prompt: "Shete Boka National Park Curacao big waves crashing rocks ocean power photorealistic", 
                 dist: "~30 min ab Grote Berg", 
-                link: "https://www.shetebokapark.org/", 
+                link: "https://www.google.com/maps/search/?api=1&query=Shete+Boka+National+Park", 
                 seed: 105 
             },
             { 
@@ -822,7 +872,7 @@
                 description: "Berühmter Schnorchel-Spot mit einem versunkenen Schlepper im Flachwasser. Beherbergt unzählige bunte Fische und Korallen direkt am Ufer.",
                 prompt: "Sunken tugboat shipwreck underwater curacao snorkeling clear water photorealistic", 
                 dist: "~20 min ab Pietermaai", 
-                link: "https://goo.gl/maps/TugboatBeach", 
+                link: "https://www.google.com/maps/search/?api=1&query=Tugboat+Beach+Curacao", 
                 seed: 106 
             },
             { 
@@ -830,7 +880,7 @@
                 description: "Traumhafter weißer Sandstrand mit kristallklarem Wasser. Bietet volle Ausstattung, Massagen und ein Riff direkt vom Strand aus.",
                 prompt: "Cas Abao Beach Curacao palm trees white sand perfect caribbean beach photorealistic", 
                 dist: "~12 min ab Grote Berg", 
-                link: "https://casabaobeach.com/", 
+                link: "https://www.google.com/maps/search/?api=1&query=Cas+Abao+Beach+Curacao", 
                 seed: 107, 
                 fallbackKey: 'cas_abao' 
             },
@@ -839,7 +889,7 @@
                 description: "Kleiner Fischerstrand, bekannt für wilde Meeresschildkröten. Ein magisches Erlebnis, mit den Tieren im flachen Wasser zu schwimmen.",
                 prompt: "Sea turtle swimming underwater blue ocean clear water photorealistic", 
                 dist: "~30 min ab Grote Berg", 
-                link: "https://goo.gl/maps/PlayaPiskado", 
+                link: "https://www.google.com/maps/search/?api=1&query=Playa+Piskado+Curacao", 
                 seed: 108 
             },
             { 
@@ -847,7 +897,7 @@
                 description: "Der höchste Punkt der Insel im Nationalpark. Der Aufstieg lohnt sich für den 360°-Panoramablick (unbedingt früh morgens starten!).",
                 prompt: "Mount Christoffelberg Curacao mountain view green nature hiking photorealistic", 
                 dist: "~20 min ab Grote Berg", 
-                link: "https://goo.gl/maps/ChristoffelPark", 
+                link: "https://www.google.com/maps/search/?api=1&query=Christoffel+National+Park+Curacao", 
                 seed: 109 
             },
             { 
@@ -855,99 +905,99 @@
                 description: "Wunderschöner Strand mit einem einzigartigen Doppelriff zum Tauchen. Bekannt für die zutraulichen Schweine, die oft am Strand relaxen.",
                 prompt: "Playa Porto Mari Curacao beach wooden pier turquoise water sunny photorealistic", 
                 dist: "~12 min ab Grote Berg", 
-                link: "https://www.playaportomari.com/", 
+                link: "https://www.google.com/maps/search/?api=1&query=Playa+Porto+Mari+Curacao", 
                 seed: 110 
             }
         ];
 
         const culinaryData = [
             { category: "Krioyo (Local)", icon: "🥘", items: [
-                { name: "Plasa Bieu", desc: "Markthalle (Mittag). Karni Stoba.", link: "https://goo.gl/maps/PlasaBieu", info: "📍 10 min ab Pietermaai" },
-                { name: "Komedor Krioyo", desc: "Landhaus-Flair, riesig.", link: "https://goo.gl/maps/KomedorKrioyo", info: "📍 15 min ab Grote Berg" },
-                { name: "Jaanchie’s", desc: "Kult in Westpunt. Leguan.", link: "https://goo.gl/maps/Jaanchies", info: "📍 25 min ab Grote Berg" },
-                { name: "De Gouverneur", desc: "Klassiker, Bananensuppe.", link: "https://goo.gl/maps/DeGouverneur", info: "📍 15 min ab Pietermaai" }
+                { name: "Plasa Bieu", desc: "Markthalle (Mittag). Karni Stoba.", link: "https://www.google.com/maps/search/?api=1&query=Plasa+Bieu+Curacao", info: "📍 10 min ab Pietermaai" },
+                { name: "Komedor Krioyo", desc: "Landhaus-Flair, riesig.", link: "https://www.google.com/maps/search/?api=1&query=Komedor+Krioyo+Curacao", info: "📍 15 min ab Grote Berg" },
+                { name: "Jaanchie’s", desc: "Kult in Westpunt. Leguan.", link: "https://www.google.com/maps/search/?api=1&query=Jaanchies+Restaurant+Curacao", info: "📍 25 min ab Grote Berg" },
+                { name: "De Gouverneur", desc: "Klassiker, Bananensuppe.", link: "https://www.google.com/maps/search/?api=1&query=De+Gouverneur+Curacao", info: "📍 15 min ab Pietermaai" }
             ], prompt: "Curacao local food stew plate caribbean rustic photorealistic", seed: 111 },
             { category: "Frischer Fisch", icon: "🐟", items: [
-                { name: "De Visserij", desc: "Fisch nach Gewicht am Wasser.", link: "https://goo.gl/maps/DeVisserij", info: "📍 20 min ab Grote Berg" },
-                { name: "Purunchi", desc: "Geheimtipp in Mangroven.", link: "https://goo.gl/maps/Purunchi", info: "📍 8 min ab Pietermaai" },
-                { name: "Pop's Place", desc: "Locals an Caracasbaai.", link: "https://goo.gl/maps/PopsPlace", info: "📍 15 min ab Pietermaai" },
-                { name: "Playa Forti", desc: "Essen auf der Klippe.", link: "https://goo.gl/maps/PlayaFortiRest", info: "📍 25 min ab Grote Berg" }
+                { name: "De Visserij", desc: "Fisch nach Gewicht am Wasser.", link: "https://www.google.com/maps/search/?api=1&query=De+Visserij+Curacao", info: "📍 20 min ab Grote Berg" },
+                { name: "Purunchi", desc: "Geheimtipp in Mangroven.", link: "https://www.google.com/maps/search/?api=1&query=Purunchi+Curacao", info: "📍 8 min ab Pietermaai" },
+                { name: "Pop's Place", desc: "Locals an Caracasbaai.", link: "https://www.google.com/maps/search/?api=1&query=Pops+Place+Curacao", info: "📍 15 min ab Pietermaai" },
+                { name: "Playa Forti", desc: "Essen auf der Klippe.", link: "https://www.google.com/maps/search/?api=1&query=Playa+Forti+Restaurant+Curacao", info: "📍 25 min ab Grote Berg" }
             ], prompt: "Fresh fried fish caribbean seaside restaurant plate photorealistic", seed: 112 },
             { category: "Bars & Drinks", icon: "🍹", items: [
-                { name: "Luke's Cocktailbar", desc: "Beste Craft Cocktails.", link: "https://goo.gl/maps/LukesCocktailbar", info: "📍 2 min ab Pietermaai" },
-                { name: "Cascada Rooftop", desc: "360° Blick, Sunset.", link: "https://goo.gl/maps/CascadaRooftop", info: "📍 10 min ab Pietermaai" },
-                { name: "Netto Bar", desc: "Älteste Bar, Grüner Rum.", link: "https://goo.gl/maps/NettoBar", info: "📍 5 min ab Pietermaai" },
-                { name: "Saint Tropez", desc: "Infinity Pool Style.", link: "https://goo.gl/maps/SaintTropezOceanClub", info: "📍 1 min ab Pietermaai" }
+                { name: "Luke's Cocktailbar", desc: "Beste Craft Cocktails.", link: "https://www.google.com/maps/search/?api=1&query=Lukes+Cocktailbar+Curacao", info: "📍 2 min ab Pietermaai" },
+                { name: "Cascada Rooftop", desc: "360° Blick, Sunset.", link: "https://www.google.com/maps/search/?api=1&query=Cascada+Rooftop+Bar+Curacao", info: "📍 10 min ab Pietermaai" },
+                { name: "Netto Bar", desc: "Älteste Bar, Grüner Rum.", link: "https://www.google.com/maps/search/?api=1&query=Netto+Bar+Curacao", info: "📍 5 min ab Pietermaai" },
+                { name: "Saint Tropez", desc: "Infinity Pool Style.", link: "https://www.google.com/maps/search/?api=1&query=Saint+Tropez+Ocean+Club+Curacao", info: "📍 1 min ab Pietermaai" }
             ], prompt: "Tropical cocktail bar sunset view caribbean drinks photorealistic", seed: 113, fallbackKey: 'bars' },
             { category: "Snacks (Truk'i Pan)", icon: "🍢", items: [
-                { name: "BBQ Express", desc: "Legendäre Ribs (abends).", link: "https://goo.gl/maps/BBQExpress", info: "📍 15 min ab Pietermaai" },
-                { name: "Koki Riba Bloki", desc: "Street BBQ Deluxe.", link: "https://goo.gl/maps/KokiRibaBloki", info: "📍 10 min ab Pietermaai" },
-                { name: "Pasawa Box", desc: "Container Food Park.", link: "https://goo.gl/maps/PasawaBoxEatery", info: "📍 10 min ab Pietermaai" },
-                { name: "Tokn Tokn", desc: "Bestes Hähnchen.", link: "https://goo.gl/maps/ToknTokn", info: "📍 10 min ab Pietermaai" }
+                { name: "BBQ Express", desc: "Legendäre Ribs (abends).", link: "https://www.google.com/maps/search/?api=1&query=BBQ+Express+Curacao", info: "📍 15 min ab Pietermaai" },
+                { name: "Koki Riba Bloki", desc: "Street BBQ Deluxe.", link: "https://www.google.com/maps/search/?api=1&query=Koki+Riba+Bloki+Curacao", info: "📍 10 min ab Pietermaai" },
+                { name: "Pasawa Box", desc: "Container Food Park.", link: "https://www.google.com/maps/search/?api=1&query=Pasawa+Box+Eatery+Curacao", info: "📍 10 min ab Pietermaai" },
+                { name: "Tokn Tokn", desc: "Bestes Hähnchen.", link: "https://www.google.com/maps/search/?api=1&query=Tokn+Tokn+Curacao", info: "📍 10 min ab Pietermaai" }
             ], prompt: "Food truck curacao night bbq street food photorealistic", seed: 114 }
         ];
 
         const itinerary = [
             { phase: "travel", date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
               prompt: "The Keg Steakhouse exterior modern building evening lights photorealistic", seed: 201,
-              details: "Landung 14:55. Gratis Shuttle zum Westin. Dinner im The Keg.", highlight: false },
+              details: "Landung 14:55. Gratis Shuttle zum <a href='https://www.google.com/maps/search/?api=1&query=The+Westin+Toronto+Airport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://www.google.com/maps/search/?api=1&query=The+Keg+Steakhouse+Toronto+Airport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
             { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
               prompt: "Curacao Pietermaai district colorful dutch architecture street sunny photorealistic", seed: 202,
-              details: "Check-in Apt Pietermaai. 19:00 Dinner Mundo Bizarro.", highlight: false },
+              details: "Flug 10:10 -> 16:25. Taxi zur Unterkunft (~35$). Check-in Apt Pietermaai. <strong>19:00 Dinner im <a href='https://www.google.com/maps/search/?api=1&query=Mundo+Bizarro+Curacao' target='_blank' class='details-link'>Mundo Bizarro</a></strong> (Reserviert ✅).", highlight: false },
             { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
               prompt: "Handelskade Willemstad waterfront view from bridge sunny photorealistic", seed: 203,
-              details: "Queen Emma Bridge, Kura Hulanda, Handelskade.", highlight: false },
+              details: "<a href='https://www.google.com/maps/search/?api=1&query=Queen+Emma+Bridge+Curacao' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://www.google.com/maps/search/?api=1&query=Kura+Hulanda+Museum' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://www.google.com/maps/search/?api=1&query=Handelskade+Curacao' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://www.google.com/maps/search/?api=1&query=Riff+Fort+Curacao' target='_blank' class='details-link'>Riff Fort</a>.", highlight: false },
             { phase: "willemstad", date: "19. Jan (Mo)", category: "travel", loc: "Avila", title: "Mietwagen & Likör", icon: "🔑", 
               prompt: "Avila Beach Hotel entrance tropical curacao photorealistic", seed: 204,
-              details: "10:00 Mietwagen Übernahme. Landhuis Chobolobo.", highlight: true },
+              details: "<strong>10:00 Mietwagen Übernahme</strong> im <a href='https://www.google.com/maps/search/?api=1&query=Avila+Beach+Hotel+Curacao' target='_blank' class='details-link'>Avila Beach Hotel</a>. Danach: <a href='https://www.google.com/maps/search/?api=1&query=Landhuis+Chobolobo' target='_blank' class='details-link'>Landhuis Chobolobo</a>. <a href='https://www.google.com/maps/search/?api=1&query=Mambo+Beach+Curacao' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://www.google.com/maps/search/?api=1&query=Fort+Nassau+Curacao' target='_blank' class='details-link'>Fort Nassau</a>.", highlight: true },
             { phase: "willemstad", date: "20. Jan (Di)", category: "beach", loc: "Ost-Seite", title: "Schnorchel-Highlight", icon: "🤿", 
               prompt: "Tugboat beach curacao underwater shipwreck clear water photorealistic", seed: 205,
-              details: "Tugboat Beach & Direkteursbaai.", highlight: true },
+              details: "<strong><a href='https://www.google.com/maps/search/?api=1&query=Tugboat+Beach+Curacao' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln. Danach <strong><a href='https://www.google.com/maps/search/?api=1&query=Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong>.", highlight: true },
             { phase: "willemstad", date: "21. Jan (Mi)", category: "nature", loc: "Osten", title: "Natur pur", icon: "🌵", 
               prompt: "Aloe Vera Plantation Curacao fields landscape photorealistic", seed: 206,
-              details: "Aloe Vera Farm & St. Joris Baai.", highlight: false },
+              details: "<a href='https://www.google.com/maps/search/?api=1&query=The+Aloe+Vera+Plantation+Curacao' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://www.google.com/maps/search/?api=1&query=St+Joris+Baai' target='_blank' class='details-link'>St. Joris Baai</a>. <a href='https://www.google.com/maps/search/?api=1&query=Curacao+Sea+Aquarium' target='_blank' class='details-link'>Sea Aquarium</a> Option.", highlight: false },
             { phase: "willemstad", date: "22. Jan (Do)", category: "city", loc: "Punda", title: "Punda Vibes", icon: "🎆", 
               prompt: "Curacao Punda Vibes night fireworks street party photorealistic", seed: 207,
-              details: "Straßenfest und Feuerwerk in der Stadt.", highlight: true },
+              details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.", highlight: true },
             { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Westen", title: "Umzug in den Westen", icon: "🦩", 
               prompt: "Flamingos in salt lake Jan Kok Curacao nature photorealistic", seed: 208,
-              details: "Fahrt via St. Willibrordus. Check-in Villa Grote Berg.", highlight: false },
+              details: "Fahrt via <a href='https://www.google.com/maps/search/?api=1&query=Flamingo+Area+Jan+Kok' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
             { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Relaxing", icon: "🥥", 
               prompt: "Daaibooi Beach Curacao cozy beach bar shade photorealistic", seed: 209,
-              details: "Daaibooi Beach (Hausstrand). Einkauf Centrum.", highlight: false },
+              details: "Tag für euch. <a href='https://www.google.com/maps/search/?api=1&query=Daaibooi+Beach' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://www.google.com/maps/search/?api=1&query=Centrum+Supermarket+Piscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.", highlight: false },
             { phase: "groteberg", date: "25. Jan (So)", category: "travel", loc: "Flughafen", title: "Ankunft Gäste", icon: "🇺🇸", 
               prompt: "Grote Knip Beach panoramic view turquoise water photorealistic", seed: 210,
-              details: "14:05 Landung Sarah & Gabriel. Welcome BBQ.", highlight: true, fallbackKey: 'grote_knip' },
+              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Grote+Knip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true, fallbackKey: 'grote_knip' },
             { phase: "groteberg", date: "26. Jan (Mo)", category: "city", loc: "Stadt", title: "Cas Abao & Dinner", icon: "🍸", 
               prompt: "Cas Abao Beach white sand turquoise water photorealistic", seed: 211,
-              details: "Cas Abao Beach. Abends Mosa/Caña.", highlight: true, fallbackKey: 'cas_abao' },
+              details: "Tagsüber: <a href='https://www.google.com/maps/search/?api=1&query=Cas+Abao+Beach' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.google.com/maps/search/?api=1&query=Mosa+Cana+Bar+Kitchen' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.google.com/maps/search/?api=1&query=BKLYN+Curacao' target='_blank' class='details-link'>BKLYN</a>.", highlight: true, fallbackKey: 'cas_abao' },
             { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles & Waves", icon: "🌊", 
               prompt: "Sea turtle underwater close up clear water photorealistic", seed: 212,
-              details: "Playa Piskado & Shete Boka Park.", highlight: true },
+              details: "Vormittag: <strong><a href='https://www.google.com/maps/search/?api=1&query=Playa+Piskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.google.com/maps/search/?api=1&query=Shete+Boka+National+Park' target='_blank' class='details-link'>Shete Boka Park</a></strong>.", highlight: true },
             { phase: "groteberg", date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Insel-Trip", icon: "🚤", 
               prompt: "Klein Curacao white beach abandoned lighthouse boat photorealistic", seed: 213,
-              details: "06:15 Start! Katamaran Tour.", highlight: true },
+              details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://www.google.com/maps/search/?api=1&query=Brakkeput+Ariba+62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
             { phase: "groteberg", date: "29. Jan (Do)", category: "city", loc: "Stadt", title: "Rooftop & Vibes", icon: "🥂", 
               prompt: "Rooftop bar sunset cocktail view curacao photorealistic", seed: 214,
-              details: "Porto Mari. 18:00 Cascada Rooftop.", highlight: true, fallbackKey: 'rooftop' },
+              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Playa+Porto+Mari' target='_blank' class='details-link'>Porto Marie</a>. <strong>18:00 Sundowner & Dinner: <a href='https://www.google.com/maps/search/?api=1&query=Cascada+Rooftop+Bar+Kitchen' target='_blank' class='details-link'>Cascada Rooftop Bar</a></strong> (Reserviert ✅).", highlight: true, fallbackKey: 'rooftop' },
             { phase: "groteberg", date: "30. Jan (Fr)", category: "nature", loc: "Westen", title: "Views & Rum", icon: "🥃", 
               prompt: "Santa Martha Bay View lookout panorama curacao photorealistic", seed: 215,
-              details: "Santa Martha View. Netto Bar.", highlight: true, fallbackKey: 'views_rum' },
+              details: "Stopp: <strong><a href='https://www.google.com/maps/search/?api=1&query=Santa+Martha+Bay+View+Lookout' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://www.google.com/maps/search/?api=1&query=Playa+Lagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.google.com/maps/search/?api=1&query=Netto+Bar+Curacao' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).", highlight: true, fallbackKey: 'views_rum' },
             { phase: "groteberg", date: "31. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Sunset & Style", icon: "🍹", 
               prompt: "Infinity pool sunset view ocean luxury curacao photorealistic", seed: 216,
-              details: "Karakter & Koraal Rooftop.", highlight: false },
+              details: "<a href='https://www.google.com/maps/search/?api=1&query=Karakter+Curacao' target='_blank' class='details-link'>Karakter</a>. Schnorcheln vom Steg. Drinks im <a href='https://www.google.com/maps/search/?api=1&query=Koraal+Rooftop+Terrace' target='_blank' class='details-link'>Koraal Rooftop</a>.", highlight: false },
             { phase: "groteberg", date: "01. Feb (So)", category: "travel", loc: "Avila", title: "Rückgabe & Farewell", icon: "🔑", 
               prompt: "Fresh seafood plate restaurant seaside sunset photorealistic", seed: 217,
-              details: "10:00 Auto Rückgabe. Dinner De Visserij (Taxi).", highlight: true },
+              details: "<strong>10:00 Mietwagen Rückgabe</strong> am <a href='https://www.google.com/maps/search/?api=1&query=Avila+Beach+Hotel' target='_blank' class='details-link'>Avila Beach Hotel</a>.<br>Farewell-Dinner (Taxi nötig!) bei <a href='https://www.google.com/maps/search/?api=1&query=De+Visserij+Curacao' target='_blank' class='details-link'>De Visserij</a>.", highlight: true },
             { phase: "travel", date: "02. Feb (Mo)", category: "travel", loc: "Airport", title: "Abreise", icon: "🛫", 
               prompt: "Curacao Hato Airport exterior sunny day photorealistic", seed: 218,
-              details: "13:00 Taxi zum Airport. Rückflüge.", highlight: false },
+              details: "13:00 Gemeinsame Fahrt zum Flughafen (Taxi buchen!). S&G: 15:49 (MIA), S&D: 17:20 (YYZ).", highlight: false },
             { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Market & Food", icon: "🥓", 
               prompt: "St Lawrence Market Toronto interior food stalls photorealistic", seed: 219,
-              details: "St. Lawrence Market (Peameal Bacon Sandwich).", highlight: true },
+              details: "10:30 Spaziergang zum <a href='https://www.google.com/maps/search/?api=1&query=St.+Lawrence+Market' target='_blank' class='details-link'>St. Lawrence Market</a>. 'Peameal Bacon Sandwich' bei der <a href='https://www.google.com/maps/search/?api=1&query=Carousel+Bakery+St+Lawrence+Market' target='_blank' class='details-link'>Carousel Bakery</a>.", highlight: true },
             { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Flight", icon: "🛍️", 
               prompt: "Toronto Nathan Phillips Square winter skating rink photorealistic", seed: 220,
-              details: "Eaton Centre, Nathan Phillips Square. 19:45 Rückflug.", highlight: false }
+              details: "<a href='https://www.google.com/maps/search/?api=1&query=CF+Toronto+Eaton+Centre' target='_blank' class='details-link'>Eaton Centre</a>. <a href='https://www.google.com/maps/search/?api=1&query=Nathan+Phillips+Square' target='_blank' class='details-link'>Nathan Phillips Square</a>. 19:45 Rückflug.", highlight: false }
         ];
 
         // --- RENDER FUNCTIONS (Generating Placeholders) ---
