@@ -976,7 +976,7 @@
         const itinerary = [
             { phase: "travel", date: "16. Jan (Fr)", category: "travel", loc: "Toronto", title: "Ankunft & Steakhouse", icon: "✈️", 
               prompt: "The Keg Steakhouse exterior modern building evening lights photorealistic", seed: 201,
-              details: "Landung 14:55. Gratis Shuttle zum <a href='https://www.google.com/maps/search/?api=1&query=The+Westin+Toronto+Airport' target='_blank' class='details-link'>Westin</a>. Abendessen im <a href='https://www.google.com/maps/search/?api=1&query=The+Keg+Steakhouse+Toronto+Airport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
+              details: "Landung 14:55. <strong>Gratis Shuttle zum Westin:</strong><br>Gehe zu 'Ground Transportation' (Ebene unter Ankunft).<br>• <strong>Terminal 1:</strong> Post S5<br>• <strong>Terminal 3:</strong> Post C22<br>(Bus kommt alle ca. 30 Min).<br>Abendessen im <a href='https://www.google.com/maps/search/?api=1&query=The+Keg+Steakhouse+Toronto+Airport' target='_blank' class='details-link'>The Keg Steakhouse</a> nebenan.", highlight: false },
             { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
               prompt: "Curacao Pietermaai district colorful dutch architecture street sunny photorealistic", seed: 202,
               details: "Flug 10:10 -> 16:25. Taxi zur Unterkunft (~35$). Check-in Apt Pietermaai. <strong>19:00 Dinner im <a href='https://www.google.com/maps/search/?api=1&query=Mundo+Bizarro+Curacao' target='_blank' class='details-link'>Mundo Bizarro</a></strong> (Reserviert ✅).", highlight: false },
@@ -1028,12 +1028,27 @@
             { phase: "travel", date: "02. Feb (Mo)", category: "travel", loc: "Airport", title: "Abreise", icon: "🛫", 
               prompt: "Curacao Hato Airport exterior sunny day photorealistic", seed: 218,
               details: "13:00 Gemeinsame Fahrt zum Flughafen (Taxi buchen!). S&G: 15:49 (MIA), S&D: 17:20 (YYZ).", highlight: false },
+            
+            // TORONTO DETAILED DAY (03. FEB)
+            { phase: "toronto", date: "03. Feb (Di)", category: "travel", loc: "Flughafen", title: "Gepäck & City-Start", icon: "🧳", 
+              prompt: "Toronto Pearson Airport UP Express train platform modern photorealistic", seed: 223, 
+              details: "<strong>09:00</strong> Check-out Delta. Shuttle zu Terminal 1.<br><strong>09:30</strong> Koffer bei <strong>'Excess Baggage'</strong> (T1 Ankunftsebene, bei Inlandsflügen) deponieren (~10-15 CAD/Stück).<br><strong>10:00</strong> UP Express Zug nach Union Station (25 Min Fahrt).", highlight: false },
+
             { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "Market & Food", icon: "🥓", 
               prompt: "St Lawrence Market Toronto interior food stalls photorealistic", seed: 219,
-              details: "10:30 Spaziergang zum <a href='https://www.google.com/maps/search/?api=1&query=St.+Lawrence+Market' target='_blank' class='details-link'>St. Lawrence Market</a>. 'Peameal Bacon Sandwich' bei der <a href='https://www.google.com/maps/search/?api=1&query=Carousel+Bakery+St+Lawrence+Market' target='_blank' class='details-link'>Carousel Bakery</a>.", highlight: true },
-            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City & Flight", icon: "🛍️", 
+              details: "<strong>10:30</strong> Ankunft Union Station. Spaziergang zum <a href='https://www.google.com/maps/search/?api=1&query=St.+Lawrence+Market' target='_blank' class='details-link'>St. Lawrence Market</a>.<br>Must-Eat: 'Peameal Bacon Sandwich' bei der Carousel Bakery.", highlight: true },
+
+            { phase: "toronto", date: "03. Feb (Di)", category: "toronto", loc: "Toronto", title: "City Walk", icon: "🛍️", 
               prompt: "Toronto Nathan Phillips Square winter skating rink photorealistic", seed: 220,
-              details: "<a href='https://www.google.com/maps/search/?api=1&query=CF+Toronto+Eaton+Centre' target='_blank' class='details-link'>Eaton Centre</a>. <a href='https://www.google.com/maps/search/?api=1&query=Nathan+Phillips+Square' target='_blank' class='details-link'>Nathan Phillips Square</a>. 19:45 Rückflug.", highlight: false }
+              details: "Via PATH (unterirdisch) oder Yonge St zum <a href='https://www.google.com/maps/search/?api=1&query=CF+Toronto+Eaton+Centre' target='_blank' class='details-link'>Eaton Centre</a>.<br>Kurz zum <a href='https://www.google.com/maps/search/?api=1&query=Nathan+Phillips+Square' target='_blank' class='details-link'>Nathan Phillips Square</a> (TORONTO Sign).", highlight: false },
+
+            { phase: "toronto", date: "03. Feb (Di)", category: "travel", loc: "Rückreise", title: "Ab zum Flughafen", icon: "🚆", 
+              prompt: "Union Station Toronto interior Great Hall clock photorealistic", seed: 221, 
+              details: "<strong>15:30</strong> UP Express ab Union Station.<br><strong>16:00</strong> Ankunft T1, Koffer abholen.<br><strong>16:30</strong> Check-in Air Canada.<br><strong>19:45</strong> Abflug nach München.", highlight: true },
+
+            { phase: "toronto", date: "04. Feb (Mi)", category: "travel", loc: "München", title: "Ankunft Zuhause", icon: "🏠", 
+              prompt: "Munich Airport Arrival luggage claim photorealistic", seed: 222,
+              details: "Landung 09:50 Uhr in München.", highlight: false }
         ];
 
         // --- RENDER FUNCTIONS (Generating Placeholders) ---
