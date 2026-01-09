@@ -200,12 +200,12 @@
             </p>
             
             <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <div class="inline-flex items-center px-5 py-2.5 rounded-full bg-white/90 text-gray-800 font-semibold shadow-lg backdrop-blur-sm">
-                    <span class="mr-2">🎉</span> Mit Sarah & Gabriel ab 25. Jan
-                </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 flex-wrap">
                 <a href="https://www.welcomepickups.com/de/curacao/taxi/" target="_blank" class="inline-flex items-center px-5 py-2.5 rounded-full bg-curacao text-white font-semibold hover:bg-ocean transition shadow-lg border-2 border-transparent hover:border-white/20">
                     <span class="mr-2">🚕</span> 24/7 Taxi App
+                </a>
+                <a href="https://www.curacao.com" target="_blank" class="inline-flex items-center px-5 py-2.5 rounded-full bg-ocean text-white font-semibold hover:bg-curacao transition shadow-lg border-2 border-transparent hover:border-white/20">
+                    <span class="mr-2">ℹ️</span> Curacao.com
                 </a>
             </div>
         </div>
@@ -782,7 +782,9 @@
             'rooftop': 'https://images.unsplash.com/photo-1514362545857-3bc16549766b?auto=format&fit=crop&w=800', // Cocktail vibe
             'views_rum': 'https://images.unsplash.com/photo-1540206395-688085723adb?auto=format&fit=crop&w=800', // Landscape
             'bars': 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800', // Bar interior
-            'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800' // Generic Beach
+            'default': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800', // Generic Beach
+            'hato_caves': 'https://upload.wikimedia.org/wikipedia/commons/2/29/Hato_Caves_Curacao.jpg',
+            'blue_room': 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Blue_Room_Curacao.jpg'
         };
 
         // --- FETCH LOGIC FOR AUTHENTICATED IMAGES ---
@@ -858,6 +860,24 @@
                 link: "https://www.google.com/maps/search/?api=1&query=Grote+Knip+Curacao", 
                 seed: 102, 
                 fallbackKey: 'grote_knip' 
+            },
+            { 
+                title: "Hato Caves", 
+                description: "Faszinierende Tropfsteinhöhlen mit indianischen Felszeichnungen. Liegt direkt beim Flughafen, ideal für den Abreisetag.",
+                prompt: "Hato Caves Curacao stalactites stalagmites dramatic lighting underground cave photorealistic", 
+                dist: "~12 min ab Grote Berg", 
+                link: "https://www.google.com/maps/search/?api=1&query=Hato+Caves+Curacao", 
+                seed: 115,
+                fallbackKey: 'hato_caves'
+            },
+            { 
+                title: "The Blue Room", 
+                description: "Eine Unterwasserhöhle, die durch das Sonnenlicht magisch blau leuchtet. Ein unvergessliches Schnorchel-Abenteuer.",
+                prompt: "Underwater cave blue room Curacao snorkeling light beams blue water photorealistic", 
+                dist: "~30 min ab Grote Berg", 
+                link: "https://www.google.com/maps/search/?api=1&query=The+Blue+Room+Curacao", 
+                seed: 116,
+                fallbackKey: 'blue_room'
             },
             { 
                 title: "Klein Curacao", 
