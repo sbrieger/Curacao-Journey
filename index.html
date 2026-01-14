@@ -30,7 +30,8 @@
                         booking: '#003580',
                         airbnb: '#FF5A5F',
                         gyg: '#FF5533',
-                        sunny: '#FFD700'
+                        sunny: '#FFD700',
+                        carnival: '#8A2BE2' // Lila für Karneval
                     },
                     fontFamily: {
                         sans: ['Lato', 'sans-serif'],
@@ -139,8 +140,9 @@
                     <button onclick="scrollToSection('flights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Flüge</button>
                     <button onclick="scrollToSection('bookings')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap shadow-sm">Buchungen</button>
                     <button onclick="scrollToSection('itinerary')" class="text-white bg-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Plan</button>
+                    <button onclick="scrollToSection('carnival')" class="text-gray-600 hover:text-carnival px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Karneval</button>
                     <button onclick="scrollToSection('highlights')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Highlights</button>
-                    <button onclick="scrollToSection('packing')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Packliste</button>
+                    <button onclick="scrollToSection('culinary')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Food & Drinks</button>
                     <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-curacao px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap">Statistik</button>
                 </div>
             </div>
@@ -609,6 +611,49 @@
                 <!-- Content injected by JS -->
             </div>
         </section>
+        
+        <!-- CARNIVAL SECTION -->
+        <section id="carnival" class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-3xl p-8 card-shadow border-t-8 border-carnival">
+            <div class="text-center mb-10">
+                <span class="text-4xl">🎉</span>
+                <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Karneval Saison 2026</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ihr seid zur "Tumba"-Zeit da! Das Herzstück des Karnevals.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-carnival mb-3">Festival di Tumba</h3>
+                    <p class="text-sm text-gray-700 mb-4 leading-relaxed">
+                        Das größte Musikfestival der Insel! Hier wird der offizielle Karnevalssong ("Rei di Tumba") gewählt. Es findet traditionell Ende Januar im Curaçao Festival Center statt. Ein absolutes Spektakel mit lokalen Bands, Tanz und Party.
+                    </p>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-carnival mb-4">
+                        <p class="text-sm font-bold text-gray-800">📅 Tipp für euch:</p>
+                        <p class="text-xs text-gray-600">Das Finale findet meist an einem Freitag statt. Ich habe den <strong>30. Januar</strong> (Freitagabend) als Option in euren Plan aufgenommen!</p>
+                    </div>
+                </div>
+                <div>
+                    <img data-prompt="Curacao Carnival Tumba festival colorful costumes night parade photorealistic" data-seed="401" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-64 object-cover rounded-xl shadow-md auth-image img-zoom" alt="Carnival">
+                </div>
+            </div>
+            
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <span class="text-2xl">🎺</span>
+                    <h4 class="font-bold text-gray-800 mt-2">Jump-ins</h4>
+                    <p class="text-xs text-gray-600 mt-1">Spontane Straßenpartys ("Jump-ins") finden schon ab Januar statt. Haltet Augen und Ohren offen!</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <span class="text-2xl">🎭</span>
+                    <h4 class="font-bold text-gray-800 mt-2">Atmosphäre</h4>
+                    <p class="text-xs text-gray-600 mt-1">Die ganze Insel bereitet sich vor. Ihr werdet viele Gruppen beim Üben und Kostüme-Basteln sehen.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <span class="text-2xl">🎟️</span>
+                    <h4 class="font-bold text-gray-800 mt-2">Tickets</h4>
+                    <p class="text-xs text-gray-600 mt-1">Für das Tumba Festival solltet ihr Tickets vor Ort kaufen (z.B. an Tankstellen oder Buchläden).</p>
+                </div>
+            </div>
+        </section>
 
         <!-- HIGHLIGHTS SECTION -->
         <section id="highlights" class="bg-white rounded-3xl p-8 card-shadow">
@@ -619,6 +664,64 @@
             </div>
             <div id="highlights-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- DIVING SECTION -->
+        <section id="diving" class="bg-white rounded-3xl p-8 card-shadow border-t-8 border-curacao">
+            <div class="text-center mb-10">
+                <span class="text-4xl">🤿</span>
+                <h2 class="text-3xl font-bold font-display text-gray-800 mt-2">Top Tauch- & Schnorchelspots</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Die besten Plätze für Unterwasser-Abenteuer auf Curaçao.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Mushroom Forest -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 img-zoom-container">
+                        <img data-prompt="Mushroom Forest Curacao underwater coral reef scuba diving photorealistic" data-seed="301" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover img-zoom auth-image">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Mushroom Forest</h3>
+                        <p class="text-sm text-gray-600 mt-1">Einer der berühmtesten Spots. Hartkorallen, die wie Pilze aussehen.</p>
+                        <p class="text-xs text-curacao font-bold mt-2">Bootstauchgang (ab Westpunt)</p>
+                    </div>
+                </div>
+
+                <!-- Watamula -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 img-zoom-container">
+                        <img data-prompt="Watamula Curacao underwater reef fish coral scuba diving photorealistic" data-seed="302" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover img-zoom auth-image">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Watamula</h3>
+                        <p class="text-sm text-gray-600 mt-1">Der "Atem von Curaçao". Spektakuläre Korallengärten im Norden.</p>
+                        <p class="text-xs text-curacao font-bold mt-2">Bootstauchgang (ab Westpunt)</p>
+                    </div>
+                </div>
+
+                <!-- Klein Curaçao -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 img-zoom-container">
+                        <img data-prompt="Klein Curacao underwater turtle sea life clear water photorealistic" data-seed="303" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="w-full h-full object-cover img-zoom auth-image">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Klein Curaçao</h3>
+                        <p class="text-sm text-gray-600 mt-1">Drift Dives entlang der Steilwand und Schildkröten-Garantie.</p>
+                        <p class="text-xs text-curacao font-bold mt-2">Tagesausflug (Boot)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Download Area -->
+            <div class="bg-blue-50 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold text-blue-900 mb-2">📱 Dive Curaçao App</h3>
+                    <p class="text-sm text-blue-800 max-w-md">Der ideale Begleiter: Interaktive Karte mit über 70 Tauchplätzen, Tauschschulen und Events.</p>
+                </div>
+                <a href="https://www.curacao.com/de/article/beste-bootstauchplaetze-curacao" target="_blank" class="inline-flex items-center px-6 py-3 rounded-full bg-blue-600 text-white font-bold shadow-lg hover:bg-blue-700 transition transform hover:scale-105">
+                    <span class="mr-2">📲</span> Zur App & Infos
+                </a>
             </div>
         </section>
 
@@ -853,6 +956,14 @@
                 fallbackKey: 'handelskade' 
             },
             { 
+                title: "Kura Hulanda Village", 
+                description: "Ein restaurierter historischer Stadtteil in Otrobanda. Schlendere durch Kopfsteinpflastergassen, besuche das Museum und genieße die Boutiquen.",
+                prompt: "Kura Hulanda Village Curacao colorful colonial architecture cobblestone streets museum photorealistic", 
+                dist: "5 min ab Pietermaai (über die Brücke)", 
+                link: "https://www.google.com/maps/search/?api=1&query=Kura+Hulanda+Village", 
+                seed: 117 
+            },
+            { 
                 title: "Grote Knip", 
                 description: "Der wohl schönste Strand der Insel mit leuchtend türkisem Wasser. Ideal zum Schwimmen, Schnorcheln und für Klippenspringer.",
                 prompt: "Grote Knip Beach Curacao turquoise water white sand cliff view panoramic photorealistic", 
@@ -920,37 +1031,13 @@
                 seed: 107, 
                 fallbackKey: 'cas_abao' 
             },
-            { 
-                title: "Playa Piskado", 
-                description: "Kleiner Fischerstrand, bekannt für wilde Meeresschildkröten. Ein magisches Erlebnis, mit den Tieren im flachen Wasser zu schwimmen.",
-                prompt: "Sea turtle swimming underwater blue ocean clear water photorealistic", 
-                dist: "~30 min ab Grote Berg", 
-                link: "https://www.google.com/maps/search/?api=1&query=Playa+Piskado+Curacao", 
-                seed: 108 
-            },
-            { 
-                title: "Christoffelberg", 
-                description: "Der höchste Punkt der Insel im Nationalpark. Der Aufstieg lohnt sich für den 360°-Panoramablick (unbedingt früh morgens starten!).",
-                prompt: "Mount Christoffelberg Curacao mountain view green nature hiking photorealistic", 
-                dist: "~20 min ab Grote Berg", 
-                link: "https://www.google.com/maps/search/?api=1&query=Christoffel+National+Park+Curacao", 
-                seed: 109 
-            },
-            { 
-                title: "Porto Mari", 
-                description: "Wunderschöner Strand mit einem einzigartigen Doppelriff zum Tauchen. Bekannt für die zutraulichen Schweine, die oft am Strand relaxen.",
-                prompt: "Playa Porto Mari Curacao beach wooden pier turquoise water sunny photorealistic", 
-                dist: "~12 min ab Grote Berg", 
-                link: "https://www.google.com/maps/search/?api=1&query=Playa+Porto+Mari+Curacao", 
-                seed: 110 
-            }
         ];
 
         const culinaryData = [
             { category: "Krioyo (Local)", icon: "🥘", items: [
                 { name: "Plasa Bieu", desc: "Markthalle (Mittag). Karni Stoba.", link: "https://www.google.com/maps/search/?api=1&query=Plasa+Bieu+Curacao", info: "📍 10 min ab Pietermaai" },
                 { name: "Komedor Krioyo", desc: "Landhaus-Flair, riesig.", link: "https://www.google.com/maps/search/?api=1&query=Komedor+Krioyo+Curacao", info: "📍 15 min ab Grote Berg" },
-                { name: "Jaanchie’s", desc: "Kult in Westpunt. Leguan.", link: "https://www.google.com/maps/search/?api=1&query=Jaanchies+Restaurant+Curacao", info: "📍 25 min ab Grote Berg" },
+                { name: "Hofi Cas Cora", desc: "Farm-to-Table Brunch/Lunch.", link: "https://www.google.com/maps/search/?api=1&query=Hofi+Cas+Cora", info: "📍 15 min ab Pietermaai" },
                 { name: "De Gouverneur", desc: "Klassiker, Bananensuppe.", link: "https://www.google.com/maps/search/?api=1&query=De+Gouverneur+Curacao", info: "📍 15 min ab Pietermaai" }
             ], prompt: "Curacao local food stew plate caribbean rustic photorealistic", seed: 111 },
             { category: "Frischer Fisch", icon: "🐟", items: [
@@ -959,11 +1046,11 @@
                 { name: "Pop's Place", desc: "Locals an Caracasbaai.", link: "https://www.google.com/maps/search/?api=1&query=Pops+Place+Curacao", info: "📍 15 min ab Pietermaai" },
                 { name: "Playa Forti", desc: "Essen auf der Klippe.", link: "https://www.google.com/maps/search/?api=1&query=Playa+Forti+Restaurant+Curacao", info: "📍 25 min ab Grote Berg" }
             ], prompt: "Fresh fried fish caribbean seaside restaurant plate photorealistic", seed: 112 },
-            { category: "Bars & Drinks", icon: "🍹", items: [
-                { name: "Luke's Cocktailbar", desc: "Beste Craft Cocktails.", link: "https://www.google.com/maps/search/?api=1&query=Lukes+Cocktailbar+Curacao", info: "📍 2 min ab Pietermaai" },
-                { name: "Cascada Rooftop", desc: "360° Blick, Sunset.", link: "https://www.google.com/maps/search/?api=1&query=Cascada+Rooftop+Bar+Curacao", info: "📍 10 min ab Pietermaai" },
-                { name: "Netto Bar", desc: "Älteste Bar, Grüner Rum.", link: "https://www.google.com/maps/search/?api=1&query=Netto+Bar+Curacao", info: "📍 5 min ab Pietermaai" },
-                { name: "Saint Tropez", desc: "Infinity Pool Style.", link: "https://www.google.com/maps/search/?api=1&query=Saint+Tropez+Ocean+Club+Curacao", info: "📍 1 min ab Pietermaai" }
+            { category: "Restaurants & Bars", icon: "🍹", items: [
+                { name: "Mondi Beach Club", desc: "Stylish Dining, Di/Fr Specials.", link: "https://www.mondirestaurant.com/mondi-curacao/", info: "📍 Otrobanda (5 min)" },
+                { name: "BijBlauw", desc: "Frühstück/Dinner am Meer.", link: "https://www.google.com/maps/search/?api=1&query=BijBlauw+Curacao", info: "📍 2 min ab Pietermaai" },
+                { name: "Kome", desc: "Modern Caribbean, Top Rated.", link: "https://www.google.com/maps/search/?api=1&query=Kome+Curacao", info: "📍 5 min ab Pietermaai" },
+                { name: "Luke's Cocktailbar", desc: "Beste Craft Cocktails.", link: "https://www.google.com/maps/search/?api=1&query=Lukes+Cocktailbar+Curacao", info: "📍 2 min ab Pietermaai" }
             ], prompt: "Tropical cocktail bar sunset view caribbean drinks photorealistic", seed: 113, fallbackKey: 'bars' },
             { category: "Snacks (Truk'i Pan)", icon: "🍢", items: [
                 { name: "BBQ Express", desc: "Legendäre Ribs (abends).", link: "https://www.google.com/maps/search/?api=1&query=BBQ+Express+Curacao", info: "📍 15 min ab Pietermaai" },
@@ -980,42 +1067,42 @@
             { phase: "willemstad", date: "17. Jan (Sa)", category: "city", loc: "Pietermaai", title: "Ankunft im Paradies", icon: "🏠", 
               prompt: "Curacao Pietermaai district colorful dutch architecture street sunny photorealistic", seed: 202,
               details: "Flug 10:10 -> 16:25. Taxi zur Unterkunft (~35$). Check-in Apt Pietermaai. <strong>19:00 Dinner im <a href='https://www.google.com/maps/search/?api=1&query=Mundo+Bizarro+Curacao' target='_blank' class='details-link'>Mundo Bizarro</a></strong> (Reserviert ✅).", highlight: false },
-            { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Pietermaai", title: "Willemstad Kultur", icon: "🌉", 
-              prompt: "Handelskade Willemstad waterfront view from bridge sunny photorealistic", seed: 203,
-              details: "<a href='https://www.google.com/maps/search/?api=1&query=Queen+Emma+Bridge+Curacao' target='_blank' class='details-link'>Queen Emma Bridge</a>, <a href='https://www.google.com/maps/search/?api=1&query=Kura+Hulanda+Museum' target='_blank' class='details-link'>Kura Hulanda Museum</a>, <a href='https://www.google.com/maps/search/?api=1&query=Handelskade+Curacao' target='_blank' class='details-link'>Handelskade</a>. Lunch beim <a href='https://www.google.com/maps/search/?api=1&query=Riff+Fort+Curacao' target='_blank' class='details-link'>Riff Fort</a>.", highlight: false },
-            { phase: "willemstad", date: "19. Jan (Mo)", category: "travel", loc: "Avila", title: "Mietwagen & Likör", icon: "🔑", 
-              prompt: "Avila Beach Hotel entrance tropical curacao photorealistic", seed: 204,
-              details: "<strong>10:00 Mietwagen Übernahme</strong> im <a href='https://www.google.com/maps/search/?api=1&query=Avila+Beach+Hotel+Curacao' target='_blank' class='details-link'>Avila Beach Hotel</a>. Danach: <a href='https://www.google.com/maps/search/?api=1&query=Landhuis+Chobolobo' target='_blank' class='details-link'>Landhuis Chobolobo</a>. <a href='https://www.google.com/maps/search/?api=1&query=Mambo+Beach+Curacao' target='_blank' class='details-link'>Mambo Beach</a> Stopp. Dinner im <a href='https://www.google.com/maps/search/?api=1&query=Fort+Nassau+Curacao' target='_blank' class='details-link'>Fort Nassau</a>.", highlight: true },
+            { phase: "willemstad", date: "18. Jan (So)", category: "city", loc: "Willemstad", title: "City Walk: Best of Willemstad (3-4h)", icon: "👟", 
+              prompt: "Willemstad Curacao street scene walking tour colorful buildings bright sun photorealistic", seed: 224,
+              details: "<strong>Die perfekte Route:</strong><br>1. Start <strong>Otrobanda</strong>: <a href='https://www.google.com/maps/search/?api=1&query=Rif+Fort+Curacao' target='_blank' class='details-link'>Rif Fort</a> & Street Art in den Gassen.<br>2. <strong><a href='https://www.google.com/maps/search/?api=1&query=Kura+Hulanda+Village' target='_blank' class='details-link'>Kura Hulanda Village</a></strong> (historisches Dorf-Flair).<br>3. Über die <strong>Queen Emma Bridge</strong> nach Punda.<br>4. Fotos: <strong>Handelskade</strong> & <a href='https://www.google.com/maps/search/?api=1&query=Fort+Amsterdam+Curacao' target='_blank' class='details-link'>Fort Amsterdam</a>.<br>5. <strong>Lunch:</strong> Authentisch in der <a href='https://www.google.com/maps/search/?api=1&query=Plasa+Bieu+Curacao' target='_blank' class='details-link'>Plasa Bieu</a> (Old Market).", highlight: true },
+            { phase: "willemstad", date: "19. Jan (Mo)", category: "travel", loc: "Avila / Santa Rosa", title: "Landhäuser & Likör", icon: "🎨", 
+              prompt: "Landhuis Bloemhof Curacao colonial architecture garden art gallery photorealistic", seed: 204,
+              details: "<strong>10:00 Mietwagen Übernahme</strong> im Avila. Kultur-Doppelpack am Santa Rosaweg: <a href='https://www.google.com/maps/search/?api=1&query=Landhuis+Bloemhof' target='_blank' class='details-link'>Landhuis Bloemhof</a> (Kunst & Natur) & direkt daneben <a href='https://www.google.com/maps/search/?api=1&query=Landhuis+Chobolobo' target='_blank' class='details-link'>Landhuis Chobolobo</a> (Blue Curaçao). Nachmittags Mambo Beach.", highlight: true },
             { phase: "willemstad", date: "20. Jan (Di)", category: "beach", loc: "Ost-Seite", title: "Schnorchel-Highlight", icon: "🤿", 
               prompt: "Tugboat beach curacao underwater shipwreck clear water photorealistic", seed: 205,
-              details: "<strong><a href='https://www.google.com/maps/search/?api=1&query=Tugboat+Beach+Curacao' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln. Danach <strong><a href='https://www.google.com/maps/search/?api=1&query=Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong>.", highlight: true },
+              details: "<strong><a href='https://www.google.com/maps/search/?api=1&query=Tugboat+Beach+Curacao' target='_blank' class='details-link'>Tugboat Beach</a>:</strong> Wrack schnorcheln. Danach <strong><a href='https://www.google.com/maps/search/?api=1&query=Direkteursbaai' target='_blank' class='details-link'>Direkteursbaai</a></strong>.<br><strong>Abend:</strong> Dinner im <a href='https://www.mondirestaurant.com/mondi-curacao/' target='_blank' class='details-link'>Mondi Beach Club</a> (Otrobanda, Tuesday Special).", highlight: true },
             { phase: "willemstad", date: "21. Jan (Mi)", category: "nature", loc: "Osten", title: "Natur pur", icon: "🌵", 
               prompt: "Aloe Vera Plantation Curacao fields landscape photorealistic", seed: 206,
-              details: "<a href='https://www.google.com/maps/search/?api=1&query=The+Aloe+Vera+Plantation+Curacao' target='_blank' class='details-link'>Aloe Vera Farm</a> oder <a href='https://www.google.com/maps/search/?api=1&query=St+Joris+Baai' target='_blank' class='details-link'>St. Joris Baai</a>. <a href='https://www.google.com/maps/search/?api=1&query=Curacao+Sea+Aquarium' target='_blank' class='details-link'>Sea Aquarium</a> Option.", highlight: false },
+              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Curaçao+Rif+Mangrove+Park' target='_blank' class='details-link'>Rif Mangrove Park</a> oder Aloe Farm. Nachmittag: St. Joris Baai oder Sea Aquarium.", highlight: false },
             { phase: "willemstad", date: "22. Jan (Do)", category: "city", loc: "Punda", title: "Punda Vibes", icon: "🎆", 
               prompt: "Curacao Punda Vibes night fireworks street party photorealistic", seed: 207,
               details: "Relaxen am Pool. Abends ab 18 Uhr Straßenfest und Feuerwerk in der Stadt.", highlight: true },
-            { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Westen", title: "Umzug in den Westen", icon: "🦩", 
+            { phase: "groteberg", date: "23. Jan (Fr)", category: "travel", loc: "Bandabou", title: "Umzug nach Bandabou", icon: "🦩", 
               prompt: "Flamingos in salt lake Jan Kok Curacao nature photorealistic", seed: 208,
-              details: "Fahrt via <a href='https://www.google.com/maps/search/?api=1&query=Flamingo+Area+Jan+Kok' target='_blank' class='details-link'>St. Willibrordus (Flamingos)</a>. Check-in Villa Grote Berg. Mietwagen Pflicht!", highlight: false },
-            { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Relaxing", icon: "🥥", 
-              prompt: "Daaibooi Beach Curacao cozy beach bar shade photorealistic", seed: 209,
-              details: "Tag für euch. <a href='https://www.google.com/maps/search/?api=1&query=Daaibooi+Beach' target='_blank' class='details-link'>Daaibooi Beach</a> oder Einkauf im <a href='https://www.google.com/maps/search/?api=1&query=Centrum+Supermarket+Piscadera' target='_blank' class='details-link'>Centrum Supermarkt</a>.", highlight: false },
+              details: "Fahrt in den wilden Westen via <a href='https://www.google.com/maps/search/?api=1&query=Flamingo+Area+Jan+Kok' target='_blank' class='details-link'>Jan Kok (Flamingos)</a>. Check-in Villa Grote Berg. Ab jetzt: Natur pur!", highlight: false },
+            { phase: "groteberg", date: "24. Jan (Sa)", category: "beach", loc: "Grote Berg", title: "Relaxing & Kokomo", icon: "🥥", 
+              prompt: "Kokomo Beach Curacao swing in water sunset photorealistic", seed: 225,
+              details: "Entspannen am <a href='https://www.google.com/maps/search/?api=1&query=Daaibooi+Beach' target='_blank' class='details-link'>Daaibooi Beach</a> (Hausstrand).<br>Option: <strong><a href='https://www.google.com/maps/search/?api=1&query=Kokomo+Beach+Curacao' target='_blank' class='details-link'>Kokomo Beach</a></strong> (berühmte Schaukel im Wasser). Einkauf Centrum.", highlight: false },
             { phase: "groteberg", date: "25. Jan (So)", category: "travel", loc: "Flughafen", title: "Ankunft Gäste", icon: "🇺🇸", 
               prompt: "Grote Knip Beach panoramic view turquoise water photorealistic", seed: 210,
-              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Grote+Knip' target='_blank' class='details-link'>Grote Knip</a>. <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true, fallbackKey: 'grote_knip' },
+              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Grote+Knip' target='_blank' class='details-link'>Grote Knip</a> (Top-Strand!). <strong>13:30:</strong> Fahrt zum Flughafen. <strong>14:05:</strong> Landung AA3053. Abholung & Welcome BBQ.", highlight: true, fallbackKey: 'grote_knip' },
             { phase: "groteberg", date: "26. Jan (Mo)", category: "city", loc: "Stadt", title: "Cas Abao & Dinner", icon: "🍸", 
               prompt: "Cas Abao Beach white sand turquoise water photorealistic", seed: 211,
               details: "Tagsüber: <a href='https://www.google.com/maps/search/?api=1&query=Cas+Abao+Beach' target='_blank' class='details-link'>Cas Abao Beach</a>. <strong>Abend:</strong> Dinner im trendigen <a href='https://www.google.com/maps/search/?api=1&query=Mosa+Cana+Bar+Kitchen' target='_blank' class='details-link'>Mosa/Caña</a> oder Drinks im <a href='https://www.google.com/maps/search/?api=1&query=BKLYN+Curacao' target='_blank' class='details-link'>BKLYN</a>.", highlight: true, fallbackKey: 'cas_abao' },
-            { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Turtles & Waves", icon: "🌊", 
+            { phase: "groteberg", date: "27. Jan (Di)", category: "nature", loc: "Westpunt", title: "Bandabou Highlights", icon: "🌊", 
               prompt: "Sea turtle underwater close up clear water photorealistic", seed: 212,
-              details: "Vormittag: <strong><a href='https://www.google.com/maps/search/?api=1&query=Playa+Piskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!). Mittag: Jaanchie's. Nachmittag: <strong><a href='https://www.google.com/maps/search/?api=1&query=Shete+Boka+National+Park' target='_blank' class='details-link'>Shete Boka Park</a></strong>.", highlight: true },
+              details: "1. <strong><a href='https://www.google.com/maps/search/?api=1&query=Playa+Piskado' target='_blank' class='details-link'>Playa Piskado</a></strong> (Schildkröten!).<br>2. <strong><a href='https://www.google.com/maps/search/?api=1&query=Playa+Kalki+Curacao' target='_blank' class='details-link'>Playa Kalki</a></strong> ('Alice in Wonderland' Riff).<br>3. Mittag: Jaanchie's.<br>4. <a href='https://www.google.com/maps/search/?api=1&query=Shete+Boka+National+Park' target='_blank' class='details-link'>Shete Boka Park</a>.", highlight: true },
             { phase: "groteberg", date: "28. Jan (Mi)", category: "beach", loc: "Klein Curacao", title: "Insel-Trip", icon: "🚤", 
               prompt: "Klein Curacao white beach abandoned lighthouse boat photorealistic", seed: 213,
               details: "<strong class='text-red-500'>START 06:15!</strong> Traumstrand. Treffpunkt: <a href='https://www.google.com/maps/search/?api=1&query=Brakkeput+Ariba+62' target='_blank' class='details-link'>Brakkeput Ariba 62</a>.", highlight: true },
             { phase: "groteberg", date: "29. Jan (Do)", category: "city", loc: "Stadt", title: "Rooftop & Vibes", icon: "🥂", 
               prompt: "Rooftop bar sunset cocktail view curacao photorealistic", seed: 214,
-              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Playa+Porto+Mari' target='_blank' class='details-link'>Porto Marie</a>. <strong>18:00 Sundowner & Dinner: <a href='https://www.google.com/maps/search/?api=1&query=Cascada+Rooftop+Bar+Kitchen' target='_blank' class='details-link'>Cascada Rooftop Bar</a></strong> (Reserviert ✅).", highlight: true, fallbackKey: 'rooftop' },
+              details: "Vormittag: <a href='https://www.google.com/maps/search/?api=1&query=Playa+Porto+Mari' target='_blank' class='details-link'>Porto Marie</a>. <strong>18:00 Sundowner & Dinner: <a href='https://www.google.com/maps/search/?api=1&query=Cascada+Rooftop+Bar+Kitchen' target='_blank' class='details-link'>Cascada Rooftop Bar</a></strong> (Reserviert ✅).<br><strong>Abend-Option:</strong> <a href='https://www.curacaokarnaval.com/' target='_blank' class='text-carnival font-bold'>Tumba Festival</a> (Finale im Festival Center, Karten nötig!).", highlight: true, fallbackKey: 'rooftop' },
             { phase: "groteberg", date: "30. Jan (Fr)", category: "nature", loc: "Westen", title: "Views & Rum", icon: "🥃", 
               prompt: "Santa Martha Bay View lookout panorama curacao photorealistic", seed: 215,
               details: "Stopp: <strong><a href='https://www.google.com/maps/search/?api=1&query=Santa+Martha+Bay+View+Lookout' target='_blank' class='details-link'>Santa Martha View</a></strong>. Dann <a href='https://www.google.com/maps/search/?api=1&query=Playa+Lagun' target='_blank' class='details-link'>Playa Lagun</a>. Abend: Kult-Drink in der <a href='https://www.google.com/maps/search/?api=1&query=Netto+Bar+Curacao' target='_blank' class='details-link'>Netto Bar</a> (Otrobanda).", highlight: true, fallbackKey: 'views_rum' },
